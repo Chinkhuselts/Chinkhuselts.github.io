@@ -2,8 +2,14 @@
 layout: default
 title: Home
 ---
+<h1 style="animation: fadeIn 2s ease-out;">Welcome to My Cybersecurity Portfolio</h1>
 
-# Welcome to My Cybersecurity Portfolio
+<style>
+@keyframes fadeIn {
+  0% {opacity: 0; transform: translateY(-20px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
+</style>
 
 Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on network security and intrusion detection.
 
