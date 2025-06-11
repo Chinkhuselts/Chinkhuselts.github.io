@@ -11,7 +11,6 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
 
 - Deployed a Network Intrusion Detection System using Snort 2.9.20 on Ubuntu 22.04.
 - Created custom rules detecting ICMP pings and TCP SYN scans.
-- Visualized alert data using Chart.js.
 
 [See my GitHub repository](https://github.com/Chinkhuselts/snort2-nids-project)
 
