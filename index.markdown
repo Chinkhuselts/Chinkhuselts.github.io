@@ -7,14 +7,12 @@ title: Home
 
 Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on network security and intrusion detection.
 
-## Featured Project: Snort 2 NIDS
+<div class="project">
+  <h2>Snort 2 NIDS</h2>
+  <p>Custom rules to detect ICMP pings and SYN scans. Console-based logging + Chart.js alerts.</p>
+  <a href="https://github.com/Chinkhuselts/snort2-nids-project" target="_blank">View on GitHub</a>
+</div>
 
-- Deployed a Network Intrusion Detection System using Snort 2.9.20 on Ubuntu 22.04.
-- Created custom rules detecting ICMP pings and TCP SYN scans.
-
-[See my GitHub repository](https://github.com/Chinkhuselts/snort2-nids-project)
-
----
 
 ## Other Projects
 
