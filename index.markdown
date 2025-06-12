@@ -43,8 +43,6 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
 </div>
 
 ## Other Projects
-
-- Wireshark Analysis of Man-in-the-Middle Attacks
 - Log Parsing with ELK Stack
 - Honeypot Deployment using Cowrie
 
