@@ -30,7 +30,6 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
 - Deployed a Network Intrusion Detection System using Snort 2.9.20 on Ubuntu 22.04.
 - Created custom rules detecting ICMP pings and TCP SYN scans.
 
-## Wireshark MITM Analysis
 
 <div class="project">
   <h2>Wireshark: Man-in-the-Middle Attack Analysis</h2>
@@ -42,7 +41,6 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis">[ GitHub Repo ]</a>
 </div>
 
-## SIEM (ELK + SNORT) 
 
 <div class="project">
   <h2>ELK and SNORT for network Security Information and Event Management </h2>
