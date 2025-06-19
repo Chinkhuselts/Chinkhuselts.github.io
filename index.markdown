@@ -21,7 +21,7 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
     <li>Deployed a Network Intrusion Detection System using Snort 2.9.20 on Ubuntu 22.04.</li>
     <li>- Created custom rules detecting ICMP pings and TCP SYN scans.</li>
   </ul>
-  <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis" target="_blank">[ GitHub Repo ]</a>
+  <a href="https://github.com/Chinkhuselts/snort2-nids-project" target="_blank">[ GitHub Repo ]</a>
 </div>
 
 
