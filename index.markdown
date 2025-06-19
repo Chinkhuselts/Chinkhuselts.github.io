@@ -49,7 +49,7 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
     <li>Simulated network scan and detected </li>
     <li>With proper settings, it can be used for real-world Organization</li>
   </ul>
-  <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis">[ GitHub Repo ]</a>
+  <a href="https://github.com/Chinkhuselts/elk-snort-siem-setup">[ GitHub Repo ]</a>
 </div>
 ---
 
