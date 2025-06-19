@@ -42,10 +42,17 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis">[ GitHub Repo ]</a>
 </div>
 
-## Other Projects
-- Log Parsing with ELK Stack
-- Honeypot Deployment using Cowrie
+## SIEM (ELK + SNORT)
 
+<div class="project">
+  <h2>ELK and SNORT for network Security Information and Event Management
+  <ul>
+    <li>Deployed SIEM using SNORT, ELK</li>
+    <li>Simulated network scan and detected </li>
+    <li>With proper settings, it can be used for real-world Organization</li>
+  </ul>
+  <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis">[ GitHub Repo ]</a>
+</div>
 ---
 
 Feel free to explore my [blog posts](/blog) and check out my [resume](resume.pdf).
