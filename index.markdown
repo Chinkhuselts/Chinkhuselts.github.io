@@ -49,7 +49,7 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
 
 
 <div class="project">
-  <h2>Dynamic Malware Analysis</h2>
+  <h2>Malware Dynamic Analysis</h2>
   <ul>
     <li>CAPEv2 sandbox</li>
     <li>This report details the analysis of the WarCry malware using the CAPEv2 sandbox environment. The malware was executed and observed within a Windows 10 virtual machine, providing a controlled and isolated environment for behavioral analysis. This setup not only enabled comprehensive monitoring of WarCry’s activities but also serves as a honeypot to detect and study similar threats in the future</li>
