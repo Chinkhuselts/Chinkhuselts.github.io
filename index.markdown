@@ -42,10 +42,10 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis">[ GitHub Repo ]</a>
 </div>
 
-## SIEM (ELK + SNORT)
+## SIEM (ELK + SNORT) 
 
 <div class="project">
-  <h2>ELK and SNORT for network Security Information and Event Management
+  <h2>ELK and SNORT for network Security Information and Event Management </h2>
   <ul>
     <li>Deployed SIEM using SNORT, ELK</li>
     <li>Simulated network scan and detected </li>
