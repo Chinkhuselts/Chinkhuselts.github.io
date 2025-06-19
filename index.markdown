@@ -40,7 +40,6 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <h2>ELK and SNORT for network Security Information and Event Management </h2>
   <ul>
     <li>Deployed SIEM using SNORT, ELK</li>
-    <li>Simulated network scan and detected </li>
     <li>With proper settings, it can be used for real-world Organization</li>
   </ul>
   <a href="https://github.com/Chinkhuselts/elk-snort-siem-setup">[ GitHub Repo ]</a>
