@@ -53,7 +53,7 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
     <li>CAPEv2 sandbox</li>
     <li>This report details the analysis of the WarCry malware using the CAPEv2 sandbox environment. The malware was executed and observed within a Windows 10 virtual machine, providing a controlled and isolated environment for behavioral analysis. This setup not only enabled comprehensive monitoring of WarCry’s activities but also serves as a honeypot to detect and study similar threats in the future</li>
   </ul>
-  <a href="https://github.com/Chinkhuselts/MalwareDynamicAnalysis/blob/main/MalwareAnalysis.pdf">[ GitHub Repo ]</a>
+  <a href="https://github.com/Chinkhuselts/CAPEv2-Analysis">[ GitHub Repo ]</a>
 </div>
 ---
 Feel free to explore my [blog posts](/blog) and check out my [resume](resume.pdf).
