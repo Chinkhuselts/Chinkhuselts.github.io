@@ -56,4 +56,4 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <a href="https://github.com/Chinkhuselts/CAPEv2-Analysis">[ GitHub Repo ]</a>
 </div>
 ---
-Feel free to explore my [blog posts](/blog) and check out my [resume](resume.pdf).
+gmail  husele1000@gmail.com
