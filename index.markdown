@@ -21,7 +21,6 @@ I designed and deployed a Network Intrusion Detection System (NIDS) to monitor l
 * **Optimization:** Tuned configuration to reduce false positives by filtering known safe traffic.
 * **Outcome:** Created a functional detection lab capable of logging and alerting on real-time threats.
 
-![Snort Alert Console](snort-dashboard.png)
 *[View Project Repository](https://github.com/Chinkhuselts/snort2-nids-project)*
 
 ---
