@@ -1,15 +1,33 @@
-title: Chinkhusel Cybersecurity Portfolio
+# Site Settings
+title: Chinkhuselts | Cybersecurity Analyst
 email: huselee1000@gmail.com
-description: > 
-  A portfolio showcasing my cybersecurity projects including Snort 2 NIDS and network security labs.
-baseurl: "" # leave empty for user sites
-url: "https://chinkhuselts.github.io" # your GitHub Pages URL
+description: >
+  Cybersecurity portfolio featuring Network Defense, Snort NIDS, Malware Analysis (CAPEv2), and SIEM integration projects.
+baseurl: ""
+url: "https://chinkhuselts.github.io"
 
+# Theme Setting
 theme: jekyll-theme-hacker
 
+# Plugins
+# 'jekyll-seo-tag' makes your site look good when shared on LinkedIn/Discord
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
-# Optional Social links
-github_username: Chinkhuselts
-linkedin: https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/
+# Code Highlighting Settings
+# This ensures your Snort rules and Python scripts have color (syntax highlighting)
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Theme Extras
+# This adds a "Download as .zip" button to the header (looks cool/technical)
+show_downloads: true
+
+# Author Metadata (Used by the SEO plugin)
+author:
+  name: Chinkhusel Tsolmonbaatar
+  github: Chinkhuselts
+  linkedin: chinkhusel-tsolmonbaatar-905880271
