@@ -29,7 +29,7 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <h2>Wireshark: Man-in-the-Middle Attack Analysis</h2>
   <ul>
     <li>Captured and analyzed ARP spoofing traffic</li>
-    <li>Used aprsoof to simulate MITM attack</li>
+    <li>anaged attack infrastructure remotely via SSH tunneling.</li>
     <li>used via SSH</li>
   </ul>
   <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis">[ GitHub Repo ]</a>
@@ -51,7 +51,7 @@ Hello! I'm **Chinkhuselts**, an aspiring cybersecurity professional focused on n
   <h2>Malware Dynamic Analysis</h2>
   <ul>
     <li>CAPEv2 sandbox</li>
-    <li>This report details the analysis of the WarCry malware using the CAPEv2 sandbox environment. The malware was executed and observed within a Windows 10 virtual machine, providing a controlled and isolated environment for behavioral analysis. This setup not only enabled comprehensive monitoring of WarCry’s activities but also serves as a honeypot to detect and study similar threats in the future</li>
+    <li>This report details the analysis of the WannaCry malware using the CAPEv2 sandbox environment. The malware was executed and observed within a Windows 10 virtual machine, providing a controlled and isolated environment for behavioral analysis. This setup not only enabled comprehensive monitoring of WarCry’s activities but also serves as a honeypot to detect and study similar threats in the future</li>
   </ul>
   <a href="https://github.com/Chinkhuselts/CAPEv2-Analysis">[ GitHub Repo ]</a>
 </div>
