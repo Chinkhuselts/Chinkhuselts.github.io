@@ -7,7 +7,7 @@ title: Chinkhuselts Cybersecurity Portfolio
 
 I am a Cybersecurity enthusiast specializing in **Network Defense** and **Threat Analysis**. I build home labs to simulate real-world attacks and engineer defense strategies using industry-standard tools like Snort, Splunk/ELK, and Wireshark.
 
-[📄 **Download My Resume**](./resume.pdf){: .btn}
+[📄 **Download My Resume**](./Resume.pdf){: .btn}
 
 ---
 
