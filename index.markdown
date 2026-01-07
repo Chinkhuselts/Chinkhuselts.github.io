@@ -5,7 +5,7 @@ title: Chinkhuselts Cybersecurity Portfolio
 
 # Welcome
 
-I am a Cybersecurity enthusiast specializing in **Network Defense** and **Threat Analysis**. I build home labs to simulate real-world attacks and engineer defense strategies using industry-standard tools like Snort, Splunk/ELK, and Wireshark.
+I am a Cybersecurity enthusiast specializing in **Network Defense** and **Threat Analysis**. I build Security Simulation Environment to simulate real-world attacks and engineer defense strategies using industry-standard tools like Snort, Splunk/ELK, and Wireshark.
 
 [📄 **Download My Resume**](./Resume.pdf){: .btn}
 
@@ -25,7 +25,7 @@ I designed and deployed a Network Intrusion Detection System (NIDS) to monitor l
 
 ---
 
-### 2. Wireshark: Man-in-the-Middle Attack Analysis
+### 2. Network Traffic Forensics: Man-in-the-Middle Attack Analysis
 **Tech Stack:** Wireshark, Arpspoof, SSH, Linux
 
 Simulated and analyzed a Man-in-the-Middle (MitM) attack to understand ARP poisoning mechanics.
@@ -48,7 +48,7 @@ Built a mini-SIEM (Security Information and Event Management) pipeline to visual
 
 ---
 
-### 4. Malware Analysis: WarCry Ransomware
+### 4. Malware Analysis: WannaCry Ransomware
 **Tech Stack:** CAPEv2 Sandbox, Windows 10 Guest
 
 Conducted dynamic analysis of the WarCry ransomware in a hardened sandbox environment.
