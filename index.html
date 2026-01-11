@@ -43,21 +43,6 @@
         .hero h1 { font-size: 3rem; margin-bottom: 1rem; letter-spacing: -1px; }
         .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem; }
 
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: #0f172a;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--accent);
-        }
-
         /* --- Project Grid --- */
         .project-grid {
             display: grid;
@@ -166,12 +151,33 @@
         <header class="hero">
             <h1>Chinkhuselts Portfolio</h1>
             <p>Cloud Security Engineer & Threat Analyst. <br>I build simulation environments to break attacks before they happen.</p>
-            <a href="./Resume.pdf" class="btn"><i class="fas fa-file-download"></i> Download Resume</a>
         </header>
 
         <h2 style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent); padding-left: 1rem;">🛡️ Engineered Defenses</h2>
         
         <div class="project-grid">
+
+            <article class="project-card" style="border-color: var(--success);">
+                <div class="project-header">
+                    <h3 class="project-title">Cloud Security Auditor</h3>
+                    <i class="fab fa-aws project-icon"></i>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Terraform</span>
+                    <span class="tech-badge">Lambda</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Automated scanning of S3 configs using Event-Driven triggers.</li>
+                        <li>Implemented IaC with Terraform for repeatable security.</li>
+                        <li>Real-time SNS alerting for public access violations.</li>
+                    </ul>
+                </div>
+                <a href="https://github.com/Chinkhuselts/aws-serverless-security-auditor" class="repo-link">
+                    <i class="fab fa-github"></i> View Repository
+                </a>
+            </article>
 
             <article class="project-card">
                 <div class="project-header">
@@ -191,28 +197,6 @@
                     </ul>
                 </div>
                 <a href="https://github.com/Chinkhuselts/snort2-nids-project" class="repo-link">
-                    <i class="fab fa-github"></i> View Repository
-                </a>
-            </article>
-
-            <article class="project-card">
-                <div class="project-header">
-                    <h3 class="project-title">Traffic Forensics (MitM)</h3>
-                    <i class="fas fa-network-wired project-icon"></i>
-                </div>
-                <div class="tech-stack">
-                    <span class="tech-badge">Wireshark</span>
-                    <span class="tech-badge">Arpspoof</span>
-                    <span class="tech-badge">Linux</span>
-                </div>
-                <div class="project-details">
-                    <ul>
-                        <li>Simulated ARP poisoning to intercept gateway traffic.</li>
-                        <li>Reconstructed attack chains using packet capture analysis.</li>
-                        <li>Managed secure remote attack infrastructure via SSH.</li>
-                    </ul>
-                </div>
-                <a href="https://github.com/Chinkhuselts/wireshark-mitm-analysis" class="repo-link">
                     <i class="fab fa-github"></i> View Repository
                 </a>
             </article>
@@ -261,28 +245,6 @@
                 </a>
             </article>
 
-            <article class="project-card" style="border-color: var(--success);">
-                <div class="project-header">
-                    <h3 class="project-title">Cloud Security Auditor</h3>
-                    <i class="fab fa-aws project-icon"></i>
-                </div>
-                <div class="tech-stack">
-                    <span class="tech-badge">Terraform</span>
-                    <span class="tech-badge">Lambda</span>
-                    <span class="tech-badge">Python</span>
-                </div>
-                <div class="project-details">
-                    <ul>
-                        <li>Automated scanning of S3 configs using Event-Driven triggers.</li>
-                        <li>Implemented IaC with Terraform for repeatable security.</li>
-                        <li>Real-time SNS alerting for public access violations.</li>
-                    </ul>
-                </div>
-                <a href="#" class="repo-link">
-                    <i class="fab fa-github"></i> View Repository
-                </a>
-            </article>
-
         </div>
 
         <footer class="footer">
@@ -290,7 +252,7 @@
             <div class="social-links">
                 <a href="mailto:husele1000@gmail.com"><i class="fas fa-envelope"></i></a>
                 <a href="https://github.com/Chinkhuselts"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/"><i class="fab fa-linkedin"></i></a>
             </div>
             <p style="margin-top: 1rem; font-size: 0.8rem;">&copy; 2026 Chinkhuselts. Built with 💻 and ☕.</p>
         </footer>
