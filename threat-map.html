@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Threat Map | Real-time Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --bg-glass: rgba(10, 10, 20, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+
+        body {
+            background-color: #050510;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            color: #e0e0e0;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: 1;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050510 100%);
+        }
+
+        /* UI Panels */
+        .panel {
+            position: absolute;
+            z-index: 10;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: 4px;
+            padding: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            transition: opacity 0.3s;
+        }
+
+        /* Header / Controls */
+        .controls {
+            top: 20px;
+            left: 20px;
+            width: 320px;
+        }
+
+        h1 {
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        /* Inputs & Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 2px;
+            font-family: inherit;
+            transition: all 0.2s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Legend */
+        #legend {
+            bottom: 20px;
+            right: 20px;
+            font-size: 11px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 5px currentColor;
+        }
+
+        /* Stats */
+        #stats {
+            bottom: 20px;
+            left: 20px;
+            width: 200px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 11px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 2px;
+        }
+
+        .stat-val { color: var(--primary); }
+
+        /* Loader */
+        #loader {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            background: rgba(0,0,0,0.9);
+            padding: 20px 40px;
+            border: 1px solid var(--primary);
+            text-align: center;
+            display: none;
+        }
+        
+        .spinner {
+            width: 20px; height: 20px;
+            border: 2px solid var(--primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="panel controls">
+        <h1>Global Threat Map</h1>
+        <div class="subtitle">DDOS / Traffic Visualization System</div>
+        
+        <div class="btn-group">
+            <label class="btn">
+                UPLOAD CSV
+                <input type="file" id="fileInput" accept=".csv">
+            </label>
+            <button class="btn" onclick="runDemoMode()">RUN DEMO</button>
+        </div>
+        <div id="status-msg" style="font-size: 10px; color: #666; margin-top: 8px;">Ready.</div>
+    </div>
+
+    <div class="panel" id="stats">
+        <div style="color: #888; font-size: 10px; margin-bottom: 5px;">LIVE METRICS</div>
+        <div class="stat-row"><span>Total Events</span><span class="stat-val" id="totalRows">0</span></div>
+        <div class="stat-row"><span>Unique IPs</span><span class="stat-val" id="uniqueIPs">0</span></div>
+        <div class="stat-row"><span>Countries</span><span class="stat-val" id="uniqueCountries">0</span></div>
+        <div class="stat-row"><span>Top Source</span><span class="stat-val" id="topCountry">-</span></div>
+    </div>
+
+    <div class="panel" id="legend">
+        <div style="color: #888; font-size: 10px; margin-bottom: 5px;">ATTACK INTENSITY</div>
+        <div class="legend-item"><div class="color-dot" style="background:#9D4EDD; color:#9D4EDD"></div>Low (1-100)</div>
+        <div class="legend-item"><div class="color-dot" style="background:#4D96FF; color:#4D96FF"></div>Medium (100-500)</div>
+        <div class="legend-item"><div class="color-dot" style="background:#FFD93D; color:#FFD93D"></div>High (500-1k)</div>
+        <div class="legend-item"><div class="color-dot" style="background:#FF6B6B; color:#FF6B6B"></div>Critical (1k+)</div>
+        <div style="margin-top:10px; font-size:9px; color:#666;">Target: Ulaanbaatar, MN</div>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div id="loader-text">PROCESSING DATA</div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const TARGET = { lat: 47.9039153, lng: 106.9120097 }; // Ulaanbaatar
+        const EARTH_RADIUS = 10;
+        const COLORS = {
+            low: 0x9D4EDD,
+            med: 0x4D96FF,
+            high: 0xFFD93D,
+            crit: 0xFF6B6B
+        };
+
+        // --- GLOBAL VARIABLES ---
+        let scene, camera, renderer, controls, globe;
+        let animationId;
+        let attackLines = [];
+        
+        // Coordinates for demo mode / fallback
+        const COUNTRY_COORDS = {
+            'US': { lat: 37.09, lng: -95.71, name: 'United States' },
+            'CN': { lat: 35.86, lng: 104.19, name: 'China' },
+            'RU': { lat: 61.52, lng: 105.31, name: 'Russia' },
+            'BR': { lat: -14.23, lng: -51.92, name: 'Brazil' },
+            'DE': { lat: 51.16, lng: 10.45, name: 'Germany' },
+            'FR': { lat: 46.22, lng: 2.21, name: 'France' },
+            'GB': { lat: 55.37, lng: -3.43, name: 'United Kingdom' },
+            'IN': { lat: 20.59, lng: 78.96, name: 'India' },
+            'JP': { lat: 36.20, lng: 138.25, name: 'Japan' },
+            'AU': { lat: -25.27, lng: 133.77, name: 'Australia' },
+            'CA': { lat: 56.13, lng: -106.34, name: 'Canada' },
+            'KR': { lat: 35.90, lng: 127.76, name: 'South Korea' },
+            'NL': { lat: 52.13, lng: 5.29, name: 'Netherlands' },
+            'MN': { lat: 46.86, lng: 103.84, name: 'Mongolia' }
+        };
+
+        // --- INIT THREE.JS ---
+        function init() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050510, 0.02);
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 35;
+            camera.position.y = 10;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.rotateSpeed = 0.5;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+
+            // Ambient light + Directional
+            const ambient = new THREE.AmbientLight(0x444444);
+            scene.add(ambient);
+            const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+            sun.position.set(20, 10, 20);
+            scene.add(sun);
+
+            createGlobe();
+            loadCountryBorders(); // <--- NEW: Loads the map data
+            createStars();
+            createTargetMarker();
+
+            window.addEventListener('resize', onResize);
+            animate();
+        }
+
+        function createGlobe() {
+            // Earth Sphere (Base dark layer)
+            const geometry = new THREE.SphereGeometry(EARTH_RADIUS, 64, 64);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x05050a,     // Very dark blue/black
+                emissive: 0x000000,
+                specular: 0x111111,
+                shininess: 10,
+                transparent: true,
+                opacity: 0.9
+            });
+            globe = new THREE.Mesh(geometry, material);
+            scene.add(globe);
+        }
+
+        // --- NEW FUNCTION: Draws countries from GeoJSON ---
+        function loadCountryBorders() {
+            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+                .then(res => res.json())
+                .then(data => {
+                    const material = new THREE.LineBasicMaterial({
+                        color: 0x00ff88, // Cyber green
+                        transparent: true,
+                        opacity: 0.15,
+                    });
+
+                    data.features.forEach(feature => {
+                        const geometry = feature.geometry;
+                        if (geometry.type === 'Polygon') {
+                            const coords = geometry.coordinates[0];
+                            drawBorder(coords, material);
+                        } else if (geometry.type === 'MultiPolygon') {
+                            geometry.coordinates.forEach(polygon => {
+                                drawBorder(polygon[0], material);
+                            });
+                        }
+                    });
+                })
+                .catch(err => console.error("Could not load country data", err));
+        }
+
+        function drawBorder(coords, material) {
+            const points = [];
+            coords.forEach(coord => {
+                // GeoJSON is [Long, Lat], we need to swap order if needed, but standard is lng, lat
+                const [lng, lat] = coord; 
+                // Add slight offset (radius + 0.01) so lines sit above the sphere
+                points.push(latLongToVector3(lat, lng, EARTH_RADIUS + 0.01));
+            });
+            
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geometry, material);
+            globe.add(line); // Add to globe so they rotate together
+        }
+
+        function createStars() {
+            const starGeo = new THREE.BufferGeometry();
+            const count = 3000;
+            const posArray = new Float32Array(count * 3);
+            for(let i=0; i<count*3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 200; // Spread stars wider
+            }
+            starGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const starMat = new THREE.PointsMaterial({
+                size: 0.2,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.4
+            });
+            const stars = new THREE.Points(starGeo, starMat);
+            scene.add(stars);
+        }
+
+        function createTargetMarker() {
+            const pos = latLongToVector3(TARGET.lat, TARGET.lng, EARTH_RADIUS);
+            
+            // Core
+            const geometry = new THREE.SphereGeometry(0.2, 16, 16);
+            const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            const marker = new THREE.Mesh(geometry, material);
+            marker.position.copy(pos);
+            globe.add(marker);
+
+            // Ring (static visual)
+            const ringGeo = new THREE.RingGeometry(0.3, 0.4, 32);
+            const ringMat = new THREE.MeshBasicMaterial({ 
+                color: 0xff0000, 
+                side: THREE.DoubleSide, 
+                transparent: true, 
+                opacity: 0.6 
+            });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.position.copy(pos);
+            ring.lookAt(new THREE.Vector3(0,0,0));
+            globe.add(ring);
+        }
+
+        // --- MATH HELPERS ---
+        function latLongToVector3(lat, lon, radius) {
+            const phi = (90 - lat) * (Math.PI / 180);
+            const theta = (lon + 180) * (Math.PI / 180);
+            const x = -(radius * Math.sin(phi) * Math.cos(theta));
+            const y = radius * Math.cos(phi);
+            const z = radius * Math.sin(phi) * Math.sin(theta);
+            return new THREE.Vector3(x, y, z);
+        }
+
+        // --- VISUALIZATION LOGIC ---
+        function cleanScene() {
+            attackLines.forEach(obj => {
+                scene.remove(obj.line);
+                scene.remove(obj.particle);
+                if(obj.line.geometry) obj.line.geometry.dispose();
+                if(obj.line.material) obj.line.material.dispose();
+                if(obj.particle.geometry) obj.particle.geometry.dispose();
+                if(obj.particle.material) obj.particle.material.dispose();
+            });
+            attackLines = [];
+        }
+
+        function visualizeAttacks(countryData) {
+            cleanScene();
+            
+            const targetPos = latLongToVector3(TARGET.lat, TARGET.lng, EARTH_RADIUS);
+
+            Object.entries(countryData).forEach(([code, count]) => {
+                const country = COUNTRY_COORDS[code];
+                if (!country) return;
+
+                const startPos = latLongToVector3(country.lat, country.lng, EARTH_RADIUS);
+                
+                // Color based on intensity
+                let color = COLORS.low;
+                if (count > 100) color = COLORS.med;
+                if (count > 500) color = COLORS.high;
+                if (count > 1000) color = COLORS.crit;
+
+                // Create Curve
+                const distance = startPos.distanceTo(targetPos);
+                const height = distance * 0.5; 
+                
+                const midPoint = startPos.clone().add(targetPos).multiplyScalar(0.5).normalize().multiplyScalar(EARTH_RADIUS + height);
+                const curve = new THREE.QuadraticBezierCurve3(startPos, midPoint, targetPos);
+                const points = curve.getPoints(50);
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+                // Line Material 
+                const material = new THREE.LineBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.3,
+                    blending: THREE.AdditiveBlending
+                });
+                const line = new THREE.Line(geometry, material);
+                scene.add(line);
+
+                // Particle
+                const pGeo = new THREE.SphereGeometry(0.15, 8, 8);
+                const pMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                const particle = new THREE.Mesh(pGeo, pMat);
+                scene.add(particle);
+
+                attackLines.push({
+                    line: line,
+                    curve: curve,
+                    particle: particle,
+                    speed: 0.005 + (Math.random() * 0.01),
+                    progress: Math.random(),
+                    isStatic: false
+                });
+
+                // Source Marker
+                const markerGeo = new THREE.CylinderGeometry(0.1, 0.1, Math.log10(count), 8);
+                markerGeo.rotateX(Math.PI / 2);
+                const markerMat = new THREE.MeshBasicMaterial({ color: color });
+                const marker = new THREE.Mesh(markerGeo, markerMat);
+                marker.position.copy(startPos);
+                marker.lookAt(new THREE.Vector3(0,0,0));
+                scene.add(marker);
+                attackLines.push({ line: marker, particle: new THREE.Mesh(), isStatic: true }); 
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+
+            attackLines.forEach(obj => {
+                if (obj.isStatic) return;
+                
+                obj.progress += obj.speed;
+                if (obj.progress > 1) obj.progress = 0;
+                
+                const point = obj.curve.getPoint(obj.progress);
+                obj.particle.position.copy(point);
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // --- DATA PROCESSING ---
+        function updateStats(total, unique, countries, top) {
+            document.getElementById('totalRows').textContent = total.toLocaleString();
+            document.getElementById('uniqueIPs').textContent = unique.toLocaleString();
+            document.getElementById('uniqueCountries').textContent = countries;
+            document.getElementById('topCountry').textContent = top ? `${top[0]} (${top[1]})` : '-';
+        }
+
+        function runDemoMode() {
+            document.getElementById('status-msg').innerText = "Running Demo Mode...";
+            const mockData = {
+                'US': 1500, 'CN': 800, 'RU': 600, 'BR': 300, 
+                'DE': 150, 'IN': 400, 'FR': 120, 'GB': 200, 
+                'AU': 50, 'JP': 900
+            };
+            visualizeAttacks(mockData);
+            updateStats(5020, 3200, 10, ['US', 1500]);
+        }
+
+        async function processFile(file) {
+            const loader = document.getElementById('loader');
+            const status = document.getElementById('loader-text');
+            loader.style.display = 'block';
+            status.innerText = "PARSING CSV...";
+
+            const ipFrequency = new Map();
+            let totalRows = 0;
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                transformHeader: h => h.trim().toLowerCase().replace(/\s+/g, '_'),
+                step: (row) => {
+                    const ip = row.data.source_ip_address;
+                    if (ip && ip.match(/^(\d{1,3}\.){3}\d{1,3}$/)) {
+                        ipFrequency.set(ip, (ipFrequency.get(ip) || 0) + 1);
+                        totalRows++;
+                    }
+                },
+                complete: async () => {
+                    const uniqueIPs = Array.from(ipFrequency.keys());
+                    status.innerText = `GEOCODING ${uniqueIPs.length} IPs...`;
+                    
+                    const countryAttacks = {};
+                    const batchSize = 100;
+
+                    for (let i = 0; i < uniqueIPs.length; i += batchSize) {
+                        const batch = uniqueIPs.slice(i, i + batchSize);
+                        const queries = batch.map(ip => ({ query: ip, fields: 'countryCode' }));
+                        
+                        try {
+                            const res = await fetch('http://ip-api.com/batch', {
+                                method: 'POST',
+                                body: JSON.stringify(queries)
+                            });
+                            const results = await res.json();
+                            
+                            results.forEach((r, idx) => {
+                                if (r.countryCode) {
+                                    const count = ipFrequency.get(batch[idx]);
+                                    countryAttacks[r.countryCode] = (countryAttacks[r.countryCode] || 0) + count;
+                                }
+                            });
+                            
+                            status.innerText = `PROCESSED ${Math.min(i + batchSize, uniqueIPs.length)} / ${uniqueIPs.length}`;
+                        } catch (e) {
+                            console.error("API Error", e);
+                        }
+                    }
+
+                    loader.style.display = 'none';
+                    document.getElementById('status-msg').innerText = "Visualization Active";
+                    
+                    const sorted = Object.entries(countryAttacks).sort((a,b) => b[1]-a[1]);
+                    updateStats(totalRows, uniqueIPs.length, Object.keys(countryAttacks).length, sorted[0]);
+                    
+                    visualizeAttacks(countryAttacks);
+                }
+            });
+        }
+
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            if(e.target.files[0]) processFile(e.target.files[0]);
+        });
+
+        function onResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        init();
+    </script>
+</body>
+</html>
