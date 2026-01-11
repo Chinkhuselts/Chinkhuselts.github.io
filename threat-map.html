@@ -1115,6 +1115,28 @@
                         const file = e.target.files[0];
                         if (file) processFile(file);
                     });
+            document.getElementById('demoBtn').addEventListener('click', () => {
+    const status = document.getElementById('status');
+    status.style.display = 'block';
+    status.textContent = 'Fetching Demo Data...';
+
+    // Fetch the sample CSV file from the repo
+    fetch('./sample_data.csv')
+        .then(response => {
+            if (!response.ok) throw new Error("Sample file not found");
+            return response.blob(); // Convert to a Blob (file-like object)
+        })
+        .then(blob => {
+            // Create a File object from the Blob to trick the existing processFile function
+            const file = new File([blob], "sample_data.csv", { type: "text/csv" });
+            processFile(file); // Reuse your existing logic!
+        })
+        .catch(error => {
+            console.error(error);
+            status.textContent = 'Error: Could not load sample_data.csv';
+            setTimeout(() => status.style.display = 'none', 3000);
+        });
+});
 
         
                     initGlobe();
@@ -1122,3 +1144,4 @@
         </script>
     </body>
 </html>
+
