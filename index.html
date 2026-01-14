@@ -19,6 +19,8 @@
             --text-secondary: #94a3b8;
             --accent: #38bdf8;
             --accent-glow: rgba(56, 189, 248, 0.25);
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
         * {
@@ -39,7 +41,6 @@
             text-decoration: none;
         }
 
-        /* Layout */
         .container {
             max-width: 1100px;
             margin: auto;
@@ -50,8 +51,8 @@
         nav {
             position: sticky;
             top: 0;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid #334155;
             z-index: 10;
         }
@@ -69,12 +70,14 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             color: var(--accent);
+            font-size: 1.1rem;
         }
 
         .nav-links a {
-            margin-left: 1.5rem;
+            margin-left: 2rem;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
@@ -91,16 +94,16 @@
         .hero h1 {
             font-size: 3rem;
             letter-spacing: -1px;
+            margin-bottom: 1rem;
         }
 
-        .hero p {
+        .hero .subtitle {
             max-width: 650px;
             margin: 1.5rem auto 0;
             font-size: 1.2rem;
             color: var(--text-secondary);
         }
 
-        /* Skills */
         .skills {
             margin: 3rem 0 0;
             display: flex;
@@ -116,20 +119,81 @@
             background: rgba(56, 189, 248, 0.12);
             border: 1px solid rgba(56, 189, 248, 0.25);
             color: var(--accent);
+            transition: all 0.2s;
+        }
+
+        .skill:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about-section {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 16px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
         }
 
         /* Section Title */
         .section-title {
-            margin: 3rem 0 2rem;
+            margin: 4rem 0 2rem;
             padding-left: 1rem;
             border-left: 4px solid var(--accent);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         /* Projects */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin-bottom: 4rem;
         }
@@ -138,16 +202,34 @@
             background: var(--card-bg);
             border: 1px solid #334155;
             border-radius: 14px;
-            padding: 1.75rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #818cf8);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
 
         .project-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px);
             border-color: var(--accent);
-            box-shadow: 0 0 0 1px var(--accent-glow), 0 20px 40px -15px #000;
+            box-shadow: 0 0 0 1px var(--accent-glow), 0 25px 50px -15px rgba(0, 0, 0, 0.5);
         }
 
         .project-header {
@@ -158,21 +240,29 @@
         }
 
         .project-title {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--accent);
+            color: var(--text-primary);
         }
 
         .project-icon {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+            opacity: 0.8;
+        }
+
+        .project-description {
             color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
         }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .tech-badge {
@@ -192,26 +282,115 @@
         .project-details li {
             font-size: 0.95rem;
             color: var(--text-secondary);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
             display: flex;
         }
 
         .project-details li::before {
             content: "▹";
             color: var(--accent);
-            margin-right: 0.6rem;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .project-impact {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--success);
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .project-impact strong {
+            color: var(--success);
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .project-impact p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
         }
 
         .repo-link {
             margin-top: auto;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .repo-link:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .repo-link:hover {
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-color);
+        }
+
+        .btn-primary:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
             color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(56, 189, 248, 0.1);
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -223,30 +402,33 @@
         }
 
         .social-links {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .social-links a {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin: 0 1rem;
             color: var(--text-secondary);
+            transition: all 0.2s;
         }
 
         .social-links a:hover {
             color: var(--accent);
+            transform: translateY(-3px);
         }
 
         .email-text {
-            margin-top: 1rem;
-            font-size: 0.95rem;
+            margin-top: 1.5rem;
+            font-size: 1rem;
             color: var(--text-primary);
         }
 
         footer p {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.2rem;
@@ -255,6 +437,47 @@
             .nav-links {
                 display: none;
             }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
@@ -265,7 +488,9 @@
     <div class="nav-content">
         <div class="nav-title">Chinkhuselts</div>
         <div class="nav-links">
+            <a href="#about">About</a>
             <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
             <a href="https://github.com/Chinkhuselts" target="_blank">GitHub</a>
         </div>
     </div>
@@ -275,7 +500,7 @@
 
     <section class="hero">
         <h1>Cloud Security Engineer & Threat Analyst</h1>
-        <p>
+        <p class="subtitle">
             I design attack simulations, secure cloud infrastructure,
             and analyze threats before they reach production.
         </p>
@@ -291,6 +516,41 @@
         </div>
     </section>
 
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Building Security From the Ground Up</h2>
+                <p>
+                    I'm a cybersecurity engineer passionate about proactive defense. My approach combines cloud-native security architecture with hands-on threat analysis to build systems that detect and prevent attacks before they cause damage.
+                </p>
+                <p>
+                    From automating security audits in AWS to analyzing real-world malware samples, I focus on practical solutions that scale. Every project I build teaches me something new about how attackers think—and how defenders can stay one step ahead.
+                </p>
+                <p>
+                    Currently seeking opportunities to apply my skills in cloud security engineering, threat detection, or security automation roles where I can contribute to building robust defensive systems.
+                </p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Security Projects</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number"><i class="fas fa-code"></i></span>
+                    <span class="stat-label">Problem Solving</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number"><i class="fas fa-brain"></i></span>
+                    <span class="stat-label">Critical Thinking</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number"><i class="fas fa-users"></i></span>
+                    <span class="stat-label">Team Collaboration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="projects">
         <h2 class="section-title">🛡️ Engineered Defenses</h2>
 
@@ -301,19 +561,27 @@
                     <h3 class="project-title">Cloud Security Auditor</h3>
                     <i class="fab fa-aws project-icon"></i>
                 </div>
+                <p class="project-description">
+                    Serverless security auditing system that automatically detects and alerts on S3 misconfigurations in real-time.
+                </p>
                 <div class="tech-stack">
                     <span class="tech-badge">Terraform</span>
                     <span class="tech-badge">AWS Lambda</span>
                     <span class="tech-badge">Python</span>
+                    <span class="tech-badge">SNS</span>
+                </div>
+                <div class="project-impact">
+                    <strong>IMPACT</strong>
+                    <p>Automated security compliance checks, reducing manual audit time and enabling instant response to public exposure risks.</p>
                 </div>
                 <div class="project-details">
                     <ul>
-                        <li>Automated S3 misconfiguration detection via event-driven scanning.</li>
-                        <li>IaC-first security architecture using Terraform.</li>
-                        <li>Real-time SNS alerts for public access violations.</li>
+                        <li>Event-driven architecture triggers scans on S3 bucket changes</li>
+                        <li>Infrastructure as Code deployment for reproducible security controls</li>
+                        <li>Real-time SNS notifications for critical security violations</li>
                     </ul>
                 </div>
-                <a class="repo-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor">
+                <a class="repo-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor" target="_blank">
                     <i class="fab fa-github"></i> View Repository
                 </a>
             </article>
@@ -323,16 +591,23 @@
                     <h3 class="project-title">3D Global Threat Map</h3>
                     <i class="fas fa-globe project-icon"></i>
                 </div>
+                <p class="project-description">
+                    Interactive 3D visualization of global DDoS attack patterns using WebGL and real-time data processing.
+                </p>
                 <div class="tech-stack">
                     <span class="tech-badge">Three.js</span>
                     <span class="tech-badge">WebGL</span>
                     <span class="tech-badge">JavaScript</span>
                 </div>
+                <div class="project-impact">
+                    <strong>IMPACT</strong>
+                    <p>Transforms complex log data into intuitive visual insights, enabling faster threat pattern recognition and security awareness.</p>
+                </div>
                 <div class="project-details">
                     <ul>
-                        <li>Visualized global DDoS vectors on an interactive 3D globe.</li>
-                        <li>Client-side parsing of large log datasets.</li>
-                        <li>Optimized rendering pipeline for 60FPS animation.</li>
+                        <li>Real-time visualization of attack vectors across geographic regions</li>
+                        <li>Optimized client-side processing for large-scale log datasets</li>
+                        <li>Smooth 60FPS rendering with efficient WebGL pipeline</li>
                     </ul>
                 </div>
                 <a class="repo-link" href="./threat-map.html" target="_blank">
@@ -345,19 +620,26 @@
                     <h3 class="project-title">Serverless Log Forensics</h3>
                     <i class="fas fa-server project-icon"></i>
                 </div>
+                <p class="project-description">
+                    Automated threat detection system that identifies SQLi and XSS attacks in application logs using serverless architecture.
+                </p>
                 <div class="tech-stack">
                     <span class="tech-badge">AWS Lambda</span>
                     <span class="tech-badge">DynamoDB</span>
                     <span class="tech-badge">Terraform</span>
                 </div>
+                <div class="project-impact">
+                    <strong>IMPACT</strong>
+                    <p>Enables continuous security monitoring at scale with zero infrastructure overhead and instant threat detection capabilities.</p>
+                </div>
                 <div class="project-details">
                     <ul>
-                        <li>Event-driven detection of SQLi and XSS attacks.</li>
-                        <li>Full-stack AWS deployment via Terraform.</li>
-                        <li>Custom regex threat filtering engine.</li>
+                        <li>Custom regex engine for detecting injection attack patterns</li>
+                        <li>Fully automated AWS deployment using Terraform IaC</li>
+                        <li>DynamoDB storage for forensic analysis and threat intelligence</li>
                     </ul>
                 </div>
-                <a class="repo-link" href="https://github.com/Chinkhuselts/serverless-log-forensic">
+                <a class="repo-link" href="https://github.com/Chinkhuselts/serverless-log-forensic" target="_blank">
                     <i class="fab fa-github"></i> View Repository
                 </a>
             </article>
@@ -367,19 +649,27 @@
                     <h3 class="project-title">ELK & Snort SIEM</h3>
                     <i class="fas fa-chart-line project-icon"></i>
                 </div>
+                <p class="project-description">
+                    Enterprise-grade SIEM pipeline integrating network intrusion detection with centralized log management.
+                </p>
                 <div class="tech-stack">
                     <span class="tech-badge">Elasticsearch</span>
                     <span class="tech-badge">Logstash</span>
                     <span class="tech-badge">Kibana</span>
+                    <span class="tech-badge">Snort</span>
+                </div>
+                <div class="project-impact">
+                    <strong>IMPACT</strong>
+                    <p>Unified security monitoring platform correlating network intrusions with system events for comprehensive threat visibility.</p>
                 </div>
                 <div class="project-details">
                     <ul>
-                        <li>Real-time Snort log ingestion.</li>
-                        <li>NIDS and SIEM correlation pipeline.</li>
-                        <li>Intrusion detection vs network traffic spikes.</li>
+                        <li>Real-time ingestion and analysis of Snort IDS alerts</li>
+                        <li>Correlation pipeline linking network anomalies to traffic patterns</li>
+                        <li>Custom Kibana dashboards for security operations monitoring</li>
                     </ul>
                 </div>
-                <a class="repo-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup">
+                <a class="repo-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup" target="_blank">
                     <i class="fab fa-github"></i> View Repository
                 </a>
             </article>
@@ -389,19 +679,26 @@
                     <h3 class="project-title">WannaCry Malware Analysis</h3>
                     <i class="fas fa-bug project-icon"></i>
                 </div>
+                <p class="project-description">
+                    In-depth behavioral analysis of WannaCry ransomware using sandbox environment and reverse engineering techniques.
+                </p>
                 <div class="tech-stack">
                     <span class="tech-badge">CAPEv2</span>
                     <span class="tech-badge">Windows Sandbox</span>
-                    <span class="tech-badge">Malware</span>
+                    <span class="tech-badge">Malware Analysis</span>
+                </div>
+                <div class="project-impact">
+                    <strong>IMPACT</strong>
+                    <p>Extracted actionable threat intelligence including C2 infrastructure and propagation methods for defensive countermeasures.</p>
                 </div>
                 <div class="project-details">
                     <ul>
-                        <li>Anti-VM evasion hardening.</li>
-                        <li>Extracted C2 IPs and file hash IOCs.</li>
-                        <li>Documented ransomware propagation logic.</li>
+                        <li>Bypassed anti-VM detection techniques for complete analysis</li>
+                        <li>Documented file encryption mechanisms and kill switch behavior</li>
+                        <li>Generated IOCs including C2 addresses and file signatures</li>
                     </ul>
                 </div>
-                <a class="repo-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis">
+                <a class="repo-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis" target="_blank">
                     <i class="fab fa-github"></i> View Repository
                 </a>
             </article>
@@ -409,14 +706,30 @@
         </div>
     </section>
 
+    <section id="contact" class="cta-section">
+        <h2>Let's Build Secure Systems Together</h2>
+        <p>
+            I'm actively seeking opportunities in cloud security engineering, threat analysis, and security automation.
+            Open to full-time roles, contract work, and collaborative projects.
+        </p>
+        <div class="cta-buttons">
+            <a href="mailto:husele1000@gmail.com" class="btn-primary">
+                <i class="fas fa-envelope"></i> Get In Touch
+            </a>
+            <a href="https://github.com/Chinkhuselts" target="_blank" class="btn-secondary">
+                <i class="fab fa-github"></i> View GitHub
+            </a>
+        </div>
+    </section>
+
 </main>
 
 <footer>
-    <h3>Let’s Secure the Future.</h3>
+    <h3>Let's Secure the Future.</h3>
 
     <div class="social-links">
-        <a href="https://github.com/Chinkhuselts"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Chinkhuselts" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </div>
 
     <div class="email-text">
@@ -428,4 +741,3 @@
 
 </body>
 </html>
-
