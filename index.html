@@ -102,7 +102,7 @@
 
         /* Skills */
         .skills {
-            margin: 3rem 0;
+            margin: 3rem 0 0;
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
@@ -294,8 +294,117 @@
         <h2 class="section-title">🛡️ Engineered Defenses</h2>
 
         <div class="project-grid">
-            <!-- projects unchanged -->
-            <!-- (kept exactly as you provided) -->
+
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Cloud Security Auditor</h3>
+                    <i class="fab fa-aws project-icon"></i>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Terraform</span>
+                    <span class="tech-badge">AWS Lambda</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Automated S3 misconfiguration detection via event-driven scanning.</li>
+                        <li>IaC-first security architecture using Terraform.</li>
+                        <li>Real-time SNS alerts for public access violations.</li>
+                    </ul>
+                </div>
+                <a class="repo-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor">
+                    <i class="fab fa-github"></i> View Repository
+                </a>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">3D Global Threat Map</h3>
+                    <i class="fas fa-globe project-icon"></i>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Three.js</span>
+                    <span class="tech-badge">WebGL</span>
+                    <span class="tech-badge">JavaScript</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Visualized global DDoS vectors on an interactive 3D globe.</li>
+                        <li>Client-side parsing of large log datasets.</li>
+                        <li>Optimized rendering pipeline for 60FPS animation.</li>
+                    </ul>
+                </div>
+                <a class="repo-link" href="./threat-map.html" target="_blank">
+                    <i class="fas fa-play"></i> Live Simulation
+                </a>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Serverless Log Forensics</h3>
+                    <i class="fas fa-server project-icon"></i>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">AWS Lambda</span>
+                    <span class="tech-badge">DynamoDB</span>
+                    <span class="tech-badge">Terraform</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Event-driven detection of SQLi and XSS attacks.</li>
+                        <li>Full-stack AWS deployment via Terraform.</li>
+                        <li>Custom regex threat filtering engine.</li>
+                    </ul>
+                </div>
+                <a class="repo-link" href="https://github.com/Chinkhuselts/serverless-log-forensic">
+                    <i class="fab fa-github"></i> View Repository
+                </a>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">ELK & Snort SIEM</h3>
+                    <i class="fas fa-chart-line project-icon"></i>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Elasticsearch</span>
+                    <span class="tech-badge">Logstash</span>
+                    <span class="tech-badge">Kibana</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Real-time Snort log ingestion.</li>
+                        <li>NIDS and SIEM correlation pipeline.</li>
+                        <li>Intrusion detection vs network traffic spikes.</li>
+                    </ul>
+                </div>
+                <a class="repo-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup">
+                    <i class="fab fa-github"></i> View Repository
+                </a>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">WannaCry Malware Analysis</h3>
+                    <i class="fas fa-bug project-icon"></i>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">CAPEv2</span>
+                    <span class="tech-badge">Windows Sandbox</span>
+                    <span class="tech-badge">Malware</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Anti-VM evasion hardening.</li>
+                        <li>Extracted C2 IPs and file hash IOCs.</li>
+                        <li>Documented ransomware propagation logic.</li>
+                    </ul>
+                </div>
+                <a class="repo-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis">
+                    <i class="fab fa-github"></i> View Repository
+                </a>
+            </article>
+
         </div>
     </section>
 
