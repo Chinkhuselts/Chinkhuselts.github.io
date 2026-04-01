@@ -694,7 +694,7 @@
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
-      <a href="mailto:husele1000@gmail.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Get in Touch</a>
+      <a href="/cdn-cgi/l/email-protection#670f1214020b025657575727000a060e0b4904080a" class="btn btn-outline"><i class="fas fa-envelope"></i> Get in Touch</a>
     </div>
   </div>
   <div class="hero-terminal">
@@ -824,32 +824,32 @@
       <!-- Cloud Security Auditor -->
       <article class="project-card">
         <div class="project-diagram">
-          <div><span class="d-accent">S3 Bucket</span> &nbsp;→&nbsp; <span class="d-dim">EventBridge</span> &nbsp;→&nbsp; <span class="d-accent">Lambda</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[public?] ──→ <span class="d-green">SNS Alert</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Terraform deployed</span></div>
+          <div><span class="d-accent">S3 Upload</span> &nbsp;→&nbsp; <span class="d-dim">S3 Notification</span> &nbsp;→&nbsp; <span class="d-accent">Lambda</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[public_access: true?] → <span class="d-green">SNS Alert</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Terraform deployed</span></div>
         </div>
         <div class="project-body">
           <div class="project-top">
             <div class="project-name">Cloud Security Auditor</div>
             <div class="project-type">AWS · Serverless</div>
           </div>
-          <div class="project-desc">Event-driven serverless system that detects and alerts on S3 misconfigurations the moment they occur.</div>
+          <div class="project-desc">Event-driven serverless scanner that checks uploaded infrastructure config files for vulnerabilities and sends real-time alerts.</div>
           <div class="tech-row">
             <span class="tech-pill">Terraform</span>
             <span class="tech-pill">AWS Lambda</span>
             <span class="tech-pill">Python</span>
             <span class="tech-pill">SNS</span>
-            <span class="tech-pill">EventBridge</span>
+            <span class="tech-pill">S3</span>
           </div>
           <div class="project-impact">
             <div class="impact-label">Impact</div>
-            <div class="impact-text">Eliminated manual S3 ACL reviews. Detects public exposure the moment a bucket policy changes — before it can be exploited.</div>
+            <div class="impact-text">Eliminates manual security reviews — the moment a misconfigured file is uploaded, Lambda catches it and fires an SNS alert in under 2 seconds.</div>
           </div>
           <ul class="project-bullets">
-            <li>Event-driven scan triggers on every S3 bucket policy change</li>
-            <li>Fully reproducible IaC deployment — zero manual AWS console steps</li>
-            <li>Real-time SNS notifications with bucket name, account ID, and violation type</li>
+            <li>Triggers on S3 object upload, parses config for risk flags like <code style="color:var(--warn);font-size:0.75rem">public_access: true</code></li>
+            <li>Full stack (S3, Lambda, SNS, IAM) provisioned via Terraform — zero manual console steps</li>
+            <li>Proven end-to-end: real SNS email alert captured in documented proof-of-concept</li>
           </ul>
           <a class="project-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor" target="_blank">
             <i class="fab fa-github"></i> View Repository →
@@ -937,21 +937,22 @@
             <div class="project-name">ELK + Snort SIEM</div>
             <div class="project-type">Blue Team · SIEM</div>
           </div>
-          <div class="project-desc">Enterprise-grade SIEM pipeline correlating network intrusion data with system events for full threat visibility.</div>
+          <div class="project-desc">Lightweight, customizable SIEM integrating Snort IDS with the ELK stack to detect and visualize network threats in real time.</div>
           <div class="tech-row">
             <span class="tech-pill">Elasticsearch</span>
             <span class="tech-pill">Logstash</span>
             <span class="tech-pill">Kibana</span>
             <span class="tech-pill">Snort</span>
+            <span class="tech-pill">Docker</span>
           </div>
           <div class="project-impact">
             <div class="impact-label">Impact</div>
-            <div class="impact-text">Unified network + system log correlation — simulates the monitoring stack used in real SOC environments.</div>
+            <div class="impact-text">A fully working SIEM pipeline from IDS alert to dashboard — simulates the monitoring stack used in real security operations.</div>
           </div>
           <ul class="project-bullets">
-            <li>Real-time ingestion and parsing of Snort alert output</li>
-            <li>Correlation rules link network anomalies to host-level events</li>
-            <li>Custom Kibana dashboards built for SOC-style triage workflows</li>
+            <li>Snort captures network alerts, Logstash parses and forwards to Elasticsearch</li>
+            <li>Kibana dashboards display real-time Snort alert data and traffic patterns</li>
+            <li>Containerized with Docker for consistent, reproducible deployment</li>
           </ul>
           <a class="project-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup" target="_blank">
             <i class="fab fa-github"></i> View Repository →
@@ -972,20 +973,21 @@
             <div class="project-name">WannaCry Sandbox Analysis</div>
             <div class="project-type">Malware · RE</div>
           </div>
-          <div class="project-desc">Full behavioral analysis of WannaCry ransomware in a CAPEv2 sandbox on Linux — including anti-VM bypass and IOC extraction.</div>
+          <div class="project-desc">Dynamic behavioral analysis of WannaCry ransomware executed in a CAPEv2 sandbox on a controlled Windows 10 VM.</div>
           <div class="tech-row">
             <span class="tech-pill">CAPEv2</span>
-            <span class="tech-pill">Reverse Engineering</span>
+            <span class="tech-pill">Ubuntu 22.04</span>
+            <span class="tech-pill">VirtualBox</span>
             <span class="tech-pill">Malware Analysis</span>
           </div>
           <div class="project-impact">
             <div class="impact-label">Impact</div>
-            <div class="impact-text">Generated actionable IOC report: C2 addresses, kill switch domain, encryption behavior, and propagation mechanism.</div>
+            <div class="impact-text">Full execution observed and documented — generated IOC report including modified registry keys, dropped files, and behavioral signatures.</div>
           </div>
           <ul class="project-bullets">
-            <li>Bypassed anti-VM detection to achieve full execution visibility</li>
-            <li>Documented file encryption routines and SMBv1 propagation path</li>
-            <li>Extracted C2 infrastructure and kill switch domain as IOCs</li>
+            <li>CAPEv2 hosted on Ubuntu 22.04 with Windows 10 VM connected via NAT</li>
+            <li>Observed ransomware encryption behavior, file drops, and process tree live</li>
+            <li>Extracted IOCs documented in <code style="color:var(--warn);font-size:0.75rem">IOCs/IOC-summary.txt</code> for defensive use</li>
           </ul>
           <a class="project-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis" target="_blank">
             <i class="fab fa-github"></i> View Repository →
@@ -1048,9 +1050,9 @@
       </p>
     </div>
     <div class="contact-right">
-      <a class="contact-item" href="mailto:husele1000@gmail.com">
+      <a class="contact-item" href="/cdn-cgi/l/email-protection#452d303620292074757575052228242c296b262a28">
         <i class="fas fa-envelope"></i>
-        husele1000@gmail.com
+        <span class="__cf_email__" data-cfemail="b5ddc0c6d0d9d084858585f5d2d8d4dcd99bd6dad8">[email&#160;protected]</span>
       </a>
       <a class="contact-item" href="tel:+48539623147">
         <i class="fas fa-phone"></i>
@@ -1070,8 +1072,4 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Chinkhusel Ts &nbsp;·&nbsp; Built with <a href="https://github.com/Chinkhuselts">code</a> and intention &nbsp;·&nbsp; <a href="mailto:husele1000@gmail.com">husele1000@gmail.com</a></p>
-</footer>
-
-</body>
-</html>
+  <p>© 2026 Chinkhusel Ts &nbsp;·&nbsp; Built
