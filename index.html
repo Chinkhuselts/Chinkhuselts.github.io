@@ -239,12 +239,25 @@
     .project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
     .project-bullets li code { color: var(--warn); font-size: 0.75rem; font-family: var(--mono); }
 
+    .project-links { display: flex; gap: 1rem; border-top: 1px solid var(--border); margin-top: auto; padding-top: 0.5rem; }
     .project-link {
       font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 0; border-top: 1px solid var(--border); margin-top: auto; transition: gap 0.2s;
+      padding: 0.5rem 0; transition: gap 0.2s;
     }
     .project-link:hover { gap: 0.8rem; }
+    .project-link.secondary { color: var(--muted); }
+    .project-link.secondary:hover { color: var(--accent2); gap: 0.8rem; }
+
+    /* Team badge for collaborative projects */
+    .team-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--mono); font-size: 0.68rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(255, 107, 53, 0.08); border: 1px solid rgba(255, 107, 53, 0.25);
+      color: var(--warn); border-radius: 2px; letter-spacing: 0.5px;
+      margin-bottom: 0.75rem;
+    }
 
     /* CONTACT */
     .contact-section { border-top: 1px solid var(--border); background: var(--surface); }
@@ -363,11 +376,11 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat-item">
-      <span class="stat-num">30%</span>
+      <span class="stat-num">40%</span>
       <span class="stat-desc">Reporting time cut at Khan Bank</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">6</span>
+      <span class="stat-num">7</span>
       <span class="stat-desc">Security Projects Shipped</span>
     </div>
     <div class="stat-item">
@@ -405,7 +418,7 @@
           <span class="info-date">Aug – Nov 2025</span>
         </div>
         <div class="info-sub">
-          Automated manual data reporting with Python, cutting processing time by 30%. Maintained Linux servers and wrote Bash scripts for monitoring and log rotation. Collaborated with DevOps in an Agile/Jira environment and participated in code reviews.
+          Automated manual data reporting with Python, cutting processing time by 40%. Maintained Linux servers and wrote Bash scripts for monitoring and log rotation. Collaborated with DevOps in an Agile/Jira environment and participated in code reviews.
         </div>
       </div>
 
@@ -438,6 +451,8 @@
         <div class="skill-row"><i class="fas fa-shield-virus skill-icon"></i> Threat Detection</div>
         <div class="skill-row"><i class="fab fa-docker skill-icon"></i> Docker</div>
         <div class="skill-row"><i class="fas fa-database skill-icon"></i> DynamoDB · SQL</div>
+        <div class="skill-row"><i class="fas fa-key skill-icon"></i> JWT · RBAC · IAM</div>
+        <div class="skill-row"><i class="fab fa-node-js skill-icon"></i> Node.js · PostgreSQL</div>
       </div>
     </div>
 
@@ -481,9 +496,11 @@
             <li>Full stack (S3, Lambda, SNS, IAM) provisioned via Terraform — zero manual console steps</li>
             <li>End-to-end proven: real SNS email alert captured and documented in the README</li>
           </ul>
-          <a class="project-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor" target="_blank">
-            <i class="fab fa-github"></i> View Repository →
-          </a>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor" target="_blank">
+              <i class="fab fa-github"></i> View Repository →
+            </a>
+          </div>
         </div>
       </article>
 
@@ -517,9 +534,11 @@
             <li>Country borders rendered from world GeoJSON — lines sit on the sphere surface</li>
             <li>Attack arcs animate along Bezier curves; particles travel from source to target (Ulaanbaatar)</li>
           </ul>
-          <a class="project-link" href="https://chinkhuselts.github.io/threat-map.html" target="_blank">
-            <i class="fas fa-play"></i> Live Demo →
-          </a>
+          <div class="project-links">
+            <a class="project-link" href="https://chinkhuselts.github.io/threat-map.html" target="_blank">
+              <i class="fas fa-play"></i> Live Demo →
+            </a>
+          </div>
         </div>
       </article>
 
@@ -552,9 +571,11 @@
             <li>DynamoDB stores IOCs with attack type, source IP, and payload — queryable for analysis</li>
             <li>Full stack provisioned via Terraform; visualization script renders attack distribution charts</li>
           </ul>
-          <a class="project-link" href="https://github.com/Chinkhuselts/serverless-log-forensic" target="_blank">
-            <i class="fab fa-github"></i> View Repository →
-          </a>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Chinkhuselts/serverless-log-forensic" target="_blank">
+              <i class="fab fa-github"></i> View Repository →
+            </a>
+          </div>
         </div>
       </article>
 
@@ -588,9 +609,11 @@
             <li>Kibana dashboards display live Snort alert data and traffic patterns</li>
             <li>Fully containerized with Docker for consistent, reproducible deployment</li>
           </ul>
-          <a class="project-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup" target="_blank">
-            <i class="fab fa-github"></i> View Repository →
-          </a>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup" target="_blank">
+              <i class="fab fa-github"></i> View Repository →
+            </a>
+          </div>
         </div>
       </article>
 
@@ -623,9 +646,11 @@
             <li>Observed live encryption behavior, process tree, and file drop activity</li>
             <li>Extracted IOCs documented in <code>IOCs/IOC-summary.txt</code> for defensive use</li>
           </ul>
-          <a class="project-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis" target="_blank">
-            <i class="fab fa-github"></i> View Repository →
-          </a>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis" target="_blank">
+              <i class="fab fa-github"></i> View Repository →
+            </a>
+          </div>
         </div>
       </article>
 
@@ -660,9 +685,55 @@
             <li>IP geolocation enrichment via ip-api REST service — includes rate-limit handling</li>
             <li>Interactive traffic origin map and per-country bandwidth charts in Streamlit</li>
           </ul>
-          <a class="project-link" href="https://github.com/Chinkhuselts/traffic_visualizer" target="_blank">
-            <i class="fab fa-github"></i> View Repository →
-          </a>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Chinkhuselts/traffic_visualizer" target="_blank">
+              <i class="fab fa-github"></i> View Repository →
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- IAM System — NEW -->
+      <article class="project-card">
+        <div class="project-diagram">
+          <div><span class="d-accent">POST /auth/login</span> &nbsp;→&nbsp; <span class="d-dim">bcrypt verify</span> &nbsp;→&nbsp; <span class="d-green">JWT issued</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">RBAC middleware</span> &nbsp;→&nbsp; <span class="d-accent">Protected route</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Audit log</span> &nbsp;<span class="d-dim">→ PostgreSQL</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <div class="project-name">IAM System</div>
+            <div class="project-type">Auth · Backend</div>
+          </div>
+          <div class="team-badge"><i class="fas fa-users" style="font-size:0.65rem;"></i> Team project — backend auth owned</div>
+          <div class="project-desc">Production-deployed Identity and Access Management API with JWT authentication, role-based access control, and a full audit trail — deployed live on Railway.</div>
+          <div class="tech-row">
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">PostgreSQL</span>
+            <span class="tech-pill">JWT</span>
+            <span class="tech-pill">bcrypt</span>
+            <span class="tech-pill">RBAC</span>
+            <span class="tech-pill">Railway</span>
+          </div>
+          <div class="project-impact">
+            <div class="impact-label">Impact</div>
+            <div class="impact-text">Live API with 16 production deployments — demonstrates the exact IAM patterns used in enterprise access control systems.</div>
+          </div>
+          <ul class="project-bullets">
+            <li>Built authentication layer end-to-end: registration, login, JWT issuance and validation</li>
+            <li>RBAC middleware enforces least-privilege — Administrator and Manager roles gate sensitive endpoints</li>
+            <li>Audit service records security events (logins, role changes) to PostgreSQL for compliance traceability</li>
+          </ul>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Chinkhuselts/Identity-and-Access-Management" target="_blank">
+              <i class="fab fa-github"></i> View Repository →
+            </a>
+            <a class="project-link secondary" href="https://identity-and-access-management-production.up.railway.app" target="_blank">
+              <i class="fas fa-server"></i> Live API →
+            </a>
+          </div>
         </div>
       </article>
 
