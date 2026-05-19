@@ -51,7 +51,7 @@
 
     /* NAV */
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 0; z-index: 500;
       border-bottom: 1px solid var(--border);
       background: rgba(8, 12, 20, 0.92);
       backdrop-filter: blur(16px);
@@ -181,82 +181,294 @@
       color: var(--muted); line-height: 1.8; border-bottom: 1px solid var(--dim);
     }
 
-    /* PROJECTS */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
-    .project-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; position: relative;
+    /* ===================== */
+    /* PROJECTS BUBBLE SECTION */
+    /* ===================== */
+    .projects-section {
+      border-top: 1px solid var(--border);
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
     }
-    .project-card:hover {
-      border-color: var(--accent); transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,255,0.15);
+    .projects-section-inner {
+      max-width: 1200px;
+      margin: auto;
     }
-    .project-diagram {
-      background: var(--surface2); border-bottom: 1px solid var(--border);
-      padding: 1.25rem 1.5rem; font-family: var(--mono); font-size: 0.72rem;
-      color: var(--muted); line-height: 1.9; min-height: 96px; position: relative;
-    }
-    .project-diagram::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .project-card:hover .project-diagram::after { opacity: 1; }
-    .d-accent { color: var(--accent); }
-    .d-green { color: var(--accent2); }
-    .d-orange { color: var(--warn); }
-    .d-dim { color: var(--dim); }
 
-    .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-    .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.5rem; }
-    .project-name { font-size: 1.1rem; font-weight: 700; color: var(--text); }
-    .project-type {
-      font-family: var(--mono); font-size: 0.68rem; padding: 0.25rem 0.6rem;
-      border: 1px solid var(--dim); color: var(--muted); border-radius: 2px;
-      letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+    /* Ambient background glow */
+    .projects-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .project-desc { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.8; }
 
-    .tech-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+    /* Bubble grid */
+    .bubble-arena {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem 0 3rem;
+      position: relative;
+    }
+
+    .bubble {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0,212,255,0.25);
+      background: radial-gradient(circle at 35% 35%, rgba(0,212,255,0.12), rgba(13,21,38,0.9) 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
+      text-align: center;
+      padding: 1rem;
+      user-select: none;
+    }
+
+    .bubble::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0%, rgba(0,212,255,0.3) 20%, transparent 40%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .bubble:hover {
+      transform: translateY(-8px) scale(1.06);
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(0,212,255,0.2), 0 0 60px rgba(0,212,255,0.08), inset 0 0 30px rgba(0,212,255,0.05);
+    }
+    .bubble:hover::before { opacity: 1; }
+
+    .bubble.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 40px rgba(0,212,255,0.35), 0 0 80px rgba(0,212,255,0.12), inset 0 0 30px rgba(0,212,255,0.08);
+      transform: scale(1.08);
+      background: radial-gradient(circle at 35% 35%, rgba(0,212,255,0.2), rgba(13,21,38,0.9) 70%);
+    }
+    .bubble.active::before { opacity: 1; }
+
+    /* Featured bubble (IAM-API-V2) — slightly larger */
+    .bubble.featured {
+      width: 180px;
+      height: 180px;
+      border-color: rgba(0,255,136,0.3);
+      background: radial-gradient(circle at 35% 35%, rgba(0,255,136,0.1), rgba(13,21,38,0.9) 70%);
+    }
+    .bubble.featured:hover, .bubble.featured.active {
+      border-color: var(--accent2);
+      box-shadow: 0 0 40px rgba(0,255,136,0.25), 0 0 80px rgba(0,255,136,0.08), inset 0 0 30px rgba(0,255,136,0.06);
+    }
+    .bubble.featured::before {
+      background: conic-gradient(from 0deg, transparent 0%, rgba(0,255,136,0.3) 20%, transparent 40%);
+    }
+
+    .bubble-icon {
+      font-size: 1.6rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .bubble.featured .bubble-icon { color: var(--accent2); }
+
+    .bubble-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .bubble-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+    .bubble.featured .bubble-tag { color: rgba(0,255,136,0.6); }
+
+    .featured-crown {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent2);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* ===================== */
+    /* PROJECT MODAL / PANEL */
+    /* ===================== */
+    .project-panel {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+      max-height: 0;
+    }
+    .project-panel.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+      max-height: 2000px;
+      margin-bottom: 2rem;
+    }
+
+    .panel-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .panel-header-left { flex: 1; }
+    .panel-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .panel-type {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .panel-close {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 32px; height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .panel-close:hover { border-color: var(--accent); color: var(--accent); }
+
+    .panel-body { padding: 2rem; }
+
+    .panel-diagram {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel-desc {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel-impact {
+      background: rgba(0,255,136,0.06);
+      border-left: 2px solid var(--accent2);
+      padding: 1rem 1.25rem;
+      border-radius: 0 6px 6px 0;
+    }
+    .impact-label {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--accent2);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    .impact-text { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    .panel-bullets { list-style: none; }
+    .panel-bullets li {
+      font-family: var(--mono); font-size: 0.82rem; color: var(--muted);
+      padding: 0.35rem 0; padding-left: 1.4rem; position: relative; line-height: 1.7;
+    }
+    .panel-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+    .panel-bullets li code { color: var(--warn); font-size: 0.78rem; }
+
+    .tech-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
     .tech-pill {
       font-family: var(--mono); font-size: 0.7rem; padding: 0.2rem 0.6rem;
       background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
       color: var(--accent); border-radius: 2px;
     }
 
-    .project-impact {
-      background: rgba(0,255,136,0.06); border-left: 2px solid var(--accent2);
-      padding: 0.75rem 1rem; margin-bottom: 1.25rem; border-radius: 0 4px 4px 0;
+    .panel-links {
+      display: flex; gap: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
     }
-    .impact-label { font-family: var(--mono); font-size: 0.68rem; color: var(--accent2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .impact-text { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
-
-    .project-bullets { list-style: none; margin-bottom: 1.5rem; flex: 1; }
-    .project-bullets li {
-      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
-      padding: 0.3rem 0; padding-left: 1.2rem; position: relative;
+    .panel-link {
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--accent); display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 4px;
+      transition: all 0.2s;
     }
-    .project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
-    .project-bullets li code { color: var(--warn); font-size: 0.75rem; font-family: var(--mono); }
+    .panel-link:hover { background: rgba(0,212,255,0.08); border-color: var(--accent); gap: 0.8rem; }
+    .panel-link.secondary { color: var(--muted); border-color: var(--border); }
+    .panel-link.secondary:hover { color: var(--accent2); border-color: var(--accent2); background: rgba(0,255,136,0.06); }
 
-    .project-links { display: flex; gap: 1rem; border-top: 1px solid var(--border); margin-top: auto; padding-top: 0.5rem; }
-    .project-link {
-      font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 0; transition: gap 0.2s;
-    }
-    .project-link:hover { gap: 0.8rem; }
-    .project-link.secondary { color: var(--muted); }
-    .project-link.secondary:hover { color: var(--accent2); gap: 0.8rem; }
-
-    /* Team badge for collaborative projects */
     .team-badge {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-family: var(--mono); font-size: 0.68rem;
       padding: 0.2rem 0.6rem;
       background: rgba(255, 107, 53, 0.08); border: 1px solid rgba(255, 107, 53, 0.25);
       color: var(--warn); border-radius: 2px; letter-spacing: 0.5px;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem; display: inline-flex;
+    }
+
+    /* Hint text below bubbles */
+    .bubble-hint {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--dim);
+      margin-bottom: 2.5rem;
+      letter-spacing: 1px;
     }
 
     /* CONTACT */
@@ -278,12 +490,17 @@
     .contact-item:hover { border-color: var(--accent); color: var(--accent); }
     .contact-item i { color: var(--accent); font-size: 1.1rem; width: 20px; }
 
-    /* FOOTER */
     footer {
       border-top: 1px solid var(--border); padding: 2rem; text-align: center;
       font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
     }
     footer a { color: var(--accent); }
+
+    /* Color helpers for diagrams */
+    .d-accent { color: var(--accent); }
+    .d-green  { color: var(--accent2); }
+    .d-orange { color: var(--warn); }
+    .d-dim    { color: var(--dim); }
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
@@ -294,20 +511,35 @@
       .stat-item:nth-child(2) { border-right: none; }
       .contact-inner { grid-template-columns: 1fr; }
       .nav-links { display: none; }
+      .panel-cols { grid-template-columns: 1fr; }
+      .bubble { width: 130px; height: 130px; }
+      .bubble.featured { width: 148px; height: 148px; }
     }
     @media (max-width: 600px) {
       .stats-inner { grid-template-columns: 1fr 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
+      .bubble { width: 110px; height: 110px; }
+      .bubble.featured { width: 126px; height: 126px; }
+      .bubble-icon { font-size: 1.2rem; }
+      .bubble-label { font-size: 0.6rem; }
     }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .hero { animation: fadeUp 0.6s ease both; }
-    .stats-bar { animation: fadeUp 0.6s ease 0.1s both; }
-    .section { animation: fadeUp 0.6s ease 0.2s both; }
+    .hero       { animation: fadeUp 0.6s ease both; }
+    .stats-bar  { animation: fadeUp 0.6s ease 0.1s both; }
+    .section    { animation: fadeUp 0.6s ease 0.2s both; }
+
+    /* Bubble float animation */
+    @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @keyframes floatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .bubble:not(:hover):not(.active):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
+    .bubble:not(:hover):not(.active):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
+    .bubble:not(:hover):not(.active):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
   </style>
 </head>
 <body>
@@ -338,7 +570,7 @@
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
-      <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> Get in Touch</a>
+      <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
     </div>
   </div>
 
@@ -380,12 +612,12 @@
       <span class="stat-desc">Reporting time cut at Khan Bank</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">7</span>
+      <span class="stat-num">8</span>
       <span class="stat-desc">Security Projects Shipped</span>
     </div>
     <div class="stat-item">
       <span class="stat-num">100%</span>
-      <span class="stat-desc">IaC — Zero Manual Deploys</span>
+      <span class="stat-desc">AWS Projects via Terraform IaC</span>
     </div>
     <div class="stat-item">
       <span class="stat-num">AWS SAA</span>
@@ -459,285 +691,80 @@
   </div>
 </div>
 
-<!-- PROJECTS -->
-<div id="projects" style="border-top: 1px solid var(--border);">
-  <div class="section">
+<!-- PROJECTS BUBBLE SECTION -->
+<div id="projects" class="projects-section">
+  <div class="projects-section-inner">
     <div class="section-label">// 02 &nbsp; projects</div>
     <div class="section-title">Engineered Defenses</div>
-    <div class="projects-grid">
 
-      <!-- Cloud Security Auditor -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-accent">S3 Upload</span> &nbsp;→&nbsp; <span class="d-dim">S3 Notification</span> &nbsp;→&nbsp; <span class="d-accent">Lambda</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[public_access: true?] ──→ <span class="d-green">SNS Alert</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Terraform deployed</span></div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">Cloud Security Auditor</div>
-            <div class="project-type">AWS · Serverless</div>
-          </div>
-          <div class="project-desc">Event-driven serverless scanner that checks uploaded infrastructure config files for vulnerabilities and fires real-time alerts.</div>
-          <div class="tech-row">
-            <span class="tech-pill">Terraform</span>
-            <span class="tech-pill">AWS Lambda</span>
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">SNS</span>
-            <span class="tech-pill">S3</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">Eliminates manual security reviews — detects misconfigurations on upload and fires an SNS alert in under 2 seconds.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>Triggers on S3 object upload, parses config for risk flags like <code>public_access: true</code></li>
-            <li>Full stack (S3, Lambda, SNS, IAM) provisioned via Terraform — zero manual console steps</li>
-            <li>End-to-end proven: real SNS email alert captured and documented in the README</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/Chinkhuselts/aws-serverless-security-auditor" target="_blank">
-              <i class="fab fa-github"></i> View Repository →
-            </a>
-          </div>
-        </div>
-      </article>
+    <p class="bubble-hint">↓ &nbsp; click a project to expand &nbsp; ↓</p>
 
-      <!-- 3D Threat Map -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-accent">CSV Log Upload</span> &nbsp;→&nbsp; <span class="d-dim">PapaParse</span> &nbsp;→&nbsp; <span class="d-accent">ip-api batch</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">WebGL Globe</span> — 60fps</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GeoJSON borders · attack arcs</span></div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">3D Global Threat Map</div>
-            <div class="project-type">Visualization</div>
-          </div>
-          <div class="project-desc">Interactive 3D globe visualizing DDoS attack origins — upload a real CSV or run demo mode. Country borders drawn from GeoJSON, IPs geocoded via batch API.</div>
-          <div class="tech-row">
-            <span class="tech-pill">Three.js</span>
-            <span class="tech-pill">WebGL</span>
-            <span class="tech-pill">PapaParse</span>
-            <span class="tech-pill">ip-api</span>
-            <span class="tech-pill">JavaScript</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">Turns raw IP logs into a live visual briefing — animated arcs show attack origin, intensity color-coded from Low to Critical.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>CSV upload mode: parses source IPs with PapaParse, geocodes in batches of 100 via ip-api</li>
-            <li>Country borders rendered from world GeoJSON — lines sit on the sphere surface</li>
-            <li>Attack arcs animate along Bezier curves; particles travel from source to target (Ulaanbaatar)</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://chinkhuselts.github.io/threat-map.html" target="_blank">
-              <i class="fas fa-play"></i> Live Demo →
-            </a>
-          </div>
-        </div>
-      </article>
+    <!-- BUBBLES -->
+    <div class="bubble-arena" id="bubbleArena">
 
-      <!-- Serverless Log Forensics -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-accent">Web Logs</span> &nbsp;→&nbsp; <span class="d-dim">S3 Upload</span> &nbsp;→&nbsp; <span class="d-accent">Lambda</span> &nbsp;→&nbsp; <span class="d-orange">Regex Engine</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">DynamoDB</span> IOC store</div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">Serverless Log Forensics</div>
-            <div class="project-type">AWS · Detection</div>
-          </div>
-          <div class="project-desc">Automated SQLi and XSS detection in Apache/Nginx logs using a serverless Lambda pipeline and custom Python regex engine.</div>
-          <div class="tech-row">
-            <span class="tech-pill">AWS Lambda</span>
-            <span class="tech-pill">DynamoDB</span>
-            <span class="tech-pill">S3</span>
-            <span class="tech-pill">Terraform</span>
-            <span class="tech-pill">Python</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">18 attacks detected in proof-of-concept run — stored structurally in DynamoDB for forensic replay and threat intelligence.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>Custom Python regex engine covering SQLi, XSS, and injection patterns line-by-line</li>
-            <li>DynamoDB stores IOCs with attack type, source IP, and payload — queryable for analysis</li>
-            <li>Full stack provisioned via Terraform; visualization script renders attack distribution charts</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/Chinkhuselts/serverless-log-forensic" target="_blank">
-              <i class="fab fa-github"></i> View Repository →
-            </a>
-          </div>
-        </div>
-      </article>
+      <div class="bubble featured" data-project="iam-api-v2">
+        <div class="featured-crown">FEATURED</div>
+        <div class="bubble-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="bubble-label">IAM-API-V2</div>
+        <div class="bubble-tag">Auth · DevOps</div>
+      </div>
 
-      <!-- ELK + Snort SIEM -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-orange">Snort IDS</span> &nbsp;→&nbsp; <span class="d-dim">Logstash</span> &nbsp;→&nbsp; <span class="d-accent">Elasticsearch</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Kibana Dashboard</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Dockerized · alert_fast.txt</span></div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">ELK + Snort SIEM</div>
-            <div class="project-type">Blue Team · SIEM</div>
-          </div>
-          <div class="project-desc">Lightweight SIEM integrating Snort IDS with the ELK stack to detect and visualize network threats in real time.</div>
-          <div class="tech-row">
-            <span class="tech-pill">Elasticsearch</span>
-            <span class="tech-pill">Logstash</span>
-            <span class="tech-pill">Kibana</span>
-            <span class="tech-pill">Snort</span>
-            <span class="tech-pill">Docker</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">A working IDS-to-dashboard pipeline — simulates the monitoring stack used in real security operations, containerized for portability.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>Snort captures network alerts; Logstash parses <code>alert_fast.txt</code> and forwards to Elasticsearch</li>
-            <li>Kibana dashboards display live Snort alert data and traffic patterns</li>
-            <li>Fully containerized with Docker for consistent, reproducible deployment</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/Chinkhuselts/elk-snort-siem-setup" target="_blank">
-              <i class="fab fa-github"></i> View Repository →
-            </a>
-          </div>
-        </div>
-      </article>
+      <div class="bubble" data-project="cloud-auditor">
+        <div class="bubble-icon"><i class="fab fa-aws"></i></div>
+        <div class="bubble-label">Cloud Security Auditor</div>
+        <div class="bubble-tag">AWS · Serverless</div>
+      </div>
 
-      <!-- WannaCry Sandbox -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-orange">WannaCry.exe</span> &nbsp;→&nbsp; <span class="d-accent">CAPEv2</span> (Ubuntu 22.04)</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Windows 10 VM (NAT) → <span class="d-green">behavioral report</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">IOCs · registry · file drops</span></div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">WannaCry Sandbox Analysis</div>
-            <div class="project-type">Malware · Analysis</div>
-          </div>
-          <div class="project-desc">Dynamic behavioral analysis of WannaCry ransomware executed in a CAPEv2 sandbox on a controlled Windows 10 VM.</div>
-          <div class="tech-row">
-            <span class="tech-pill">CAPEv2</span>
-            <span class="tech-pill">Ubuntu 22.04</span>
-            <span class="tech-pill">VirtualBox</span>
-            <span class="tech-pill">Malware Analysis</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">Full execution observed and documented — IOC report generated with registry changes, dropped files, and behavioral signatures.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>CAPEv2 hosted on Ubuntu 22.04; Windows 10 VM connected via NAT with CAPE agent</li>
-            <li>Observed live encryption behavior, process tree, and file drop activity</li>
-            <li>Extracted IOCs documented in <code>IOCs/IOC-summary.txt</code> for defensive use</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/Chinkhuselts/CAPEv2-Analysis" target="_blank">
-              <i class="fab fa-github"></i> View Repository →
-            </a>
-          </div>
-        </div>
-      </article>
+      <div class="bubble" data-project="threat-map">
+        <div class="bubble-icon"><i class="fas fa-globe"></i></div>
+        <div class="bubble-label">3D Global Threat Map</div>
+        <div class="bubble-tag">Visualization</div>
+      </div>
 
-      <!-- Traffic Visualizer -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-accent">Large CSV Logs</span> &nbsp;→&nbsp; <span class="d-dim">Pandas Chunking</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ip-api REST enrichment</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Streamlit Dashboard</span> + geo map</div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">Traffic Log Visualizer</div>
-            <div class="project-type">Data · Dashboard</div>
-          </div>
-          <div class="project-desc">Memory-efficient pipeline that processes large network logs and renders a geospatial threat intelligence dashboard.</div>
-          <div class="tech-row">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">Pandas</span>
-            <span class="tech-pill">Streamlit</span>
-            <span class="tech-pill">Plotly</span>
-            <span class="tech-pill">REST APIs</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">Processes multi-GB log files without OOM errors — chunk-based ingestion keeps analysis fast on commodity hardware.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>Chunk-based Pandas pipeline handles large CSV datasets without memory overflow</li>
-            <li>IP geolocation enrichment via ip-api REST service — includes rate-limit handling</li>
-            <li>Interactive traffic origin map and per-country bandwidth charts in Streamlit</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/Chinkhuselts/traffic_visualizer" target="_blank">
-              <i class="fab fa-github"></i> View Repository →
-            </a>
-          </div>
-        </div>
-      </article>
+      <div class="bubble" data-project="log-forensics">
+        <div class="bubble-icon"><i class="fas fa-search"></i></div>
+        <div class="bubble-label">Serverless Log Forensics</div>
+        <div class="bubble-tag">AWS · Detection</div>
+      </div>
 
-      <!-- IAM System — NEW -->
-      <article class="project-card">
-        <div class="project-diagram">
-          <div><span class="d-accent">POST /auth/login</span> &nbsp;→&nbsp; <span class="d-dim">bcrypt verify</span> &nbsp;→&nbsp; <span class="d-green">JWT issued</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">RBAC middleware</span> &nbsp;→&nbsp; <span class="d-accent">Protected route</span></div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Audit log</span> &nbsp;<span class="d-dim">→ PostgreSQL</span></div>
-        </div>
-        <div class="project-body">
-          <div class="project-top">
-            <div class="project-name">IAM System</div>
-            <div class="project-type">Auth · Backend</div>
-          </div>
-          <div class="team-badge"><i class="fas fa-users" style="font-size:0.65rem;"></i> Team project — backend auth owned</div>
-          <div class="project-desc">Production-deployed Identity and Access Management API with JWT authentication, role-based access control, and a full audit trail — deployed live on Railway.</div>
-          <div class="tech-row">
-            <span class="tech-pill">Node.js</span>
-            <span class="tech-pill">PostgreSQL</span>
-            <span class="tech-pill">JWT</span>
-            <span class="tech-pill">bcrypt</span>
-            <span class="tech-pill">RBAC</span>
-            <span class="tech-pill">Railway</span>
-          </div>
-          <div class="project-impact">
-            <div class="impact-label">Impact</div>
-            <div class="impact-text">Live API with 16 production deployments — demonstrates the exact IAM patterns used in enterprise access control systems.</div>
-          </div>
-          <ul class="project-bullets">
-            <li>Built authentication layer end-to-end: registration, login, JWT issuance and validation</li>
-            <li>RBAC middleware enforces least-privilege — Administrator and Manager roles gate sensitive endpoints</li>
-            <li>Audit service records security events (logins, role changes) to PostgreSQL for compliance traceability</li>
-          </ul>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/Chinkhuselts/Identity-and-Access-Management" target="_blank">
-              <i class="fab fa-github"></i> View Repository →
-            </a>
-            <a class="project-link secondary" href="https://identity-and-access-management-production.up.railway.app" target="_blank">
-              <i class="fas fa-server"></i> Live API →
-            </a>
-          </div>
-        </div>
-      </article>
+      <div class="bubble" data-project="elk-siem">
+        <div class="bubble-icon"><i class="fas fa-chart-bar"></i></div>
+        <div class="bubble-label">ELK + Snort SIEM</div>
+        <div class="bubble-tag">Blue Team · SIEM</div>
+      </div>
 
+      <div class="bubble" data-project="wannacry">
+        <div class="bubble-icon"><i class="fas fa-bug"></i></div>
+        <div class="bubble-label">WannaCry Sandbox</div>
+        <div class="bubble-tag">Malware · Analysis</div>
+      </div>
+
+      <div class="bubble" data-project="traffic-viz">
+        <div class="bubble-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <div class="bubble-label">Traffic Log Visualizer</div>
+        <div class="bubble-tag">Data · Dashboard</div>
+      </div>
+
+      <div class="bubble" data-project="iam-team">
+        <div class="bubble-icon"><i class="fas fa-users-cog"></i></div>
+        <div class="bubble-label">IAM System</div>
+        <div class="bubble-tag">Auth · Backend</div>
+      </div>
+
+    </div><!-- /bubble-arena -->
+
+    <!-- PROJECT DETAIL PANEL -->
+    <div class="project-panel" id="projectPanel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <div class="panel-title" id="panelTitle"></div>
+          <div class="panel-type" id="panelType"></div>
+        </div>
+        <button class="panel-close" id="panelClose" aria-label="Close">✕</button>
+      </div>
+      <div class="panel-body" id="panelBody"></div>
     </div>
+
   </div>
 </div>
 
@@ -760,10 +787,6 @@
         <i class="fas fa-envelope"></i>
         husele1000@gmail.com
       </a>
-      <a class="contact-item" href="tel:+48539623147">
-        <i class="fas fa-phone"></i>
-        +48 539 623 147
-      </a>
       <a class="contact-item" href="https://github.com/Chinkhuselts" target="_blank">
         <i class="fab fa-github"></i>
         github.com/Chinkhuselts
@@ -780,6 +803,269 @@
 <footer>
   <p>© 2026 Chinkhusel Tsolmonbaatar &nbsp;·&nbsp; <a href="mailto:husele1000@gmail.com">husele1000@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/Chinkhuselts" target="_blank">github.com/Chinkhuselts</a></p>
 </footer>
+
+<script>
+  /* ============================================
+     PROJECT DATA
+  ============================================ */
+  const projects = {
+
+    "iam-api-v2": {
+      title: "IAM-API-V2",
+      type: "Auth · Backend · DevOps",
+      featured: true,
+      diagram: `<span class="d-accent">POST /auth/register</span> → bcrypt hash → <span class="d-green">PostgreSQL</span>
+<span class="d-accent">POST /auth/login</span>    → verify     → <span class="d-green">JWT issued (SHA-256)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">RBAC middleware</span> → user / admin <span class="d-accent">protected routes</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GitHub Actions</span> → Docker Hub → <span class="d-green">AWS EC2 (port 80)</span>`,
+      desc: "A fully containerized, production-deployed Identity & Access Management API with automated CI/CD. Built solo from scratch — covers the full DevSecOps lifecycle from local development to cloud deployment.",
+      tech: ["FastAPI", "Python 3.10", "PostgreSQL 15", "Docker", "Docker Compose", "GitHub Actions", "Docker Hub", "AWS EC2", "JWT", "bcrypt", "RBAC", "Pydantic"],
+      impact: "Live on AWS EC2 — automated CI/CD pipeline ships a new Docker image to Docker Hub on every push to main, with zero manual deployment steps.",
+      bullets: [
+        "Secure user registration with <code>bcrypt</code> password hashing — credentials never stored in plaintext",
+        "Stateless authentication via cryptographically signed JWTs (SHA-256) — enables horizontal scaling",
+        "Role-Based Access Control (RBAC) using FastAPI <code>Depends</code> — separates <code>user</code> and <code>admin</code> endpoints",
+        "UniqueViolation error handling prevents duplicate account registration and info leakage",
+        "Multi-container local dev environment with Docker Compose volume mapping for live-reload",
+        "GitHub Actions CI/CD: builds a flattened production image and pushes to Docker Hub on every merge",
+        "Container port 8000 mapped to public port 80 — bypasses DPI/firewall restrictions on EC2"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" }
+      ]
+    },
+
+    "cloud-auditor": {
+      title: "Cloud Security Auditor",
+      type: "AWS · Serverless · IaC",
+      diagram: `<span class="d-accent">S3 Upload</span> → S3 Notification → <span class="d-accent">Lambda</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[public_access: true?] ──→ <span class="d-green">SNS Alert</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Terraform deployed</span>`,
+      desc: "Event-driven serverless scanner that checks uploaded infrastructure config files for vulnerabilities and fires real-time alerts — with the entire AWS stack provisioned via Terraform.",
+      tech: ["Terraform", "AWS Lambda", "Python", "SNS", "S3", "IAM"],
+      impact: "Eliminates manual security reviews — detects misconfigurations on upload and fires an SNS alert in under 2 seconds.",
+      bullets: [
+        "Triggers on S3 object upload, parses config for risk flags like <code>public_access: true</code>",
+        "Full stack (S3, Lambda, SNS, IAM) provisioned via Terraform — zero manual console steps",
+        "End-to-end proven: real SNS email alert captured and documented in the README"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/aws-serverless-security-auditor" }
+      ]
+    },
+
+    "threat-map": {
+      title: "3D Global Threat Map",
+      type: "Visualization · WebGL",
+      diagram: `<span class="d-accent">CSV Log Upload</span> → PapaParse → <span class="d-accent">ip-api batch</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">WebGL Globe</span> — 60fps
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GeoJSON borders · attack arcs</span>`,
+      desc: "Interactive 3D globe visualizing DDoS attack origins — upload a real CSV or run demo mode. Country borders drawn from GeoJSON, IPs geocoded via batch API.",
+      tech: ["Three.js", "WebGL", "PapaParse", "ip-api", "JavaScript"],
+      impact: "Turns raw IP logs into a live visual briefing — animated arcs show attack origin, intensity color-coded from Low to Critical.",
+      bullets: [
+        "CSV upload mode: parses source IPs with PapaParse, geocodes in batches of 100 via ip-api",
+        "Country borders rendered from world GeoJSON — lines sit on the sphere surface",
+        "Attack arcs animate along Bezier curves; particles travel from source to target (Ulaanbaatar)"
+      ],
+      links: [
+        { icon: "fas fa-play", label: "Live Demo →", href: "https://chinkhuselts.github.io/threat-map.html" }
+      ]
+    },
+
+    "log-forensics": {
+      title: "Serverless Log Forensics",
+      type: "AWS · Detection · IaC",
+      diagram: `<span class="d-accent">Web Logs</span> → S3 Upload → <span class="d-accent">Lambda</span> → <span class="d-orange">Regex Engine</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">DynamoDB</span> IOC store`,
+      desc: "Automated SQLi and XSS detection in Apache/Nginx logs using a serverless Lambda pipeline and custom Python regex engine.",
+      tech: ["AWS Lambda", "DynamoDB", "S3", "Terraform", "Python"],
+      impact: "18 attacks detected in proof-of-concept run — stored structurally in DynamoDB for forensic replay and threat intelligence.",
+      bullets: [
+        "Custom Python regex engine covering SQLi, XSS, and injection patterns line-by-line",
+        "DynamoDB stores IOCs with attack type, source IP, and payload — queryable for analysis",
+        "Full stack provisioned via Terraform; visualization script renders attack distribution charts"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/serverless-log-forensic" }
+      ]
+    },
+
+    "elk-siem": {
+      title: "ELK + Snort SIEM",
+      type: "Blue Team · SIEM · Docker",
+      diagram: `<span class="d-orange">Snort IDS</span> → Logstash → <span class="d-accent">Elasticsearch</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Kibana Dashboard</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Dockerized · alert_fast.txt</span>`,
+      desc: "Lightweight SIEM integrating Snort IDS with the ELK stack to detect and visualize network threats in real time.",
+      tech: ["Elasticsearch", "Logstash", "Kibana", "Snort", "Docker"],
+      impact: "A working IDS-to-dashboard pipeline — simulates the monitoring stack used in real security operations, containerized for portability.",
+      bullets: [
+        "Snort captures network alerts; Logstash parses <code>alert_fast.txt</code> and forwards to Elasticsearch",
+        "Kibana dashboards display live Snort alert data and traffic patterns",
+        "Fully containerized with Docker for consistent, reproducible deployment"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/elk-snort-siem-setup" }
+      ]
+    },
+
+    "wannacry": {
+      title: "WannaCry Sandbox Analysis",
+      type: "Malware · Forensics",
+      diagram: `<span class="d-orange">WannaCry.exe</span> → <span class="d-accent">CAPEv2</span> (Ubuntu 22.04)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Windows 10 VM (NAT) → <span class="d-green">behavioral report</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">IOCs · registry · file drops</span>`,
+      desc: "Dynamic behavioral analysis of WannaCry ransomware executed in a CAPEv2 sandbox on a controlled Windows 10 VM.",
+      tech: ["CAPEv2", "Ubuntu 22.04", "VirtualBox", "Malware Analysis"],
+      impact: "Full execution observed and documented — IOC report generated with registry changes, dropped files, and behavioral signatures.",
+      bullets: [
+        "CAPEv2 hosted on Ubuntu 22.04; Windows 10 VM connected via NAT with CAPE agent",
+        "Observed live encryption behavior, process tree, and file drop activity",
+        "Extracted IOCs documented in <code>IOCs/IOC-summary.txt</code> for defensive use"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/CAPEv2-Analysis" }
+      ]
+    },
+
+    "traffic-viz": {
+      title: "Traffic Log Visualizer",
+      type: "Data · Dashboard",
+      diagram: `<span class="d-accent">Large CSV Logs</span> → Pandas Chunking
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ip-api REST enrichment
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Streamlit Dashboard</span> + geo map`,
+      desc: "Memory-efficient pipeline that processes large network logs and renders a geospatial threat intelligence dashboard.",
+      tech: ["Python", "Pandas", "Streamlit", "Plotly", "REST APIs"],
+      impact: "Processes multi-GB log files without OOM errors — chunk-based ingestion keeps analysis fast on commodity hardware.",
+      bullets: [
+        "Chunk-based Pandas pipeline handles large CSV datasets without memory overflow",
+        "IP geolocation enrichment via ip-api REST service — includes rate-limit handling",
+        "Interactive traffic origin map and per-country bandwidth charts in Streamlit"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/traffic_visualizer" }
+      ]
+    },
+
+    "iam-team": {
+      title: "IAM System",
+      type: "Auth · Backend · Team Project",
+      teamProject: true,
+      diagram: `<span class="d-accent">POST /auth/login</span> → bcrypt verify → <span class="d-green">JWT issued</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">RBAC middleware</span> → <span class="d-accent">Protected route</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Audit log</span> → PostgreSQL`,
+      desc: "Production-deployed Identity and Access Management API with JWT authentication, role-based access control, and a full audit trail — deployed live on Railway.",
+      tech: ["Node.js", "PostgreSQL", "JWT", "bcrypt", "RBAC", "Railway"],
+      impact: "Live API with 16 production deployments — demonstrates the exact IAM patterns used in enterprise access control systems.",
+      bullets: [
+        "Built authentication layer end-to-end: registration, login, JWT issuance and validation",
+        "RBAC middleware enforces least-privilege — Administrator and Manager roles gate sensitive endpoints",
+        "Audit service records security events (logins, role changes) to PostgreSQL for compliance traceability"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/Identity-and-Access-Management" },
+        { icon: "fas fa-server", label: "Live API →", href: "https://identity-and-access-management-production.up.railway.app", secondary: true }
+      ]
+    }
+  };
+
+  /* ============================================
+     RENDER PANEL
+  ============================================ */
+  function renderPanel(key) {
+    const p = projects[key];
+    if (!p) return;
+
+    document.getElementById("panelTitle").textContent = p.title;
+    document.getElementById("panelType").textContent = p.type;
+
+    const techPills = p.tech.map(t => `<span class="tech-pill">${t}</span>`).join("");
+    const bullets   = p.bullets.map(b => `<li>${b}</li>`).join("");
+    const links     = p.links.map(l =>
+      `<a class="panel-link ${l.secondary ? 'secondary' : ''}" href="${l.href}" target="_blank">
+        <i class="${l.icon}"></i> ${l.label}
+      </a>`
+    ).join("");
+
+    const teamBadge = p.teamProject
+      ? `<div class="team-badge"><i class="fas fa-users" style="font-size:0.65rem;"></i>&nbsp; Team project — backend auth owned</div>`
+      : "";
+
+    document.getElementById("panelBody").innerHTML = `
+      <div class="panel-diagram">${p.diagram}</div>
+      ${teamBadge}
+      <p class="panel-desc">${p.desc}</p>
+      <div class="tech-row">${techPills}</div>
+      <div class="panel-cols">
+        <div class="panel-impact">
+          <div class="impact-label">Impact</div>
+          <div class="impact-text">${p.impact}</div>
+        </div>
+        <ul class="panel-bullets">${bullets}</ul>
+      </div>
+      <div class="panel-links">${links}</div>
+    `;
+  }
+
+  /* ============================================
+     BUBBLE INTERACTION
+  ============================================ */
+  let activeKey = null;
+
+  function openPanel(key, bubbleEl) {
+    // If same bubble clicked again — close
+    if (activeKey === key) {
+      closePanel();
+      return;
+    }
+
+    // Deactivate all bubbles
+    document.querySelectorAll(".bubble").forEach(b => b.classList.remove("active"));
+
+    // Activate clicked bubble
+    bubbleEl.classList.add("active");
+    activeKey = key;
+
+    // Populate and show panel
+    renderPanel(key);
+    const panel = document.getElementById("projectPanel");
+    panel.classList.add("visible");
+
+    // Scroll panel into view smoothly
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 50);
+  }
+
+  function closePanel() {
+    document.querySelectorAll(".bubble").forEach(b => b.classList.remove("active"));
+    document.getElementById("projectPanel").classList.remove("visible");
+    activeKey = null;
+  }
+
+  // Wire up bubbles
+  document.querySelectorAll(".bubble").forEach(bubble => {
+    bubble.addEventListener("click", () => {
+      const key = bubble.dataset.project;
+      openPanel(key, bubble);
+    });
+  });
+
+  // Close button
+  document.getElementById("panelClose").addEventListener("click", closePanel);
+</script>
 
 </body>
 </html>
