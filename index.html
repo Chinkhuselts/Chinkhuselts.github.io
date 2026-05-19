@@ -819,7 +819,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">RBAC middleware</span> → user / admin <span class="d-accent">protected routes</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GitHub Actions</span> → Docker Hub → <span class="d-green">AWS EC2 (port 80)</span>`,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GitHub Actions</span> → Docker Hub → <span class="d-green">AWS EC2</span>`,
       desc: "A fully containerized, production-deployed Identity & Access Management API with automated CI/CD. Built solo from scratch — covers the full DevSecOps lifecycle from local development to cloud deployment.",
       tech: ["FastAPI", "Python 3.10", "PostgreSQL 15", "Docker", "Docker Compose", "GitHub Actions", "Docker Hub", "AWS EC2", "JWT", "bcrypt", "RBAC", "Pydantic"],
       impact: "Live on AWS EC2 — automated CI/CD pipeline ships a new Docker image to Docker Hub on every push to main, with zero manual deployment steps.",
@@ -830,7 +830,6 @@
         "UniqueViolation error handling prevents duplicate account registration and info leakage",
         "Multi-container local dev environment with Docker Compose volume mapping for live-reload",
         "GitHub Actions CI/CD: builds a flattened production image and pushes to Docker Hub on every merge",
-        "Container port 8000 mapped to public port 80 — bypasses DPI/firewall restrictions on EC2"
       ],
       links: [
         { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" }
