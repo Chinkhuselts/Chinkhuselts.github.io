@@ -301,6 +301,24 @@
     }
     .bubble.featured .bubble-tag { color: rgba(0,255,136,0.6); }
 
+    .bubble-techs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.2rem;
+      padding: 0 0.3rem;
+    }
+    .bubble-techs span {
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      color: var(--bg);
+      background: rgba(0,255,136,0.7);
+      border-radius: 2px;
+      padding: 0.08rem 0.3rem;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
     .featured-crown {
       position: absolute;
       top: -10px;
@@ -705,7 +723,10 @@
         <div class="featured-crown">FEATURED</div>
         <div class="bubble-icon"><i class="fas fa-shield-alt"></i></div>
         <div class="bubble-label">IAM-API-V2</div>
-        <div class="bubble-tag">Auth · DevOps</div>
+        <div class="bubble-tag">Auth · DevOps · IaC</div>
+        <div class="bubble-techs">
+          <span>FastAPI</span><span>Terraform</span><span>AWS</span><span>Caddy</span>
+        </div>
       </div>
 
       <div class="bubble" data-project="cloud-auditor">
@@ -811,27 +832,30 @@
 
     "iam-api-v2": {
       title: "IAM-API-V2",
-      type: "Auth · Backend · DevOps",
+      type: "Auth · Backend · DevOps · IaC",
       featured: true,
-      diagram: `<span class="d-accent">POST /auth/register</span> → bcrypt hash → <span class="d-green">PostgreSQL</span>
-<span class="d-accent">POST /auth/login</span>    → verify     → <span class="d-green">JWT issued (SHA-256)</span>
+      diagram: `<span class="d-accent">POST /register</span> → bcrypt hash → <span class="d-green">PostgreSQL 15</span>
+<span class="d-accent">POST /login</span>    → verify     → <span class="d-green">JWT issued (SHA-256)</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">RBAC middleware</span> → user / admin <span class="d-accent">protected routes</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GitHub Actions</span> → Docker Hub → <span class="d-green">AWS EC2</span>`,
-      desc: "A fully containerized, production-deployed Identity & Access Management API with automated CI/CD. Built solo from scratch — covers the full DevSecOps lifecycle from local development to cloud deployment.",
-      tech: ["FastAPI", "Python 3.10", "PostgreSQL 15", "Docker", "Docker Compose", "GitHub Actions", "Docker Hub", "AWS EC2", "JWT", "bcrypt", "RBAC", "Pydantic"],
-      impact: "Live on AWS EC2 — automated CI/CD pipeline ships a new Docker image to Docker Hub on every push to main, with zero manual deployment steps.",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GitHub Actions</span> → Docker Hub → <span class="d-green">AWS EC2</span> ← <span class="d-orange">Terraform IaC</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">Caddy</span> (TLS · Let's Encrypt) → <span class="d-green">HTTPS public</span>`,
+      desc: "Production-grade stateless IAM API built with <strong style='color:var(--text)'>FastAPI</strong> and <strong style='color:var(--text)'>PostgreSQL</strong> — featuring JWT-based authentication, bcrypt password hashing, and Role-Based Access Control. Fully containerized with Docker, entire AWS environment provisioned via <strong style='color:var(--text)'>Terraform IaC</strong>, and secured behind a <strong style='color:var(--text)'>Caddy reverse proxy</strong> with automated Let's Encrypt TLS certificates. The FastAPI backend is completely hidden from the public internet.",
+      tech: ["FastAPI", "Python 3.10", "PostgreSQL 15", "Docker", "Docker Compose", "Terraform", "Caddy", "Let's Encrypt", "GitHub Actions", "AWS EC2", "JWT", "bcrypt", "RBAC", "Pydantic"],
+      impact: "Live on AWS EC2 at iam-ch.duckdns.org — full AWS environment (compute, networking, security groups, SSH keys) defined declaratively in Terraform and reproducible in under 60 seconds. Zero manual deployment steps.",
       bullets: [
-        "Secure user registration with <code>bcrypt</code> password hashing — credentials never stored in plaintext",
-        "Stateless authentication via cryptographically signed JWTs (SHA-256) — enables horizontal scaling",
-        "Role-Based Access Control (RBAC) using FastAPI <code>Depends</code> — separates <code>user</code> and <code>admin</code> endpoints",
-        "UniqueViolation error handling prevents duplicate account registration and info leakage",
-        "Multi-container local dev environment with Docker Compose volume mapping for live-reload",
-        "GitHub Actions CI/CD: builds a flattened production image and pushes to Docker Hub on every merge",
+        "Stateless FastAPI service: <code>bcrypt</code> password hashing at registration, cryptographically signed JWTs (SHA-256) issued at login for scalable session management",
+        "RBAC authorization using FastAPI <code>Depends</code> injection — cleanly separates <code>user</code> and <code>admin</code> endpoint access with least-privilege enforcement",
+        "Caddy reverse proxy handles automated Let's Encrypt TLS provisioning — all traffic encrypted, FastAPI backend shielded from public internet on port 80/443",
+        "Entire AWS stack (EC2, Security Groups, SSH keys) declared in <code>main.tf</code> — environment can be destroyed and perfectly recreated in under 60 seconds",
+        "GitHub Actions CI/CD: builds a flattened, optimized production image and publishes to Docker Hub on every push to <code>main</code>",
+        "Overcame real DevSecOps hurdles: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and 200MB+ Git history bloat from Terraform provider binaries",
       ],
       links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" }
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" },
+        { icon: "fas fa-external-link-alt", label: "Live API Docs →", href: "https://iam-ch.duckdns.org/docs", secondary: true }
       ]
     },
 
