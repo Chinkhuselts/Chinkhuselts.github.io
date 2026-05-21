@@ -558,6 +558,124 @@
     .bubble:not(:hover):not(.active):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
     .bubble:not(:hover):not(.active):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
     .bubble:not(:hover):not(.active):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
+    /* LIVE THREAT MAP SECTION */
+    .threatmap-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .threatmap-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(0,255,136,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .threatmap-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 3rem 2rem 0;
+    }
+    .threatmap-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .threatmap-header-left {}
+    .threatmap-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.3rem;
+    }
+    .threatmap-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .threatmap-live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.25);
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+    }
+    .threatmap-live-dot::before {
+      content: '●';
+      font-size: 0.5rem;
+      animation: blink 1.4s step-end infinite;
+    }
+    .threatmap-sub {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+    }
+    .threatmap-link {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      border: 1px solid rgba(0,255,136,0.25);
+      padding: 0.45rem 1rem;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .threatmap-link:hover {
+      background: rgba(0,255,136,0.08);
+      border-color: var(--accent2);
+    }
+    .threatmap-frame-wrap {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .threatmap-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .threatmap-frame-wrap .tm-corner-label {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    @media (max-width: 900px) {
+      .threatmap-frame-wrap { height: 380px; }
+      .threatmap-header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .threatmap-frame-wrap { height: 300px; }
+    }
+
   </style>
 </head>
 <body>
@@ -640,6 +758,39 @@
     <div class="stat-item">
       <span class="stat-num">AWS SAA</span>
       <span class="stat-desc">In Progress — Solutions Architect</span>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE THREAT MAP -->
+<div class="threatmap-section">
+  <div class="threatmap-inner">
+    <div class="threatmap-header">
+      <div class="threatmap-header-left">
+        <div class="section-label">// 00 &nbsp; live system</div>
+        <div class="threatmap-title-row">
+          <span class="threatmap-title">3D Global Cyber Threat Map</span>
+          <span class="threatmap-live-dot">live</span>
+        </div>
+        <div class="threatmap-sub">Real-time network anomaly visualization — deployed on Oracle Cloud · Caddy TLS · Docker CI/CD</div>
+      </div>
+      <a class="threatmap-link" href="https://security-map.duckdns.org/" target="_blank">
+        <i class="fas fa-external-link-alt"></i> Open Full Screen
+      </a>
+    </div>
+    <div class="threatmap-frame-wrap">
+      <iframe
+        src="https://security-map.duckdns.org/"
+        title="3D Global Cyber Threat Map — live"
+        loading="lazy"
+        allow="accelerometer; autoplay"
+      ></iframe>
+      <span class="tm-corner-label">security-map.duckdns.org</span>
+    </div>
+    <div style="padding: 1rem 0 2rem; display: flex; gap: 1rem;">
+      <a class="threatmap-link" href="https://github.com/Chinkhuselts/cyber-threat-map" target="_blank">
+        <i class="fab fa-github"></i> View Repository
+      </a>
     </div>
   </div>
 </div>
@@ -729,14 +880,10 @@
         </div>
       </div>
 
-      <div class="bubble featured" data-project="threat-map">
-        <div class="featured-crown">LIVE</div>
+      <div class="bubble" data-project="threat-map">
         <div class="bubble-icon"><i class="fas fa-globe"></i></div>
         <div class="bubble-label">3D Global Threat Map</div>
         <div class="bubble-tag">Viz · DevOps · Docker</div>
-        <div class="bubble-techs">
-          <span>Three.js</span><span>Node.js</span><span>Docker</span><span>OCI</span>
-        </div>
       </div>
 
       <div class="bubble" data-project="cloud-auditor">
