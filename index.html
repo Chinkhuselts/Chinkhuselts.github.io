@@ -729,16 +729,20 @@
         </div>
       </div>
 
+      <div class="bubble featured" data-project="threat-map">
+        <div class="featured-crown">LIVE</div>
+        <div class="bubble-icon"><i class="fas fa-globe"></i></div>
+        <div class="bubble-label">3D Global Threat Map</div>
+        <div class="bubble-tag">Viz · DevOps · Docker</div>
+        <div class="bubble-techs">
+          <span>Three.js</span><span>Node.js</span><span>Docker</span><span>OCI</span>
+        </div>
+      </div>
+
       <div class="bubble" data-project="cloud-auditor">
         <div class="bubble-icon"><i class="fab fa-aws"></i></div>
         <div class="bubble-label">Cloud Security Auditor</div>
         <div class="bubble-tag">AWS · Serverless</div>
-      </div>
-
-      <div class="bubble" data-project="threat-map">
-        <div class="bubble-icon"><i class="fas fa-globe"></i></div>
-        <div class="bubble-label">3D Global Threat Map</div>
-        <div class="bubble-tag">Visualization</div>
       </div>
 
       <div class="bubble" data-project="log-forensics">
@@ -881,21 +885,29 @@
 
     "threat-map": {
       title: "3D Global Threat Map",
-      type: "Visualization · WebGL",
-      diagram: `<span class="d-accent">CSV Log Upload</span> → PapaParse → <span class="d-accent">ip-api batch</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">WebGL Globe</span> — 60fps
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GeoJSON borders · attack arcs</span>`,
-      desc: "Interactive 3D globe visualizing DDoS attack origins — upload a real CSV or run demo mode. Country borders drawn from GeoJSON, IPs geocoded via batch API.",
-      tech: ["Three.js", "WebGL", "PapaParse", "ip-api", "JavaScript"],
-      impact: "Turns raw IP logs into a live visual briefing — animated arcs show attack origin, intensity color-coded from Low to Critical.",
+      type: "Visualization · WebGL · DevOps · Docker",
+      featured: true,
+      diagram: `<span class="d-accent">git push → main</span> → <span class="d-dim">GitHub Actions CI/CD</span> → <span class="d-green">GitHub Container Registry</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">Oracle Cloud VM</span> (Hardware Firewall · WAF/DDoS)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">Caddy</span> (TLS · Let's Encrypt) → <span class="d-accent">Node.js</span> App (port 3000)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">CSV Upload</span> → PapaParse → ip-api batch → <span class="d-green">Three.js WebGL Globe</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">GeoJSON borders · animated attack arcs</span>`,
+      desc: "Real-time traffic visualization system tracking global network anomalies — deployed live on Oracle Cloud behind a hardened perimeter (WAF/DDoS, hardware firewall, Caddy TLS). An end-to-end demonstration of modern DevOps: from a raw <strong style='color:var(--text)'>Node.js</strong> app to a fully containerized, automated pipeline with <strong style='color:var(--text)'>GitHub Actions CI/CD</strong>.",
+      tech: ["Three.js", "WebGL", "Node.js", "Express", "Docker", "GitHub Actions", "Oracle Cloud", "Caddy", "Let's Encrypt", "PapaParse", "GeoJSON", "WAF/DDoS"],
+      impact: "Live at security-map.duckdns.org — every push to main automatically builds, containerizes, and deploys to a secured Oracle Cloud VM with zero manual server interaction. Turns raw IP logs into a live 3D visual briefing.",
       bullets: [
-        "CSV upload mode: parses source IPs with PapaParse, geocodes in batches of 100 via ip-api",
-        "Country borders rendered from world GeoJSON — lines sit on the sphere surface",
-        "Attack arcs animate along Bezier curves; particles travel from source to target (Ulaanbaatar)"
+        "Full CI/CD pipeline: GitHub Actions builds a Docker image on every <code>main</code> push, publishes to GitHub Container Registry, and deploys to Oracle Cloud VM via SSH deploy key",
+        "Hardened Oracle Cloud perimeter: hardware firewall (ports 80/443/22 only), WAF/DDoS protection layer — all traffic routed through Caddy reverse proxy with automated Let's Encrypt TLS",
+        "3D WebGL globe renders GeoJSON country borders on sphere surface; attack arcs animate along Bezier curves with particle travel from source IP to target",
+        "CSV ingestion pipeline: PapaParse parses <code>source_ip</code> fields, geocodes in batches of 100 via ip-api with rate-limit handling, then plots arcs color-coded by threat type (DDoS, SSH Brute Force, Port Scan)",
+        "Built-in Demo Mode for instant visualization testing; supports custom CSV uploads of real firewall logs, honeypot traffic, or DDoS captures"
       ],
       links: [
-        { icon: "fas fa-play", label: "Live Demo →", href: "https://chinkhuselts.github.io/threat-map.html" }
+        { icon: "fas fa-external-link-alt", label: "Live Demo →", href: "https://security-map.duckdns.org/" },
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/cyber-threat-map", secondary: true }
       ]
     },
 
