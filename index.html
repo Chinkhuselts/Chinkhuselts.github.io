@@ -886,6 +886,12 @@
         <div class="bubble-tag">Viz · DevOps · Docker</div>
       </div>
 
+      <div class="bubble" data-project="serverless-oci">
+        <div class="bubble-icon"><i class="fas fa-cloud"></i></div>
+        <div class="bubble-label">Serverless API — OCI</div>
+        <div class="bubble-tag">OCI · Terraform · Python</div>
+      </div>
+
       <div class="bubble" data-project="cloud-auditor">
         <div class="bubble-icon"><i class="fab fa-aws"></i></div>
         <div class="bubble-label">Cloud Security Auditor</div>
@@ -1005,8 +1011,33 @@
         "Overcame real DevSecOps hurdles: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and 200MB+ Git history bloat from Terraform provider binaries",
       ],
       links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" },
-        { icon: "fas fa-external-link-alt", label: "Live API Docs →", href: "https://iam-ch.duckdns.org/docs", secondary: true }
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" }
+      ]
+    },
+
+    "serverless-oci": {
+      title: "Serverless API Infrastructure",
+      type: "OCI · Terraform · Python · Multi-Cloud",
+      diagram: `<span class="d-accent">Docker build</span> → OCIR (Container Registry)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">OCI Function</span> (Python 3.11 · Fn Project)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI API Gateway</span> → HTTPS :443 only
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">VCN · Zero-Trust IAM · Terraform IaC</span>`,
+      desc: "Complete serverless API infrastructure on Oracle Cloud Infrastructure — originally designed for GCP, pivoted to OCI to demonstrate <strong style='color:var(--text)'>multi-cloud adaptability</strong> and strict FinOps boundaries using Oracle's Always Free tier. Every resource (VCN, subnets, gateway, function, IAM) provisioned entirely via <strong style='color:var(--text)'>Terraform</strong>.",
+      tech: ["OCI", "Terraform", "OCI Functions", "Docker", "Python 3.11", "OCI API Gateway", "OCIR", "VCN", "Zero-Trust IAM", "Fn Project"],
+      impact: "Live API endpoint deployed in eu-stockholm-1 — zero manual console steps, full infrastructure tear-down and rebuild via a single <code>terraform apply</code>.",
+      bullets: [
+        "Dedicated VCN with public subnets, internet gateways, and strict security lists — port 443 (HTTPS) only inbound",
+        "Python API packaged in Docker, stored in OCI Container Registry (OCIR), runs as a serverless OCI Function — compute consumed only on invocation",
+        "OCI API Gateway handles public HTTP routing with a Zero-Trust IAM policy explicitly granting the gateway permission to invoke the function",
+        "Pivoted from GCP to OCI mid-project to demonstrate multi-cloud adaptability and FinOps discipline — entire stack rebuilt on Always Free tier",
+        "Full tear-down supported: <code>terraform destroy</code> cleanly removes every provisioned resource"
+      ],
+      links: [
+        { icon: "fas fa-external-link-alt", label: "Live API →", href: "https://btko5yo6f4hqjdugvzs5upk3ha.apigateway.eu-stockholm-1.oci.customer-oci.com/api/hello" },
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/Serverless-API", secondary: true }
       ]
     },
 
