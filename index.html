@@ -756,7 +756,7 @@
       <span class="stat-desc">AWS Projects via Terraform IaC</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">2</span>
+      <span class="stat-num">3</span>
       <span class="stat-desc">Live Production Systems</span>
     </div>
   </div>
@@ -890,6 +890,12 @@
         <div class="bubble-icon"><i class="fas fa-cloud"></i></div>
         <div class="bubble-label">Serverless API — OCI</div>
         <div class="bubble-tag">OCI · Terraform · Python</div>
+      </div>
+
+      <div class="bubble" data-project="gcp-serverless">
+        <div class="bubble-icon"><i class="fab fa-google"></i></div>
+        <div class="bubble-label">GCP Serverless API Hub</div>
+        <div class="bubble-tag">GCP · FastAPI · BigQuery</div>
       </div>
 
       <div class="bubble" data-project="cloud-auditor">
@@ -1038,6 +1044,32 @@
       links: [
         { icon: "fas fa-external-link-alt", label: "Live API →", href: "https://btko5yo6f4hqjdugvzs5upk3ha.apigateway.eu-stockholm-1.oci.customer-oci.com/api/hello" },
         { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/Serverless-API", secondary: true }
+      ]
+    },
+
+    "gcp-serverless": {
+      title: "GCP Serverless API Hub",
+      type: "GCP · FastAPI · Terraform · BigQuery · CI/CD",
+      diagram: `<span class="d-dim">Client Browser</span> → <span class="d-accent">GCP API Gateway</span> (europe-west1 · OpenAPI spec)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│  IAM Service Account (PoLP)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">Cloud Run</span> (europe-central2 · FastAPI · Docker)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">BigQuery</span> (EU multi-region · api_analytics dataset)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Terraform IaC · GitHub Actions CI/CD</span>`,
+      desc: "Secure, serverless telemetry and analytics API built on Google Cloud Platform — a decoupled, event-driven architecture spanning two European regions. Infrastructure defined entirely as code via <strong style='color:var(--text)'>Terraform</strong> and deployed automatically through <strong style='color:var(--text)'>GitHub Actions</strong>. Features a vanilla HTML/JS dark-mode analytics dashboard consuming live data.",
+      tech: ["GCP", "Cloud Run", "FastAPI", "Python 3", "Docker", "GCP API Gateway", "BigQuery", "Terraform", "GitHub Actions", "IAM", "OpenAPI", "HTML/CSS/JS"],
+      impact: "Live API serving telemetry across europe-west1 and europe-central2 — private Cloud Run backend protected by IAM PoLP; only /analytics and /ingest endpoints exposed publicly via OpenAPI gateway spec.",
+      bullets: [
+        "<strong style='color:var(--text)'>GCP API Gateway</strong> (europe-west1) acts as the secure front door — routes requests per OpenAPI spec, blocks all unauthorized public traffic",
+        "<strong style='color:var(--text)'>Cloud Run</strong> (europe-central2) hosts a containerized FastAPI backend that scales dynamically from zero; private service, not invocable without <code>roles/run.invoker</code>",
+        "<strong style='color:var(--text)'>BigQuery</strong> (EU multi-region) stores and queries aggregated API telemetry — LOGIN, PURCHASE, SIGNUP, LOGOUT event counts visualized on the dashboard",
+        "IAM Principle of Least Privilege: dedicated service account grants the API Gateway exactly the permissions needed to invoke Cloud Run — nothing more",
+        "GitHub Actions CI/CD pipeline handles automated deployments; full infrastructure rebuild via <code>terraform init && terraform apply</code>"
+      ],
+      links: [
+        { icon: "fas fa-external-link-alt", label: "Live API →", href: "https://ibm-api-hub-gateway-eu-diddfj8g.ew.gateway.dev/analytics" },
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/gcp-serverless-api-hub", secondary: true }
       ]
     },
 
