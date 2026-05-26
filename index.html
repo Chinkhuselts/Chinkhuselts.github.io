@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chinkhusel Tsolmonbaatar — DevSecOps Engineer</title>
   <meta name="description" content="DevSecOps engineer specializing in AWS cloud security, serverless threat detection, SIEM pipelines, and infrastructure automation. Based in Warsaw, Poland." />
+
+  <!-- Open Graph / Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chinkhuselts.github.io/" />
+  <meta property="og:title" content="Chinkhusel Tsolmonbaatar — DevSecOps Engineer" />
+  <meta property="og:description" content="DevSecOps engineer specializing in AWS cloud security, serverless threat detection, SIEM pipelines, and infrastructure automation. Based in Warsaw, Poland." />
+  <meta property="og:image" content="https://chinkhuselts.github.io/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chinkhusel Tsolmonbaatar — DevSecOps Engineer" />
+  <meta name="twitter:description" content="DevSecOps engineer specializing in AWS cloud security, serverless threat detection, SIEM pipelines, and infrastructure automation. Based in Warsaw, Poland." />
+  <meta name="twitter:image" content="https://chinkhuselts.github.io/og-preview.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -62,9 +78,9 @@
     }
     .nav-logo { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); letter-spacing: 2px; }
     .nav-logo span { color: var(--muted); }
-    .nav-links { display: flex; gap: 2.5rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 1px; color: var(--muted); }
+    .nav-links { display: flex; gap: 2.5rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 1px; color: var(--muted); align-items: center; }
     .nav-links a { transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); outline: none; }
     .nav-badge {
       font-family: var(--mono); font-size: 0.7rem;
       padding: 0.3rem 0.8rem;
@@ -72,6 +88,17 @@
       border-radius: 2px; letter-spacing: 1px;
     }
     .nav-badge::before { content: '● '; font-size: 0.6rem; }
+
+    /* CV download button in nav */
+    .nav-cv {
+      font-family: var(--mono); font-size: 0.7rem;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--accent); color: var(--accent);
+      border-radius: 2px; letter-spacing: 1px;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .nav-cv:hover { background: rgba(0,212,255,0.08); }
 
     /* HERO */
     .hero {
@@ -104,6 +131,8 @@
     .btn-primary:hover { background: #00b8d9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,0.3); }
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-cv { background: transparent; border: 1px solid var(--accent2); color: var(--accent2); }
+    .btn-cv:hover { background: rgba(0,255,136,0.08); transform: translateY(-2px); }
 
     /* Terminal */
     .hero-terminal { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-family: var(--mono); }
@@ -123,7 +152,10 @@
     .t-comment { color: var(--muted); }
     .t-blink {
       display: inline-block; width: 8px; height: 15px;
-      background: var(--accent); animation: blink 1s step-end infinite; vertical-align: middle;
+      background: var(--accent); vertical-align: middle;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .t-blink { animation: blink 1s step-end infinite; }
     }
     @keyframes blink { 50% { opacity: 0; } }
 
@@ -195,7 +227,6 @@
       margin: auto;
     }
 
-    /* Ambient background glow */
     .projects-section::before {
       content: '';
       position: absolute;
@@ -235,6 +266,12 @@
       user-select: none;
     }
 
+    /* Keyboard focus style for bubbles */
+    .bubble:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
     .bubble::before {
       content: '';
       position: absolute;
@@ -243,7 +280,9 @@
       background: conic-gradient(from 0deg, transparent 0%, rgba(0,212,255,0.3) 20%, transparent 40%);
       opacity: 0;
       transition: opacity 0.3s;
-      animation: spin 4s linear infinite;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .bubble::before { animation: spin 4s linear infinite; }
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -262,7 +301,6 @@
     }
     .bubble.active::before { opacity: 1; }
 
-    /* Featured bubble (IAM-API-V2) — slightly larger */
     .bubble.featured {
       width: 180px;
       height: 180px;
@@ -395,7 +433,7 @@
       transition: all 0.2s;
       flex-shrink: 0;
     }
-    .panel-close:hover { border-color: var(--accent); color: var(--accent); }
+    .panel-close:hover, .panel-close:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
 
     .panel-body { padding: 2rem; }
 
@@ -479,7 +517,6 @@
       margin-bottom: 1rem; display: inline-flex;
     }
 
-    /* Hint text below bubbles */
     .bubble-hint {
       text-align: center;
       font-family: var(--mono);
@@ -520,45 +557,9 @@
     .d-orange { color: var(--warn); }
     .d-dim    { color: var(--dim); }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
-      .hero-terminal { display: none; }
-      .about-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-      .contact-inner { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .panel-cols { grid-template-columns: 1fr; }
-      .bubble { width: 130px; height: 130px; }
-      .bubble.featured { width: 148px; height: 148px; }
-    }
-    @media (max-width: 600px) {
-      .stats-inner { grid-template-columns: 1fr 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .bubble { width: 110px; height: 110px; }
-      .bubble.featured { width: 126px; height: 126px; }
-      .bubble-icon { font-size: 1.2rem; }
-      .bubble-label { font-size: 0.6rem; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero       { animation: fadeUp 0.6s ease both; }
-    .stats-bar  { animation: fadeUp 0.6s ease 0.1s both; }
-    .section    { animation: fadeUp 0.6s ease 0.2s both; }
-
-    /* Bubble float animation */
-    @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-    @keyframes floatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-    .bubble:not(:hover):not(.active):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
-    .bubble:not(:hover):not(.active):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
-    .bubble:not(:hover):not(.active):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
-    /* LIVE THREAT MAP SECTION */
+    /* ===================== */
+    /* THREAT MAP — lazy load */
+    /* ===================== */
     .threatmap-section {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -586,7 +587,6 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    .threatmap-header-left {}
     .threatmap-title-row {
       display: flex;
       align-items: center;
@@ -616,7 +616,9 @@
     .threatmap-live-dot::before {
       content: '●';
       font-size: 0.5rem;
-      animation: blink 1.4s step-end infinite;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .threatmap-live-dot::before { animation: blink 1.4s step-end infinite; }
     }
     .threatmap-sub {
       font-family: var(--mono);
@@ -648,16 +650,49 @@
       border-radius: 10px 10px 0 0;
       overflow: hidden;
       border: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
       background: var(--bg);
     }
+    /* Lazy poster — shown before load */
+    .tm-poster {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      cursor: pointer;
+      background: var(--bg);
+      z-index: 2;
+      transition: opacity 0.3s;
+    }
+    .tm-poster-icon {
+      width: 80px; height: 80px;
+      border: 1.5px solid rgba(0,255,136,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: var(--accent2);
+      transition: all 0.25s;
+    }
+    .tm-poster:hover .tm-poster-icon {
+      border-color: var(--accent2);
+      box-shadow: 0 0 30px rgba(0,255,136,0.2);
+    }
+    .tm-poster-label {
+      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
+      letter-spacing: 1px;
+    }
+    .tm-poster-sub {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--dim);
+    }
+    .tm-poster.hidden { opacity: 0; pointer-events: none; }
     .threatmap-frame-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
       display: block;
     }
-    .threatmap-frame-wrap .tm-corner-label {
+    .tm-corner-label {
       position: absolute;
       bottom: 0.75rem;
       right: 0.75rem;
@@ -668,14 +703,77 @@
       pointer-events: none;
       z-index: 2;
     }
+
+    /* RESPONSIVE */
     @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+      .hero-terminal { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .panel-cols { grid-template-columns: 1fr; }
+      .bubble { width: 130px; height: 130px; }
+      .bubble.featured { width: 148px; height: 148px; }
       .threatmap-frame-wrap { height: 380px; }
       .threatmap-header { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 600px) {
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
       .threatmap-frame-wrap { height: 300px; }
+
+      /* On very small screens, switch bubbles to a compact list */
+      .bubble-arena {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+      }
+      .bubble {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 6px;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 0.85rem 1.25rem;
+        gap: 1rem;
+        text-align: left;
+      }
+      .bubble::before { display: none; }
+      .bubble.featured { border-radius: 6px; }
+      .featured-crown {
+        top: 50%;
+        left: auto;
+        right: 0.75rem;
+        transform: translateY(-50%);
+      }
+      .bubble-techs { display: none; }
+      .bubble-icon { font-size: 1.2rem; flex-shrink: 0; }
+      .bubble-label { font-size: 0.78rem; }
+      .bubble-tag { font-size: 0.65rem; }
     }
 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero       { animation: fadeUp 0.6s ease both; }
+      .stats-bar  { animation: fadeUp 0.6s ease 0.1s both; }
+      .section    { animation: fadeUp 0.6s ease 0.2s both; }
+    }
+
+    /* Bubble float animation — only when motion is OK */
+    @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @keyframes floatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bubble:not(:hover):not(.active):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
+      .bubble:not(:hover):not(.active):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
+      .bubble:not(:hover):not(.active):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
+    }
   </style>
 </head>
 <body>
@@ -689,6 +787,7 @@
       <a href="#projects">projects</a>
       <a href="#contact">contact</a>
       <a href="https://github.com/Chinkhuselts" target="_blank">github</a>
+      <a href="khusele-resume.pdf" download class="nav-cv"><i class="fas fa-file-alt"></i> resume</a>
     </div>
     <div class="nav-badge">open to work</div>
   </div>
@@ -707,6 +806,7 @@
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
       <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a href="khusele-resume.pdf" download class="btn btn-cv"><i class="fas fa-file-download"></i> Resume</a>
     </div>
   </div>
 
@@ -778,15 +878,17 @@
         <i class="fas fa-external-link-alt"></i> Open Full Screen
       </a>
     </div>
+
     <div class="threatmap-frame-wrap">
-      <iframe
-        src="https://security-map.duckdns.org/"
-        title="3D Global Cyber Threat Map — live"
-        loading="lazy"
-        allow="accelerometer; autoplay"
-      ></iframe>
+      <!-- Poster shown until user clicks — avoids iframe loading on every page visit -->
+      <div class="tm-poster" id="tmPoster" role="button" tabindex="0" aria-label="Load live 3D threat map">
+        <div class="tm-poster-icon"><i class="fas fa-globe"></i></div>
+        <div class="tm-poster-label">Click to load live threat map</div>
+        <div class="tm-poster-sub">security-map.duckdns.org — loads external content</div>
+      </div>
       <span class="tm-corner-label">security-map.duckdns.org</span>
     </div>
+
     <div style="padding: 1rem 0 2rem; display: flex; gap: 1rem;">
       <a class="threatmap-link" href="https://github.com/Chinkhuselts/cyber-threat-map" target="_blank">
         <i class="fab fa-github"></i> View Repository
@@ -807,6 +909,7 @@
       </p>
       <p>
         I build across the full defensive stack. My recent work ranges from serverless S3 config auditing in AWS, to deploying a complete ELK+Snort SIEM pipeline, to executing behavioral malware analysis of WannaCry in a CAPEv2 sandbox.
+      </p>
       <p>
         I'm <strong>open to work</strong> — looking for Cloud Security or DevSecOps roles where infrastructure and threat analysis meet.
       </p>
@@ -870,9 +973,9 @@
     <!-- BUBBLES -->
     <div class="bubble-arena" id="bubbleArena">
 
-      <div class="bubble featured" data-project="iam-api-v2">
+      <div class="bubble featured" data-project="iam-api-v2" tabindex="0" role="button" aria-pressed="false" aria-label="IAM-API-V2 project — click to expand">
         <div class="featured-crown">FEATURED</div>
-        <div class="bubble-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="bubble-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
         <div class="bubble-label">IAM-API-V2</div>
         <div class="bubble-tag">Auth · DevOps · IaC</div>
         <div class="bubble-techs">
@@ -880,56 +983,56 @@
         </div>
       </div>
 
-      <div class="bubble" data-project="threat-map">
-        <div class="bubble-icon"><i class="fas fa-globe"></i></div>
+      <div class="bubble" data-project="threat-map" tabindex="0" role="button" aria-pressed="false" aria-label="3D Global Threat Map project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
         <div class="bubble-label">3D Global Threat Map</div>
         <div class="bubble-tag">Viz · DevOps · Docker</div>
       </div>
 
-      <div class="bubble" data-project="serverless-oci">
-        <div class="bubble-icon"><i class="fas fa-cloud"></i></div>
+      <div class="bubble" data-project="serverless-oci" tabindex="0" role="button" aria-pressed="false" aria-label="Serverless API — OCI project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-cloud" aria-hidden="true"></i></div>
         <div class="bubble-label">Serverless API — OCI</div>
         <div class="bubble-tag">OCI · Terraform · Python</div>
       </div>
 
-      <div class="bubble" data-project="gcp-serverless">
-        <div class="bubble-icon"><i class="fab fa-google"></i></div>
+      <div class="bubble" data-project="gcp-serverless" tabindex="0" role="button" aria-pressed="false" aria-label="GCP Serverless API Hub project — click to expand">
+        <div class="bubble-icon"><i class="fab fa-google" aria-hidden="true"></i></div>
         <div class="bubble-label">GCP Serverless API Hub</div>
         <div class="bubble-tag">GCP · FastAPI · BigQuery</div>
       </div>
 
-      <div class="bubble" data-project="cloud-auditor">
-        <div class="bubble-icon"><i class="fab fa-aws"></i></div>
+      <div class="bubble" data-project="cloud-auditor" tabindex="0" role="button" aria-pressed="false" aria-label="Cloud Security Auditor project — click to expand">
+        <div class="bubble-icon"><i class="fab fa-aws" aria-hidden="true"></i></div>
         <div class="bubble-label">Cloud Security Auditor</div>
         <div class="bubble-tag">AWS · Serverless</div>
       </div>
 
-      <div class="bubble" data-project="log-forensics">
-        <div class="bubble-icon"><i class="fas fa-search"></i></div>
+      <div class="bubble" data-project="log-forensics" tabindex="0" role="button" aria-pressed="false" aria-label="Serverless Log Forensics project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-search" aria-hidden="true"></i></div>
         <div class="bubble-label">Serverless Log Forensics</div>
         <div class="bubble-tag">AWS · Detection</div>
       </div>
 
-      <div class="bubble" data-project="elk-siem">
-        <div class="bubble-icon"><i class="fas fa-chart-bar"></i></div>
+      <div class="bubble" data-project="elk-siem" tabindex="0" role="button" aria-pressed="false" aria-label="ELK + Snort SIEM project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
         <div class="bubble-label">ELK + Snort SIEM</div>
         <div class="bubble-tag">Blue Team · SIEM</div>
       </div>
 
-      <div class="bubble" data-project="wannacry">
-        <div class="bubble-icon"><i class="fas fa-bug"></i></div>
+      <div class="bubble" data-project="wannacry" tabindex="0" role="button" aria-pressed="false" aria-label="WannaCry Sandbox project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></div>
         <div class="bubble-label">WannaCry Sandbox</div>
         <div class="bubble-tag">Malware · Analysis</div>
       </div>
 
-      <div class="bubble" data-project="traffic-viz">
-        <div class="bubble-icon"><i class="fas fa-map-marked-alt"></i></div>
+      <div class="bubble" data-project="traffic-viz" tabindex="0" role="button" aria-pressed="false" aria-label="Traffic Log Visualizer project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-map-marked-alt" aria-hidden="true"></i></div>
         <div class="bubble-label">Traffic Log Visualizer</div>
         <div class="bubble-tag">Data · Dashboard</div>
       </div>
 
-      <div class="bubble" data-project="iam-team">
-        <div class="bubble-icon"><i class="fas fa-users-cog"></i></div>
+      <div class="bubble" data-project="iam-team" tabindex="0" role="button" aria-pressed="false" aria-label="IAM System project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-users-cog" aria-hidden="true"></i></div>
         <div class="bubble-label">IAM System</div>
         <div class="bubble-tag">Auth · Backend</div>
       </div>
@@ -937,13 +1040,13 @@
     </div><!-- /bubble-arena -->
 
     <!-- PROJECT DETAIL PANEL -->
-    <div class="project-panel" id="projectPanel">
+    <div class="project-panel" id="projectPanel" role="region" aria-live="polite" aria-label="Project details">
       <div class="panel-header">
         <div class="panel-header-left">
           <div class="panel-title" id="panelTitle"></div>
           <div class="panel-type" id="panelType"></div>
         </div>
-        <button class="panel-close" id="panelClose" aria-label="Close">✕</button>
+        <button class="panel-close" id="panelClose" aria-label="Close project details">✕</button>
       </div>
       <div class="panel-body" id="panelBody"></div>
     </div>
@@ -978,6 +1081,10 @@
         <i class="fab fa-linkedin"></i>
         linkedin.com/in/chinkhusel-tsolmonbaatar
       </a>
+      <a class="contact-item" href="khusele-resume.pdf" download>
+        <i class="fas fa-file-alt"></i>
+        Download Resume (PDF)
+      </a>
     </div>
   </div>
 </section>
@@ -987,7 +1094,24 @@
   <p>© 2026 Chinkhusel Tsolmonbaatar &nbsp;·&nbsp; <a href="mailto:husele1000@gmail.com">husele1000@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/Chinkhuselts" target="_blank">github.com/Chinkhuselts</a></p>
 </footer>
 
-<script>
+<script defer>
+  /* ============================================
+     LAZY THREAT MAP
+  ============================================ */
+  function loadThreatMap() {
+    const poster = document.getElementById('tmPoster');
+    const wrap   = poster.parentElement;
+    poster.classList.add('hidden');
+    const iframe = document.createElement('iframe');
+    iframe.src   = 'https://security-map.duckdns.org/';
+    iframe.title = '3D Global Cyber Threat Map — live';
+    iframe.allow = 'accelerometer; autoplay';
+    wrap.appendChild(iframe);
+  }
+  const poster = document.getElementById('tmPoster');
+  poster.addEventListener('click', loadThreatMap);
+  poster.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadThreatMap(); } });
+
   /* ============================================
      PROJECT DATA
   ============================================ */
@@ -1238,7 +1362,7 @@
     const techPills = p.tech.map(t => `<span class="tech-pill">${t}</span>`).join("");
     const bullets   = p.bullets.map(b => `<li>${b}</li>`).join("");
     const links     = p.links.map(l =>
-      `<a class="panel-link ${l.secondary ? 'secondary' : ''}" href="${l.href}" target="_blank">
+      `<a class="panel-link ${l.secondary ? 'secondary' : ''}" href="${l.href}" target="_blank" rel="noopener noreferrer">
         <i class="${l.icon}"></i> ${l.label}
       </a>`
     ).join("");
@@ -1269,46 +1393,56 @@
   let activeKey = null;
 
   function openPanel(key, bubbleEl) {
-    // If same bubble clicked again — close
     if (activeKey === key) {
       closePanel();
       return;
     }
-
-    // Deactivate all bubbles
-    document.querySelectorAll(".bubble").forEach(b => b.classList.remove("active"));
-
-    // Activate clicked bubble
+    document.querySelectorAll(".bubble").forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-pressed", "false");
+    });
     bubbleEl.classList.add("active");
+    bubbleEl.setAttribute("aria-pressed", "true");
     activeKey = key;
 
-    // Populate and show panel
     renderPanel(key);
     const panel = document.getElementById("projectPanel");
     panel.classList.add("visible");
 
-    // Scroll panel into view smoothly
     setTimeout(() => {
       panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 50);
   }
 
   function closePanel() {
-    document.querySelectorAll(".bubble").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".bubble").forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-pressed", "false");
+    });
     document.getElementById("projectPanel").classList.remove("visible");
     activeKey = null;
   }
 
-  // Wire up bubbles
+  // Wire up bubbles — click and keyboard
   document.querySelectorAll(".bubble").forEach(bubble => {
     bubble.addEventListener("click", () => {
-      const key = bubble.dataset.project;
-      openPanel(key, bubble);
+      openPanel(bubble.dataset.project, bubble);
+    });
+    bubble.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openPanel(bubble.dataset.project, bubble);
+      }
     });
   });
 
   // Close button
   document.getElementById("panelClose").addEventListener("click", closePanel);
+
+  // Escape key closes panel
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && activeKey) closePanel();
+  });
 </script>
 
 </body>
