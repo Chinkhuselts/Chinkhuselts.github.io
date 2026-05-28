@@ -34,7 +34,7 @@
       --accent2: #00ff88;
       --warn: #ff6b35;
       --text: #e8f4f8;
-      --muted: #5a7a9a;
+      --muted: #7090aa; /* improved contrast: was #5a7a9a */
       --dim: #2a4060;
       --mono: 'IBM Plex Mono', monospace;
       --sans: 'Syne', sans-serif;
@@ -98,6 +98,67 @@
       transition: all 0.2s;
     }
     .nav-cv:hover { background: rgba(0,212,255,0.08); }
+
+    /* HAMBURGER — visible on mobile only */
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 36px; height: 36px;
+      border-radius: 3px;
+      cursor: pointer;
+      align-items: center; justify-content: center;
+      transition: all 0.2s;
+      font-size: 1.1rem;
+    }
+    .hamburger:hover, .hamburger:focus-visible {
+      border-color: var(--accent); color: var(--accent); outline: none;
+    }
+
+    /* MOBILE OVERLAY */
+    .mobile-overlay {
+      position: fixed; inset: 0; z-index: 497;
+      background: rgba(0, 0, 0, 0.55);
+      display: none;
+    }
+    .mobile-overlay.open { display: block; }
+
+    /* MOBILE DRAWER */
+    .mobile-drawer {
+      position: fixed;
+      top: 60px; right: 0;
+      width: 220px;
+      background: rgba(8, 12, 20, 0.98);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 0 8px;
+      padding: 0.75rem;
+      z-index: 498;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      transform: translateX(110%);
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px);
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer a {
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--muted); padding: 0.65rem 0.75rem;
+      border-radius: 3px; letter-spacing: 1px;
+      transition: all 0.2s; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .mobile-drawer a:hover, .mobile-drawer a:focus-visible {
+      color: var(--accent); background: rgba(0, 212, 255, 0.07); outline: none;
+    }
+    .drawer-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
+    .drawer-status {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
+      color: var(--accent2); padding: 0.4rem 0.75rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .drawer-status::before { content: '●'; font-size: 0.5rem; }
 
     /* HERO */
     .hero {
@@ -178,6 +239,39 @@
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .about-text p { color: var(--muted); font-size: 0.93rem; margin-bottom: 1.2rem; font-family: var(--mono); line-height: 1.9; }
     .about-text p strong { color: var(--text); font-weight: 600; }
+
+    /* PROFILE AVATAR */
+    .about-profile {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .profile-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 1rem; font-weight: 600;
+      color: var(--accent); letter-spacing: 2px;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.14);
+      position: relative;
+    }
+    .profile-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 212, 255, 0.18);
+    }
+    .profile-name { display: flex; flex-direction: column; gap: 0.25rem; }
+    .profile-full-name {
+      font-size: 0.92rem; font-weight: 700; color: var(--text);
+      font-family: var(--sans);
+    }
+    .profile-role {
+      font-family: var(--mono); font-size: 0.68rem;
+      color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
+    }
 
     .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .skill-row {
@@ -694,6 +788,8 @@
       .stat-item:nth-child(2) { border-right: none; }
       .contact-inner { grid-template-columns: 1fr; }
       .nav-links { display: none; }
+      .nav-badge { display: none; } /* hidden on mobile — shown in drawer */
+      .hamburger { display: flex; } /* show hamburger on mobile */
       .panel-cols { grid-template-columns: 1fr; }
       .bubble { width: 130px; height: 130px; }
       .bubble.featured { width: 148px; height: 148px; }
@@ -767,9 +863,26 @@
       <a href="https://github.com/Chinkhuselts" target="_blank">github</a>
       <a href="khusele-resume.pdf" download class="nav-cv"><i class="fas fa-file-alt"></i> resume</a>
     </div>
+    <!-- Mobile hamburger — visible on small screens only -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileDrawer">
+      <i class="fas fa-bars"></i>
+    </button>
     <div class="nav-badge">open to work</div>
   </div>
 </nav>
+
+<!-- MOBILE OVERLAY + DRAWER -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+<div class="mobile-drawer" id="mobileDrawer" role="navigation" aria-label="Mobile navigation">
+  <span class="drawer-status">open to work</span>
+  <div class="drawer-divider"></div>
+  <a href="#about"><i class="fas fa-user"></i> about</a>
+  <a href="#projects"><i class="fas fa-shield-alt"></i> projects</a>
+  <a href="#contact"><i class="fas fa-envelope"></i> contact</a>
+  <a href="https://github.com/Chinkhuselts" target="_blank"><i class="fab fa-github"></i> github</a>
+  <div class="drawer-divider"></div>
+  <a href="khusele-resume.pdf" download><i class="fas fa-file-download"></i> download resume</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -780,7 +893,7 @@
       Final-year Cybersecurity student in Warsaw. I spent time at Khan Bank<br>
       automating things that shouldn't have been manual — now I build<br>
       serverless security pipelines, IaC-provisioned cloud stacks,<br>
-      and threat detection systems. Most of them are running right now.
+      and threat detection systems — three running live in production.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
@@ -809,7 +922,7 @@
       <div>],</div>
       <div><span class="t-key">"stack"</span>: {</div>
       <div>&nbsp;&nbsp;<span class="t-key">"iac"</span>: <span class="t-str">"Terraform"</span>,</div>
-      <div>&nbsp;&nbsp;<span class="t-key">"siem"</span>: <span class="t-str">"ELK + Snort"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="t-key">"siem"</span>: <span class="t-str">"ELK + Snort + Splunk"</span>,</div>
       <div>&nbsp;&nbsp;<span class="t-key">"code"</span>: <span class="t-str">"Python · Bash · SQL"</span></div>
       <div>},</div>
       <div><span class="t-key">"available"</span>: <span class="t-val">true</span> <span class="t-comment">// open to work</span></div>
@@ -826,8 +939,8 @@
       <span class="stat-desc">Reporting time cut at Khan Bank</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">7</span>
-      <span class="stat-desc">Security Projects Shipped</span>
+      <span class="stat-num">8</span>
+      <span class="stat-desc">Security Projects Built</span>
     </div>
     <div class="stat-item">
       <span class="stat-num">3</span>
@@ -881,11 +994,21 @@
   <div class="about-grid">
 
     <div class="about-text">
+
+      <!-- Profile avatar -->
+      <div class="about-profile">
+        <div class="profile-avatar" aria-label="Initials: CT">CT</div>
+        <div class="profile-name">
+          <span class="profile-full-name">Chinkhusel Tsolmonbaatar</span>
+          <span class="profile-role">DevSecOps · Cloud Security</span>
+        </div>
+      </div>
+
       <p>
         I'm a <strong>final-year Computer Science (Cybersecurity) student</strong> at Vizja University in Warsaw, graduating September 2026. Before that I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar — mostly automating reporting pipelines that were eating people's afternoons, and keeping Linux servers from misbehaving.
       </p>
       <p>
-        My thesis is on using <strong> Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong> — which is the kind of rabbit hole I genuinely enjoy going down. Outside that, I've been shipping cloud security projects across AWS, GCP, and Oracle Cloud, always with Terraform so nothing exists only on my laptop.
+        My thesis explores <strong>Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong> — which is the kind of rabbit hole I genuinely enjoy going down. Outside that, I've been shipping cloud security projects across AWS, GCP, and Oracle Cloud, always with Terraform so nothing exists only on my laptop.
       </p>
       <p>
         I'm <strong>open to work</strong> — ideally somewhere that takes infrastructure seriously and won't mind if I automate something before asking permission.
@@ -929,6 +1052,8 @@
         <div class="skill-row"><i class="fas fa-database skill-icon"></i> DynamoDB</div>
         <div class="skill-row"><i class="fas fa-key skill-icon"></i> JWT · RBAC · IAM</div>
         <div class="skill-row"><i class="fab fa-node-js skill-icon"></i> Node.js · PostgreSQL</div>
+        <div class="skill-row"><i class="fas fa-chart-line skill-icon"></i> Splunk SIEM</div>
+        <div class="skill-row"><i class="fas fa-sitemap skill-icon"></i> TCP/IP · Cloud Networking</div>
       </div>
     </div>
 
@@ -953,6 +1078,17 @@
         <div class="bubble-tag">Auth · DevOps · IaC</div>
         <div class="bubble-techs">
           <span>FastAPI</span><span>Terraform</span><span>AWS</span><span>Caddy</span>
+        </div>
+      </div>
+
+      <!-- Thesis bubble — new addition -->
+      <div class="bubble featured" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="AI Cloud Governance thesis project — click to expand">
+        <div class="featured-crown">THESIS</div>
+        <div class="bubble-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+        <div class="bubble-label">AI Cloud Governance</div>
+        <div class="bubble-tag">GenAI · OCI · Research</div>
+        <div class="bubble-techs">
+          <span>GenAI</span><span>OCI</span><span>CIS</span>
         </div>
       </div>
 
@@ -1065,8 +1201,65 @@
   poster.addEventListener('click', loadThreatMap);
   poster.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadThreatMap(); } });
 
-  /* PROJECT DATA */
+  /* ─── MOBILE NAV ─── */
+  const hamburger    = document.getElementById('hamburger');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+
+  function openDrawer() {
+    mobileDrawer.classList.add('open');
+    mobileOverlay.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.querySelector('i').className = 'fas fa-times';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    mobileDrawer.classList.remove('open');
+    mobileOverlay.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.querySelector('i').className = 'fas fa-bars';
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+  mobileOverlay.addEventListener('click', closeDrawer);
+  mobileDrawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeDrawer);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) closeDrawer();
+  });
+
+  /* ─── PROJECT DATA ─── */
   const projects = {
+
+    "thesis": {
+      title: "AI Cloud Governance",
+      type: "Research · GenAI · OCI · CIS Benchmark · Sep 2026",
+      diagram: `<span class="d-accent">OCI Resources</span> → <span class="d-orange">CIS Benchmark Scanner</span> → compliance delta
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Generative AI (LLM)</span> → remediation plan
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">self-healing executor</span> → <span class="d-green">compliant OCI state</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">↺ feedback loop</span> → re-scan → verify → <span class="d-green">always-on compliance</span>`,
+      desc: "My graduating thesis explores whether Generative AI can autonomously maintain CIS Benchmark compliance on Oracle Cloud Infrastructure — moving from detect-and-alert to detect-and-fix. The system continuously scans OCI resources, identifies configuration drift from CIS controls, and uses an LLM to generate and execute targeted remediation steps, creating a self-healing governance loop that closes the gap between point-in-time audits and always-on compliance.",
+      tech: ["Oracle Cloud (OCI)", "Python", "Generative AI / LLMs", "CIS Benchmarks", "Terraform", "IAM Policies", "Cloud Functions"],
+      impact: "A working proof-of-concept of autonomous cloud governance — replacing manual remediation cycles with a continuous, AI-driven compliance loop. Thesis defense: September 2026.",
+      bullets: [
+        "Continuously scans OCI resources against CIS Benchmark controls, detecting configuration drift in near-real time",
+        "LLM-driven remediation: translates each compliance delta into a concrete, executable fix plan without human intervention",
+        "Self-healing feedback loop re-validates after each remediation step and re-triggers on regression",
+        "Addresses the gap between periodic audits (point-in-time snapshots) and true continuous compliance",
+        "Architecture is cloud-agnostic by design — the pattern extends directly to AWS and GCP CIS Benchmarks"
+      ],
+      links: [
+        { icon: "fab fa-github", label: "GitHub Profile →", href: "https://github.com/Chinkhuselts", secondary: true }
+      ]
+    },
 
     "iam-api-v2": {
       title: "IAM-API-V2",
@@ -1128,7 +1321,7 @@
       title: "GCP Serverless API Hub",
       type: "GCP · FastAPI · Terraform · BigQuery · CI/CD",
       diagram: `<span class="d-dim">Client Browser</span> → <span class="d-accent">GCP API Gateway</span> (europe-west1 · OpenAPI spec)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│  IAM Service Account (PoLP)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│  IAM Service Account (PoLP)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">Cloud Run</span> (europe-central2 · FastAPI · Docker)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
@@ -1230,7 +1423,7 @@
     }
   };
 
-  /* RENDER PANEL */
+  /* ─── RENDER PANEL ─── */
   function renderPanel(key) {
     const p = projects[key];
     if (!p) return;
@@ -1261,7 +1454,7 @@
     `;
   }
 
-  /* BUBBLE INTERACTION */
+  /* ─── BUBBLE INTERACTION ─── */
   let activeKey = null;
 
   function openPanel(key, bubbleEl) {
