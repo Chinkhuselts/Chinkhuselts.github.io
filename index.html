@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <span class="stat-num">SECURE BY DESIGN and INFRASTRUCTURE</span>
   <title>Chinkhusel Tsolmonbaatar — Python & Cloud Security Engineer</title>
   <meta name="description" content="Python & Cloud Security engineer specializing in AWS, Oracle and GCP cloud security, serverless threat detection, SIEM pipelines, and infrastructure automation. Based in Warsaw, Poland." />
-
-  <!-- Open Graph / Social preview -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://chinkhuselts.github.io/" />
   <meta property="og:title" content="Chinkhusel Tsolmonbaatar — Python & Cloud Security Engineer" />
@@ -15,13 +14,10 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="en_US" />
-
-  <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Chinkhusel Tsolmonbaatar — Python & Cloud Security Engineer" />
   <meta name="twitter:description" content="Python & Cloud Security engineer specializing in AWS/Oracle/GCP cloud security, serverless threat detection, SIEM pipelines, and infrastructure automation. Based in Warsaw, Poland." />
   <meta name="twitter:image" content="https://chinkhuselts.github.io/og-preview.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -34,6 +30,8 @@
       --accent: #00d4ff;
       --accent2: #00ff88;
       --warn: #ff6b35;
+      --amber: #fbbf24;
+      --amber-dim: rgba(251,191,36,0.28);
       --text: #e8f4f8;
       --muted: #7090aa;
       --dim: #2a4060;
@@ -88,7 +86,7 @@
       border: 1px solid var(--accent2); color: var(--accent2);
       border-radius: 2px; letter-spacing: 1px;
     }
-    .nav-badge::before { content: '● '; font-size: 0.6rem; }
+    .nav-badge::before { content: '● '; font-size: 0.6rem; animation: blink 1.4s step-end infinite; }
 
     .nav-cv {
       font-family: var(--mono); font-size: 0.7rem;
@@ -117,7 +115,6 @@
       border-color: var(--accent); color: var(--accent); outline: none;
     }
 
-    /* MOBILE OVERLAY */
     .mobile-overlay {
       position: fixed; inset: 0; z-index: 497;
       background: rgba(0, 0, 0, 0.55);
@@ -125,7 +122,6 @@
     }
     .mobile-overlay.open { display: block; }
 
-    /* MOBILE DRAWER */
     .mobile-drawer {
       position: fixed;
       top: 60px; right: 0;
@@ -226,9 +222,12 @@
       max-width: 1200px; margin: auto; padding: 0 2rem;
       display: grid; grid-template-columns: repeat(4, 1fr);
     }
-    .stats-item { padding: 2rem 1.5rem; border-right: 1px solid var(--border); }
-    .stat-item { padding: 2rem 1.5rem; border-right: 1px solid var(--border); }
+    .stat-item {
+      padding: 2rem 1.5rem; border-right: 1px solid var(--border);
+      transition: background 0.25s; cursor: default;
+    }
     .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(0,212,255,0.04); }
     .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--accent); letter-spacing: -1px; display: block; line-height: 1; margin-bottom: 0.4rem; }
     .stat-desc { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
 
@@ -242,7 +241,6 @@
     .about-text p { color: var(--muted); font-size: 0.93rem; margin-bottom: 1.2rem; font-family: var(--mono); line-height: 1.9; }
     .about-text p strong { color: var(--text); font-weight: 600; }
 
-    /* PROFILE AVATAR */
     .about-profile {
       display: flex; align-items: center; gap: 1rem;
       margin-bottom: 1.75rem;
@@ -315,10 +313,7 @@
       position: relative;
       overflow: hidden;
     }
-    .projects-section-inner {
-      max-width: 1200px;
-      margin: auto;
-    }
+    .projects-section-inner { max-width: 1200px; margin: auto; }
 
     .projects-section::before {
       content: '';
@@ -340,37 +335,25 @@
     }
 
     .bubble {
-      width: 160px;
-      height: 160px;
+      width: 160px; height: 160px;
       border-radius: 50%;
       border: 1.5px solid rgba(0,212,255,0.25);
       background: radial-gradient(circle at 35% 35%, rgba(0,212,255,0.12), rgba(13,21,38,0.9) 70%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      cursor: pointer;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.6rem; cursor: pointer;
       position: relative;
       transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
-      text-align: center;
-      padding: 1rem;
-      user-select: none;
+      text-align: center; padding: 1rem; user-select: none;
     }
 
-    .bubble:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 4px;
-    }
+    .bubble:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
     .bubble::before {
       content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 50%;
+      position: absolute; inset: -1px; border-radius: 50%;
       background: conic-gradient(from 0deg, transparent 0%, rgba(0,212,255,0.3) 20%, transparent 40%);
-      opacity: 0;
-      transition: opacity 0.3s;
+      opacity: 0; transition: opacity 0.3s;
     }
     @media (prefers-reduced-motion: no-preference) {
       .bubble::before { animation: spin 4s linear infinite; }
@@ -393,8 +376,7 @@
     .bubble.active::before { opacity: 1; }
 
     .bubble.featured {
-      width: 180px;
-      height: 180px;
+      width: 180px; height: 180px;
       border-color: rgba(0,255,136,0.3);
       background: radial-gradient(circle at 35% 35%, rgba(0,255,136,0.1), rgba(13,21,38,0.9) 70%);
     }
@@ -406,158 +388,171 @@
       background: conic-gradient(from 0deg, transparent 0%, rgba(0,255,136,0.3) 20%, transparent 40%);
     }
 
+    /* ======= IN-PROGRESS BUBBLE ======= */
+    .bubble.in-progress {
+      border-color: var(--amber-dim);
+      background: radial-gradient(circle at 35% 35%, rgba(251,191,36,0.09), rgba(13,21,38,0.92) 70%);
+    }
+    .bubble.in-progress:hover {
+      border-color: var(--amber);
+      box-shadow: 0 0 36px rgba(251,191,36,0.22), 0 0 70px rgba(251,191,36,0.07), inset 0 0 28px rgba(251,191,36,0.06);
+      background: radial-gradient(circle at 35% 35%, rgba(251,191,36,0.18), rgba(13,21,38,0.92) 70%);
+    }
+    .bubble.in-progress.active {
+      border-color: var(--amber);
+      box-shadow: 0 0 44px rgba(251,191,36,0.3), 0 0 85px rgba(251,191,36,0.1), inset 0 0 30px rgba(251,191,36,0.08);
+      transform: scale(1.08);
+      background: radial-gradient(circle at 35% 35%, rgba(251,191,36,0.2), rgba(13,21,38,0.92) 70%);
+    }
+    .bubble.in-progress::before {
+      background: conic-gradient(from 0deg, transparent 0%, rgba(251,191,36,0.35) 20%, transparent 40%);
+    }
+    .bubble.in-progress:hover::before, .bubble.in-progress.active::before { opacity: 1; }
+    .bubble.in-progress .bubble-icon { color: var(--amber); }
+    .bubble.in-progress .bubble-tag { color: rgba(251,191,36,0.62); }
+    .bubble.in-progress .bubble-techs span {
+      background: rgba(180, 130, 18, 0.82);
+      color: var(--bg);
+    }
+
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0   rgba(251,191,36,0.38); }
+      70%  { box-shadow: 0 0 0 12px rgba(251,191,36,0); }
+      100% { box-shadow: 0 0 0 0   rgba(251,191,36,0); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .bubble.in-progress:not(:hover):not(.active) {
+        animation: floatA 5s ease-in-out infinite, pulse-ring 2.6s ease-out infinite;
+      }
+    }
+
+    /* WIP crown */
+    .featured-crown {
+      position: absolute; top: -10px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent2); color: var(--bg);
+      font-family: var(--mono); font-size: 0.55rem; font-weight: 600;
+      padding: 0.15rem 0.5rem; border-radius: 2px;
+      letter-spacing: 1px; white-space: nowrap;
+    }
+    .featured-crown.wip {
+      background: linear-gradient(90deg, #b45309, #d97706, #fbbf24);
+      letter-spacing: 0.7px;
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .featured-crown.wip::before {
+      content: '';
+      width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      flex-shrink: 0;
+      animation: blink 1.2s step-end infinite;
+    }
+
+    /* Panel status chip */
+    .panel-status-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 0.18rem 0.6rem; border-radius: 2px;
+      margin-top: 0.4rem;
+    }
+    .panel-status-chip.wip {
+      background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.28); color: var(--amber);
+    }
+    .panel-status-chip.wip::before {
+      content: '◉';
+      font-size: 0.55rem;
+      animation: blink 1.2s step-end infinite;
+    }
+    .panel-status-chip.live {
+      background: rgba(0,255,136,0.07); border: 1px solid rgba(0,255,136,0.25); color: var(--accent2);
+    }
+    .panel-status-chip.live::before { content: '●'; font-size: 0.55rem; }
+
     .bubble-icon {
-      font-size: 1.6rem;
-      color: var(--accent);
-      line-height: 1;
+      font-size: 1.6rem; color: var(--accent); line-height: 1;
     }
     .bubble.featured .bubble-icon { color: var(--accent2); }
 
     .bubble-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--text);
-      letter-spacing: 0.5px;
-      line-height: 1.4;
-      font-weight: 500;
+      font-family: var(--mono); font-size: 0.68rem;
+      color: var(--text); letter-spacing: 0.5px; line-height: 1.4; font-weight: 500;
     }
-
     .bubble-tag {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--muted);
-      letter-spacing: 0.5px;
+      font-family: var(--mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.5px;
     }
     .bubble.featured .bubble-tag { color: rgba(0,255,136,0.6); }
 
     .bubble-techs {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.2rem;
-      padding: 0 0.3rem;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem; padding: 0 0.3rem;
     }
     .bubble-techs span {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      color: var(--bg);
-      background: rgba(0,255,136,0.7);
-      border-radius: 2px;
-      padding: 0.08rem 0.3rem;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
+      font-family: var(--mono); font-size: 0.52rem; color: var(--bg);
+      background: rgba(0,255,136,0.7); border-radius: 2px;
+      padding: 0.08rem 0.3rem; letter-spacing: 0.3px; white-space: nowrap;
     }
 
-    .featured-crown {
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent2);
-      color: var(--bg);
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      font-weight: 600;
-      padding: 0.15rem 0.5rem;
-      border-radius: 2px;
-      letter-spacing: 1px;
-      white-space: nowrap;
+    .bubble-hint {
+      text-align: center; font-family: var(--mono);
+      font-size: 0.72rem; color: var(--dim); margin-bottom: 2.5rem; letter-spacing: 1px;
     }
 
     /* PROJECT PANEL */
     .project-panel {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(20px);
+      max-width: 900px; margin: 0 auto;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      opacity: 0; transform: translateY(20px);
       transition: opacity 0.35s ease, transform 0.35s ease;
-      pointer-events: none;
-      max-height: 0;
+      pointer-events: none; max-height: 0;
     }
     .project-panel.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: all;
-      max-height: 2000px;
-      margin-bottom: 2rem;
+      opacity: 1; transform: translateY(0);
+      pointer-events: all; max-height: 2000px; margin-bottom: 2rem;
     }
 
     .panel-header {
-      background: var(--surface2);
-      border-bottom: 1px solid var(--border);
+      background: var(--surface2); border-bottom: 1px solid var(--border);
       padding: 1.5rem 2rem;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
     }
     .panel-header-left { flex: 1; }
     .panel-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      margin-bottom: 0.3rem;
+      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--text); margin-bottom: 0.2rem;
     }
     .panel-type {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 2px; text-transform: uppercase;
     }
     .panel-close {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: 32px; height: 32px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
-      flex-shrink: 0;
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); width: 32px; height: 32px;
+      border-radius: 4px; cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;
     }
     .panel-close:hover, .panel-close:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
 
     .panel-body { padding: 2rem; }
 
     .panel-diagram {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.25rem 1.5rem;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--muted);
-      line-height: 2;
-      margin-bottom: 1.5rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 1.25rem 1.5rem;
+      font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
+      line-height: 2.1; margin-bottom: 1.5rem; overflow-x: auto;
     }
 
     .panel-desc {
-      font-family: var(--mono);
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 1.5rem;
+      font-family: var(--mono); font-size: 0.88rem; color: var(--muted);
+      line-height: 1.9; margin-bottom: 1.5rem;
     }
 
     .panel-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;
     }
 
     .panel-impact {
-      background: rgba(0,255,136,0.06);
-      border-left: 2px solid var(--accent2);
-      padding: 1rem 1.25rem;
-      border-radius: 0 6px 6px 0;
+      background: rgba(0,255,136,0.06); border-left: 2px solid var(--accent2);
+      padding: 1rem 1.25rem; border-radius: 0 6px 6px 0;
     }
     .impact-label {
       font-family: var(--mono); font-size: 0.68rem; color: var(--accent2);
@@ -582,29 +577,24 @@
 
     .panel-links {
       display: flex; gap: 1rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border);
+      padding-top: 1.25rem; border-top: 1px solid var(--border);
     }
     .panel-link {
       font-family: var(--mono); font-size: 0.8rem;
       color: var(--accent); display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 1.25rem;
-      border: 1px solid rgba(0,212,255,0.25);
-      border-radius: 4px;
-      transition: all 0.2s;
+      padding: 0.6rem 1.25rem; border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 4px; transition: all 0.2s;
     }
     .panel-link:hover { background: rgba(0,212,255,0.08); border-color: var(--accent); gap: 0.8rem; }
     .panel-link.secondary { color: var(--muted); border-color: var(--border); }
     .panel-link.secondary:hover { color: var(--accent2); border-color: var(--accent2); background: rgba(0,255,136,0.06); }
 
-    .bubble-hint {
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--dim);
-      margin-bottom: 2.5rem;
-      letter-spacing: 1px;
+    /* WIP panel impact variant */
+    .panel-impact.wip {
+      background: rgba(251,191,36,0.05);
+      border-left: 2px solid var(--amber);
     }
+    .panel-impact.wip .impact-label { color: var(--amber); }
 
     /* CONTACT */
     .contact-section { border-top: 1px solid var(--border); background: var(--surface); }
@@ -631,154 +621,73 @@
     }
     footer a { color: var(--accent); }
 
-    /* Color helpers for diagrams */
+    /* Color helpers */
     .d-accent { color: var(--accent); }
     .d-green  { color: var(--accent2); }
     .d-orange { color: var(--warn); }
+    .d-amber  { color: var(--amber); }
     .d-dim    { color: var(--dim); }
 
     /* THREAT MAP */
     .threatmap-section {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-      position: relative;
-      overflow: hidden;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface); position: relative; overflow: hidden;
     }
     .threatmap-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: radial-gradient(ellipse at 50% 100%, rgba(0,255,136,0.05) 0%, transparent 65%);
       pointer-events: none;
     }
-    .threatmap-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 3rem 2rem 0;
-    }
+    .threatmap-inner { max-width: 1200px; margin: auto; padding: 3rem 2rem 0; }
     .threatmap-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
     }
-    .threatmap-title-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.3rem;
-    }
-    .threatmap-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text);
-    }
+    .threatmap-title-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.3rem; }
+    .threatmap-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text); }
     .threatmap-live-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--accent2);
-      background: rgba(0,255,136,0.08);
-      border: 1px solid rgba(0,255,136,0.25);
-      padding: 0.2rem 0.55rem;
-      border-radius: 2px;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--accent2);
+      background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.25);
+      padding: 0.2rem 0.55rem; border-radius: 2px;
     }
-    .threatmap-live-dot::before {
-      content: '●';
-      font-size: 0.5rem;
-    }
+    .threatmap-live-dot::before { content: '●'; font-size: 0.5rem; }
     @media (prefers-reduced-motion: no-preference) {
       .threatmap-live-dot::before { animation: blink 1.4s step-end infinite; }
     }
-    .threatmap-sub {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.3px;
-    }
+    .threatmap-sub { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); letter-spacing: 0.3px; }
     .threatmap-link {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--accent2);
-      border: 1px solid rgba(0,255,136,0.25);
-      padding: 0.45rem 1rem;
-      border-radius: 3px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      transition: all 0.2s;
-      white-space: nowrap;
+      font-family: var(--mono); font-size: 0.75rem; color: var(--accent2);
+      border: 1px solid rgba(0,255,136,0.25); padding: 0.45rem 1rem;
+      border-radius: 3px; display: inline-flex; align-items: center; gap: 0.45rem;
+      transition: all 0.2s; white-space: nowrap;
     }
-    .threatmap-link:hover {
-      background: rgba(0,255,136,0.08);
-      border-color: var(--accent2);
-    }
+    .threatmap-link:hover { background: rgba(0,255,136,0.08); border-color: var(--accent2); }
     .threatmap-frame-wrap {
-      position: relative;
-      width: 100%;
-      height: 560px;
-      border-radius: 10px 10px 0 0;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--bg);
+      position: relative; width: 100%; height: 560px;
+      border-radius: 10px 10px 0 0; overflow: hidden;
+      border: 1px solid var(--border); background: var(--bg);
     }
     .tm-poster {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      cursor: pointer;
-      background: var(--bg);
-      z-index: 2;
-      transition: opacity 0.3s;
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.25rem; cursor: pointer; background: var(--bg); z-index: 2; transition: opacity 0.3s;
     }
     .tm-poster-icon {
-      width: 80px; height: 80px;
-      border: 1.5px solid rgba(0,255,136,0.3);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; color: var(--accent2);
-      transition: all 0.25s;
+      width: 80px; height: 80px; border: 1.5px solid rgba(0,255,136,0.3);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: var(--accent2); transition: all 0.25s;
     }
-    .tm-poster:hover .tm-poster-icon {
-      border-color: var(--accent2);
-      box-shadow: 0 0 30px rgba(0,255,136,0.2);
-    }
-    .tm-poster-label {
-      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
-      letter-spacing: 1px;
-    }
-    .tm-poster-sub {
-      font-family: var(--mono); font-size: 0.68rem; color: var(--dim);
-    }
+    .tm-poster:hover .tm-poster-icon { border-color: var(--accent2); box-shadow: 0 0 30px rgba(0,255,136,0.2); }
+    .tm-poster-label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; }
+    .tm-poster-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); }
     .tm-poster.hidden { opacity: 0; pointer-events: none; }
-    .threatmap-frame-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+    .threatmap-frame-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
     .tm-corner-label {
-      position: absolute;
-      bottom: 0.75rem;
-      right: 0.75rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--muted);
-      letter-spacing: 1px;
-      pointer-events: none;
-      z-index: 2;
+      position: absolute; bottom: 0.75rem; right: 0.75rem;
+      font-family: var(--mono); font-size: 0.6rem; color: var(--muted);
+      letter-spacing: 1px; pointer-events: none; z-index: 2;
     }
 
     /* RESPONSIVE */
@@ -802,29 +711,15 @@
       .stats-inner { grid-template-columns: 1fr 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
       .threatmap-frame-wrap { height: 300px; }
-      .bubble-arena {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
-      }
+      .bubble-arena { flex-direction: column; align-items: stretch; gap: 0.5rem; }
       .bubble {
-        width: 100% !important;
-        height: auto !important;
-        border-radius: 6px;
-        flex-direction: row;
-        justify-content: flex-start;
-        padding: 0.85rem 1.25rem;
-        gap: 1rem;
-        text-align: left;
+        width: 100% !important; height: auto !important;
+        border-radius: 6px; flex-direction: row; justify-content: flex-start;
+        padding: 0.85rem 1.25rem; gap: 1rem; text-align: left;
       }
       .bubble::before { display: none; }
       .bubble.featured { border-radius: 6px; }
-      .featured-crown {
-        top: 50%;
-        left: auto;
-        right: 0.75rem;
-        transform: translateY(-50%);
-      }
+      .featured-crown { top: 50%; left: auto; right: 0.75rem; transform: translateY(-50%); }
       .bubble-techs { display: none; }
       .bubble-icon { font-size: 1.2rem; flex-shrink: 0; }
       .bubble-label { font-size: 0.78rem; }
@@ -836,9 +731,9 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     @media (prefers-reduced-motion: no-preference) {
-      .hero       { animation: fadeUp 0.6s ease both; }
-      .stats-bar  { animation: fadeUp 0.6s ease 0.1s both; }
-      .section    { animation: fadeUp 0.6s ease 0.2s both; }
+      .hero      { animation: fadeUp 0.6s ease both; }
+      .stats-bar { animation: fadeUp 0.6s ease 0.1s both; }
+      .section   { animation: fadeUp 0.6s ease 0.2s both; }
     }
 
     @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
@@ -846,9 +741,9 @@
     @keyframes floatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
     @media (prefers-reduced-motion: no-preference) {
-      .bubble:not(:hover):not(.active):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
-      .bubble:not(:hover):not(.active):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
-      .bubble:not(:hover):not(.active):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
+      .bubble:not(:hover):not(.active):not(.in-progress):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
+      .bubble:not(:hover):not(.active):not(.in-progress):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
+      .bubble:not(:hover):not(.active):not(.in-progress):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
     }
   </style>
 </head>
@@ -1077,14 +972,14 @@
         </div>
       </div>
 
-      <!-- Thesis bubble -->
-      <div class="bubble featured" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance project — click to expand">
-        <div class="featured-crown">THESIS</div>
+      <!-- ===== THESIS BUBBLE — In Progress ===== -->
+      <div class="bubble featured in-progress" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance — Diploma Thesis, In Progress — click to expand">
+        <div class="featured-crown wip">THESIS · IN PROGRESS</div>
         <div class="bubble-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
         <div class="bubble-label">Autonomous Cloud Governance</div>
-        <div class="bubble-tag">GenAI · OCI · Python</div>
+        <div class="bubble-tag">GenAI · OCI · CIS Benchmark</div>
         <div class="bubble-techs">
-          <span>GenAI</span><span>OCI</span><span>Python</span><span>Terraform</span>
+          <span>OCI GenAI</span><span>Python SDK</span><span>Terraform</span><span>Steampipe</span>
         </div>
       </div>
 
@@ -1132,6 +1027,7 @@
         <div class="panel-header-left">
           <div class="panel-title" id="panelTitle"></div>
           <div class="panel-type" id="panelType"></div>
+          <div id="panelStatusChip"></div>
         </div>
         <button class="panel-close" id="panelClose" aria-label="Close project details">✕</button>
       </div>
@@ -1199,7 +1095,7 @@
 
   /* MOBILE NAV */
   const hamburger     = document.getElementById('hamburger');
-  const mobileDrawer = document.getElementById('mobileDrawer');
+  const mobileDrawer  = document.getElementById('mobileDrawer');
   const mobileOverlay = document.getElementById('mobileOverlay');
 
   function openDrawer() {
@@ -1209,7 +1105,6 @@
     hamburger.querySelector('i').className = 'fas fa-times';
     document.body.style.overflow = 'hidden';
   }
-
   function closeDrawer() {
     mobileDrawer.classList.remove('open');
     mobileOverlay.classList.remove('open');
@@ -1217,41 +1112,51 @@
     hamburger.querySelector('i').className = 'fas fa-bars';
     document.body.style.overflow = '';
   }
-
   hamburger.addEventListener('click', () => {
     mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer();
   });
   mobileOverlay.addEventListener('click', closeDrawer);
-  mobileDrawer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', closeDrawer);
-  });
+  mobileDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) closeDrawer();
   });
 
   /* PROJECT DATA */
   const projects = {
+
     "thesis": {
-      title: "Autonomous Cloud Governance - In Progress",
-      type: "Research · GenAI · OCI · CIS Benchmark · Sep 2026",
-      diagram: `<span class="d-accent">OCI Cloud Guard</span> → finding → <span class="d-orange">OCI Events Service</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> (Python SDK)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">OCI GenAI Service (LLM API)</span> → code generation
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> (Remediation)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">Steampipe validation</span> → <span class="d-green">Compliant OCI State</span>`,
-      desc: "Graduating project explores an intelligent, automated architecture built to transition OCI infrastructure management from reactive alerting to autonomous healing. By coupling cloud monitoring with Large Language Models, the system intercepts misconfigurations in real time and uses targeted code generation blocks to balance security drift without manual point-in-time infrastructure auditing.",
-      tech: ["OCI Cloud Guard", "OCI Events Service", "OCI Functions", "OCI Generative AI", "Python SDK", "Terraform", "Steampipe"],
-      impact: "Achieves real-time self-healing governance loops to consistently hold infrastructure matching OCI CIS Benchmark baselines without direct architectural maintenance operations.",
+      title: "Autonomous Cloud Governance",
+      type: "Diploma Thesis · Vizja University, Warsaw · Sep 2026",
+      status: "wip",
+      statusLabel: "In Progress — graduating Sep 2026",
+      diagram: `<span class="d-accent">OCI Cloud Guard</span> ─ CIS Benchmark findings ─▶ <span class="d-orange">OCI Events Service</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> #1 ─ Python OCI SDK ─ parse + prompt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-amber">OCI Generative AI Service</span> ─ LLM API ─ prompt engineering
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ dynamic code generation
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> #2 ─ Remediation Executor
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ IAM Resource Principals (least-privilege)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">OCI Object Storage + NoSQL DB</span> ─ audit trail
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Steampipe</span> (OCI plugin) ─ post-fix validation ─▶ <span class="d-green">Compliant ✓</span>`,
+      desc: "My final-year thesis designs and builds an intelligent self-healing compliance engine for Oracle Cloud Infrastructure. Rather than scripting a canned fix for every possible violation, the system wires OCI Cloud Guard's continuous CIS Benchmark monitoring to a Generative AI LLM — which interprets each finding and generates context-aware OCI Python SDK remediation code on the fly. The result is a fully autonomous governance loop that detects drift, reasons about it, patches it, and verifies the fix — without a human in the middle.",
+      tech: ["OCI Cloud Guard", "OCI Events Service", "OCI Functions", "OCI Generative AI Service (LLM)", "OCI IAM (Resource Principals)", "OCI Object Storage", "OCI NoSQL Database", "Python (OCI SDK)", "Prompt Engineering", "Terraform (OCI Provider)", "Steampipe (OCI plugin)", "Git"],
+      impact: "Targets full elimination of manual remediation cycles — each CIS Benchmark violation detected by OCI Cloud Guard initiates an autonomous fix loop: GenAI generates targeted remediation code, OCI Functions execute it under strict least-privilege IAM, and Steampipe independently validates the corrected state.",
+      impactVariant: "wip",
       bullets: [
-        "OCI Cloud Guard constantly aggregates active configuration parameters across the infrastructure, identifying rule anomalies.",
-        "Detected architectural drift instantly patterns downstream updates inside the OCI Events Service to trigger independent event handling structures.",
-        "Prompt engineering strategies extract refined diagnostic actions directly via the OCI Generative AI Service API logic.",
-        "Serverless execution engines leverage Resource Principals setups within OCI IAM to scale remediations underneath rigid least-privilege configurations.",
-        "Integrates Steampipe validation layers to ensure remediation verification records remain decoupled from tracking monitors."
+        "OCI Cloud Guard continuously monitors the infrastructure compartment against CIS Benchmark policies, emitting structured compliance findings for every detected violation.",
+        "OCI Events Service routes each finding to a Python-based OCI Function that parses the violation context and constructs a targeted LLM prompt — no pre-written remediation scripts.",
+        "<span style='color:var(--amber)'>OCI Generative AI Service</span> receives the engineered prompt and dynamically generates context-aware OCI Python SDK or Terraform remediation code, enabling intelligent interpretation vs. static rule-based tools like Prowler or OCI Cloud Guard Responders.",
+        "A second OCI Function executes the generated code under <code>Resource Principals</code> — ensuring all automated actions stay within a strict least-privilege IAM boundary, with no hardcoded credentials.",
+        "OCI Object Storage and NoSQL Database maintain a human-readable audit trail; Steampipe (OCI plugin) runs independent post-fix validation — decoupled from the monitoring layer — to confirm compliance is restored.",
+        "Differentiates from Wiz, Prisma Cloud, and Prowler by replacing rigid rule-based automation with dynamic GenAI reasoning, enabling natural-language audit trails and context-aware false-positive reduction."
       ],
       links: [
         { icon: "fab fa-github", label: "GitHub Profile →", href: "https://github.com/Chinkhuselts", secondary: true }
@@ -1261,7 +1166,8 @@
     "iam-api-v2": {
       title: "IAM-API-V2",
       type: "Auth · Backend · DevOps · IaC",
-      featured: true,
+      status: "live",
+      statusLabel: "Live — iam-ch.duckdns.org",
       diagram: `<span class="d-accent">POST /register</span> → bcrypt hash → <span class="d-green">PostgreSQL 15</span>
 <span class="d-accent">POST /login</span>    → verify     → <span class="d-green">JWT issued (SHA-256)</span>
                                               │
@@ -1279,7 +1185,7 @@
         "Caddy reverse proxy handles automated Let's Encrypt TLS provisioning — all traffic encrypted, FastAPI backend shielded from public internet on port 80/443",
         "Entire AWS stack (EC2, Security Groups, SSH keys) declared in <code>main.tf</code> — environment can be destroyed and perfectly recreated in under 60 seconds",
         "GitHub Actions CI/CD: builds a flattened, optimized production image and publishes to Docker Hub on every push to <code>main</code>",
-        "Overcame real Python & Cloud Security hurdles: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and 200MB+ Git history bloat from Terraform provider binaries",
+        "Overcame real Python & Cloud Security hurdles: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and 200MB+ Git history bloat from Terraform provider binaries"
       ],
       links: [
         { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" }
@@ -1289,7 +1195,8 @@
     "threat-map": {
       title: "3D Global Threat Map",
       type: "Visualization · WebGL · DevOps · Docker",
-      featured: true,
+      status: "live",
+      statusLabel: "Live — security-map.duckdns.org",
       diagram: `<span class="d-accent">git push → main</span> → <span class="d-dim">GitHub Actions CI/CD</span> → <span class="d-green">GitHub Container Registry</span>
                                                                  │
                                        <span class="d-orange">Oracle Cloud VM</span> (Hardware Firewall · WAF/DDoS)
@@ -1426,7 +1333,15 @@
     if (!p) return;
 
     document.getElementById("panelTitle").textContent = p.title;
-    document.getElementById("panelType").textContent = p.type;
+    document.getElementById("panelType").textContent  = p.type;
+
+    // Status chip
+    const chipEl = document.getElementById("panelStatusChip");
+    if (p.status) {
+      chipEl.innerHTML = `<span class="panel-status-chip ${p.status}">${p.statusLabel || p.status}</span>`;
+    } else {
+      chipEl.innerHTML = '';
+    }
 
     const techPills = p.tech.map(t => `<span class="tech-pill">${t}</span>`).join("");
     const bullets   = p.bullets.map(b => `<li>${b}</li>`).join("");
@@ -1436,13 +1351,15 @@
       </a>`
     ).join("");
 
+    const impactClass = p.impactVariant ? `panel-impact ${p.impactVariant}` : 'panel-impact';
+
     document.getElementById("panelBody").innerHTML = `
       <div class="panel-diagram">${p.diagram}</div>
       <p class="panel-desc">${p.desc}</p>
       <div class="tech-row">${techPills}</div>
       <div class="panel-cols">
-        <div class="panel-impact">
-          <div class="impact-label">Impact</div>
+        <div class="${impactClass}">
+          <div class="impact-label">Impact / Goal</div>
           <div class="impact-text">${p.impact}</div>
         </div>
         <ul class="panel-bullets">${bullets}</ul>
@@ -1455,10 +1372,7 @@
   let activeKey = null;
 
   function openPanel(key, bubbleEl) {
-    if (activeKey === key) {
-      closePanel();
-      return;
-    }
+    if (activeKey === key) { closePanel(); return; }
     document.querySelectorAll(".bubble").forEach(b => {
       b.classList.remove("active");
       b.setAttribute("aria-pressed", "false");
@@ -1466,14 +1380,10 @@
     bubbleEl.classList.add("active");
     bubbleEl.setAttribute("aria-pressed", "true");
     activeKey = key;
-
     renderPanel(key);
     const panel = document.getElementById("projectPanel");
     panel.classList.add("visible");
-
-    setTimeout(() => {
-      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }, 50);
+    setTimeout(() => { panel.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 50);
   }
 
   function closePanel() {
@@ -1486,22 +1396,14 @@
   }
 
   document.querySelectorAll(".bubble").forEach(bubble => {
-    bubble.addEventListener("click", () => {
-      openPanel(bubble.dataset.project, bubble);
-    });
-    bubble.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openPanel(bubble.dataset.project, bubble);
-      }
+    bubble.addEventListener("click",   () => openPanel(bubble.dataset.project, bubble));
+    bubble.addEventListener("keydown", e  => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPanel(bubble.dataset.project, bubble); }
     });
   });
 
   document.getElementById("panelClose").addEventListener("click", closePanel);
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && activeKey) closePanel();
-  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && activeKey) closePanel(); });
 </script>
 
 </body>
