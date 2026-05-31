@@ -788,7 +788,7 @@
       Final-year Cybersecurity student in Warsaw. I spent time at Khan Bank<br>
       automating things that shouldn't have been manual — now I build<br>
       serverless security pipelines, IaC-provisioned cloud stacks,<br>
-      and threat detection systems — three running live in production.
+      and threat detection systems — four running live in production.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
@@ -842,7 +842,7 @@
       <span class="stat-desc">Cloud Platforms — AWS · GCP · Oracle</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">3</span>
+      <span class="stat-num">4</span>
       <span class="stat-desc">Live Production Systems</span>
     </div>
   </div>
@@ -962,16 +962,6 @@
     <!-- BUBBLES -->
     <div class="bubble-arena" id="bubbleArena">
 
-      <div class="bubble featured" data-project="iam-api-v2" tabindex="0" role="button" aria-pressed="false" aria-label="IAM-API-V2 project — click to expand">
-        <div class="featured-crown">FEATURED</div>
-        <div class="bubble-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
-        <div class="bubble-label">IAM-API-V2</div>
-        <div class="bubble-tag">Auth · DevOps · IaC</div>
-        <div class="bubble-techs">
-          <span>FastAPI</span><span>Terraform</span><span>AWS</span><span>Caddy</span>
-        </div>
-      </div>
-
       <!-- ===== THESIS BUBBLE — In Progress ===== -->
       <div class="bubble featured in-progress" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance — Diploma Thesis, In Progress — click to expand">
         <div class="featured-crown wip">THESIS · IN PROGRESS</div>
@@ -983,10 +973,29 @@
         </div>
       </div>
 
+      <div class="bubble featured" data-project="threat-matrix" tabindex="0" role="button" aria-pressed="false" aria-label="Threat Matrix project — click to expand">
+        <div class="featured-crown">FEATURED</div>
+        <div class="bubble-icon"><i class="fas fa-satellite-dish" aria-hidden="true"></i></div>
+        <div class="bubble-label">Threat Matrix</div>
+        <div class="bubble-tag">Next.js · WebGL · CI/CD</div>
+        <div class="bubble-techs">
+          <span>Next.js</span><span>Docker</span><span>Watchtower</span>
+        </div>
+      </div>
+
       <div class="bubble" data-project="threat-map" tabindex="0" role="button" aria-pressed="false" aria-label="3D Global Threat Map project — click to expand">
         <div class="bubble-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
         <div class="bubble-label">3D Global Threat Map</div>
         <div class="bubble-tag">Viz · DevOps · Docker</div>
+      </div>
+
+      <div class="bubble" data-project="iam-api-v2" tabindex="0" role="button" aria-pressed="false" aria-label="IAM-API-V2 project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+        <div class="bubble-label">IAM-API-V2</div>
+        <div class="bubble-tag">Auth · DevOps · IaC</div>
+        <div class="bubble-techs">
+          <span>FastAPI</span><span>Terraform</span><span>AWS</span><span>Caddy</span>
+        </div>
       </div>
 
       <div class="bubble" data-project="gcp-serverless" tabindex="0" role="button" aria-pressed="false" aria-label="GCP Serverless API Hub project — click to expand">
@@ -1323,6 +1332,35 @@
       ],
       links: [
         { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/CAPEv2-Analysis" }
+      ]
+    },
+
+    "threat-matrix": {
+      title: "Threat Matrix",
+      type: "Next.js · WebGL · Docker · CI/CD",
+      status: "live",
+      statusLabel: "Live — threatmatrix.duckdns.org",
+      diagram: `<span class="d-dim">git push → main</span> → <span class="d-accent">GitHub Actions</span> → Docker Hub Image
+                                                           │
+                                           <span class="d-orange">Oracle Cloud VM</span>
+                                                           │
+                          <span class="d-accent">Caddy</span> (Auto-HTTPS) → <span class="d-green">Next.js</span> (port 3000)
+                                                           │
+                         <span class="d-dim">Watchtower</span> polls (60s) → zero-downtime rolling update
+                                                           │
+                         <span class="d-accent">Node.js API</span> (port 5000) → <span class="d-green">Globe.gl WebGL</span>`,
+      desc: "A real-time 3D WebGL dashboard that tracks and displays global cyber-attack vectors as they happen. Globe.gl handles hardware-accelerated globe rendering on the frontend while a custom Phantom Beam Interpolation algorithm automatically generates 'Orbital Strike' and 'Scattershot' visual clusters whenever origin or target coordinates are masked. The devops side is hands-off by design — GitHub Actions builds and pushes on every commit, and Watchtower on the Oracle Cloud server polls the registry every 60 seconds to perform zero-downtime rolling updates.",
+      tech: ["Next.js 14", "React", "Globe.gl", "WebGL", "TailwindCSS", "Node.js", "Express", "Docker", "Docker Compose", "GitHub Actions", "Watchtower", "Caddy", "Oracle Cloud"],
+      impact: "Live at threatmatrix.duckdns.org — every push to main reaches production in under 60 seconds via Watchtower rolling update; Caddy auto-provisions Let's Encrypt TLS with zero manual cert management.",
+      bullets: [
+        "Custom Phantom Beam Interpolation: trigonometric algorithm auto-generates 'Orbital Strike' and 'Scattershot' visual clusters when source/target IPs are masked or span multiple coordinates",
+        "Watchtower polls Docker Hub every 60 seconds, detects new image signatures, gracefully replaces running containers, and auto-prunes dangling old images",
+        "Caddy reverse proxy routes <code>/api/*</code> to Node.js (port 5000) and <code>/</code> to Next.js (port 3000) — automated Let's Encrypt TLS, no Certbot or manual renewal",
+        "Modular UI: toggleable vector-type legends, live monitoring sidebar, and adjustable attack-arc playback speed"
+      ],
+      links: [
+        { icon: "fas fa-external-link-alt", label: "Live Demo →", href: "https://threatmatrix.duckdns.org" },
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/threatmap-saas", secondary: true }
       ]
     }
   };
