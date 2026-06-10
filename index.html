@@ -467,6 +467,11 @@
     }
     .panel-status-chip.live::before { content: '●'; font-size: 0.55rem; }
 
+    .panel-status-chip.thesis {
+      background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.25); color: var(--accent);
+    }
+    .panel-status-chip.thesis::before { content: '◈'; font-size: 0.55rem; }
+
     .bubble-icon {
       font-size: 1.6rem; color: var(--accent); line-height: 1;
     }
@@ -834,7 +839,7 @@
       <span class="stat-desc">Reporting time cut at Khan Bank</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">8</span>
+      <span class="stat-num">9</span>
       <span class="stat-desc">Security Projects Built</span>
     </div>
     <div class="stat-item">
@@ -897,7 +902,7 @@
       </div>
 
       <p>
-        I'm a <strong>final-year Computer Science (Cybersecurity) student</strong> at Vizja University in Warsaw, graduating September 2026. Before that I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar — mostly automating reporting pipelines that were eating people's afternoons, and keeping Linux servers from misbehaving.
+        I'm a <strong>final-year Computer Science (Cybersecurity) student</strong> at Vizja University in Warsaw, graduating 2026. Before that I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar — mostly automating reporting pipelines that were eating people's afternoons, and keeping Linux servers from misbehaving.
       </p>
       <p>
         My thesis explores <strong>Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong> — which is the kind of rabbit hole I genuinely enjoy going down. Outside that, I've been shipping cloud security projects across AWS, GCP, and Oracle Cloud, always with Terraform so nothing exists only on my laptop.
@@ -921,7 +926,7 @@
         <h4>Education &amp; Credentials</h4>
         <div class="info-item">
           <span class="info-name">B.S. Engineering — Computer Science (Cybersecurity)<br><em>University of Economics and Human Sciences (Vizja), Warsaw</em></span>
-          <span class="info-date">Sep 2026</span>
+          <span class="info-date">2026</span>
         </div>
         <div class="info-item">
           <span class="info-name">Cisco NetAcad — Networking Basics</span>
@@ -962,14 +967,14 @@
     <!-- BUBBLES -->
     <div class="bubble-arena" id="bubbleArena">
 
-      <!-- ===== THESIS BUBBLE — In Progress ===== -->
-      <div class="bubble featured in-progress" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance — Diploma Thesis, In Progress — click to expand">
-        <div class="featured-crown wip">THESIS · IN PROGRESS</div>
-        <div class="bubble-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+      <!-- ===== THESIS BUBBLE ===== -->
+      <div class="bubble featured" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance — Diploma Thesis — click to expand">
+        <div class="featured-crown">THESIS</div>
+        <div class="bubble-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></div>
         <div class="bubble-label">Autonomous Cloud Governance</div>
-        <div class="bubble-tag">GenAI · OCI · CIS Benchmark</div>
+        <div class="bubble-tag">OCI · Llama 3.1 · Dual-Engine</div>
         <div class="bubble-techs">
-          <span>OCI GenAI</span><span>Python SDK</span><span>Terraform</span><span>Steampipe</span>
+          <span>Groq / Llama 3.1</span><span>VirusTotal</span><span>OCI Functions</span><span>Grafana</span>
         </div>
       </div>
 
@@ -1134,41 +1139,41 @@
   const projects = {
 
     "thesis": {
-      title: "Autonomous Cloud Governance",
-      type: "Diploma Thesis · Vizja University, Warsaw · Sep 2026",
-      status: "wip",
-      statusLabel: "In Progress — graduating Sep 2026",
-      diagram: `<span class="d-accent">OCI Cloud Guard</span> ─ CIS Benchmark findings ─▶ <span class="d-orange">OCI Events Service</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> #1 ─ Python OCI SDK ─ parse + prompt
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-amber">OCI Generative AI Service</span> ─ LLM API ─ prompt engineering
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ dynamic code generation
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> #2 ─ Remediation Executor
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ IAM Resource Principals (least-privilege)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-dim">OCI Object Storage + NoSQL DB</span> ─ audit trail
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">Steampipe</span> (OCI plugin) ─ post-fix validation ─▶ <span class="d-green">Compliant ✓</span>`,
-      desc: "My final-year thesis designs and builds an intelligent self-healing compliance engine for Oracle Cloud Infrastructure. Rather than scripting a canned fix for every possible violation, the system wires OCI Cloud Guard's continuous CIS Benchmark monitoring to a Generative AI LLM — which interprets each finding and generates context-aware OCI Python SDK remediation code on the fly. The result is a fully autonomous governance loop that detects drift, reasons about it, patches it, and verifies the fix — without a human in the middle.",
-      tech: ["OCI Cloud Guard", "OCI Events Service", "OCI Functions", "OCI Generative AI Service (LLM)", "OCI IAM (Resource Principals)", "OCI Object Storage", "OCI NoSQL Database", "Python (OCI SDK)", "Prompt Engineering", "Terraform (OCI Provider)", "Steampipe (OCI plugin)", "Git"],
-      impact: "Targets full elimination of manual remediation cycles — each CIS Benchmark violation detected by OCI Cloud Guard initiates an autonomous fix loop: GenAI generates targeted remediation code, OCI Functions execute it under strict least-privilege IAM, and Steampipe independently validates the corrected state.",
-      impactVariant: "wip",
+      title: "Autonomous AI Security Remediation Engine",
+      type: "Diploma Thesis · Autonomous Cloud Governance · Vizja University, Warsaw · Sep 2026",
+      status: "thesis",
+      statusLabel: "Diploma Thesis — Vizja University, Sep 2026",
+      diagram: `<span class="d-dim">User / Attacker</span> ──▶ <span class="d-orange">OCI Object Storage</span> (uploads file or modifies bucket)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ emits OCI Event
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> · Event Router
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┌──────────────────────────────────┘
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ bucket_visibility&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ object_upload
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">CIS Compliance Engine</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">AI Malware Engine</span>
+&nbsp;&nbsp;&nbsp;&nbsp;Reverts bucket → Private&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHA-256 Hash ──▶ <span class="d-accent">VirusTotal API</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keyword Search ──▶ <span class="d-accent">NVD CVE API</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ enriched context
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-amber">Groq / Llama 3.1</span> ──▶ JSON Risk + Confidence
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ execute action
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">ALLOW</span> · <span class="d-amber">QUARANTINE</span> (.locked) · <span class="d-orange">DELETE</span>
+&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+&nbsp;&nbsp;&nbsp;&nbsp;└──────────────── <span class="d-dim">Grafana Dashboard</span> (telemetry stream) ───────────────┘`,
+      desc: "Modern cloud environments generate thousands of alerts daily, creating severe alert fatigue for SOC analysts. My diploma thesis builds a zero-trust, event-driven serverless engine on OCI that uses a Dual-Engine Architecture to respond in milliseconds — no human in the middle. One engine deterministically enforces CIS Benchmarks on bucket visibility; the other intercepts uploaded files, enriches them via VirusTotal and the US Government NVD, then hands everything to Llama 3.1 to mathematically score risk and decide the outcome. The fail-safe logic alone — downgrading DELETE to QUARANTINE when AI confidence is low — took more engineering than the rest of the system combined.",
+      tech: ["Python 3.9+", "OCI Functions", "OCI Object Storage", "OCI Events Service", "OCI IAM (Dynamic Groups)", "Groq API", "Llama 3.1", "VirusTotal API", "NVD CVE API", "Grafana", "OCI Logging Analytics", "hashlib (SHA-256)", "urllib.parse"],
+      impact: "A fully autonomous remediation pipeline deployed on OCI — detects public bucket exposure and instantly reverts it (CIS Benchmark), while simultaneously intercepting uploaded files, enriching via threat intel APIs, and using Llama 3.1 to score risk and trigger ALLOW / QUARANTINE / DELETE in milliseconds with zero human intervention.",
       bullets: [
-        "OCI Cloud Guard continuously monitors the infrastructure compartment against CIS Benchmark policies, emitting structured compliance findings for every detected violation.",
-        "OCI Events Service routes each finding to a Python-based OCI Function that parses the violation context and constructs a targeted LLM prompt — no pre-written remediation scripts.",
-        "<span style='color:var(--amber)'>OCI Generative AI Service</span> receives the engineered prompt and dynamically generates context-aware OCI Python SDK or Terraform remediation code, enabling intelligent interpretation vs. static rule-based tools like Prowler or OCI Cloud Guard Responders.",
-        "A second OCI Function executes the generated code under <code>Resource Principals</code> — ensuring all automated actions stay within a strict least-privilege IAM boundary, with no hardcoded credentials.",
-        "OCI Object Storage and NoSQL Database maintain a human-readable audit trail; Steampipe (OCI plugin) runs independent post-fix validation — decoupled from the monitoring layer — to confirm compliance is restored.",
-        "Differentiates from Wiz, Prisma Cloud, and Prowler by replacing rigid rule-based automation with dynamic GenAI reasoning, enabling natural-language audit trails and context-aware false-positive reduction."
+        "<strong style='color:var(--text)'>Dual-Engine Architecture:</strong> CIS Compliance Engine deterministically reverts unauthorized public bucket exposure; AI Malware Engine scores uploaded files using VirusTotal, NVD CVE data, and <span style='color:var(--amber)'>Llama 3.1</span> for context-aware threat evaluation.",
+        "Bypasses OCI's inaccurate multipart eTag metadata by streaming payloads through <code>hashlib</code> in-memory — calculating true SHA-256 hashes for accurate VirusTotal lookups.",
+        "<strong style='color:var(--text)'>Deterministic Anchoring:</strong> LLM system prompt mathematically penalizes executable extensions to prevent attackers bypassing security by naming malware <code>docs.exe</code> — eliminates LLM semantic gullibility.",
+        "Fail-safe remediation: 3-tier <span style='color:var(--accent2)'>ALLOW</span> / <span style='color:var(--amber)'>QUARANTINE</span> / <span style='color:var(--warn)'>DELETE</span> pipeline — if risk is critical but AI confidence is low, the system safely downgrades DELETE to QUARANTINE (<code>.locked</code> rename) to prevent false-positive data destruction.",
+        "OCI IAM Dynamic Group policy locks autonomous permissions to the exact function OCID — all remediation actions execute under strict least-privilege with no hardcoded credentials.",
+        "Full observability: both engines stream telemetry to a Grafana Dashboard connected to OCI Logging Analytics for real-time monitoring of all automated actions."
       ],
       links: [
-        { icon: "fab fa-github", label: "GitHub Profile →", href: "https://github.com/Chinkhuselts", secondary: true }
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/oci-autonomous-security-agent" },
+        { icon: "fas fa-file-alt", label: "README →", href: "https://github.com/Chinkhuselts/oci-autonomous-security-agent/blob/main/README.md", secondary: true }
       ]
     },
 
