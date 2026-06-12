@@ -730,6 +730,22 @@
       .bubble-tag { font-size: 0.65rem; }
     }
 
+    .hero-tagline {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      padding: 0.9rem 1.1rem;
+      border-left: 2px solid var(--accent);
+      margin-bottom: 2rem;
+      background: rgba(0, 212, 255, 0.04);
+      border-radius: 0 4px 4px 0;
+    }
+    .hero-tagline-main {
+      font-family: var(--mono); font-size: 0.85rem; font-weight: 600;
+      color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
+    }
+    .hero-tagline-sub {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 1.5px;
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -789,12 +805,17 @@
   <div class="hero-left">
     <span class="stat-num">SECURE BY DESIGN</span>
     <div class="hero-label">// Python & Cloud Security Engineer</div>
+    <div class="hero-label"> 🛡️ ISC2 - CC - Exam passed - Cert Pending</div>
     <p class="hero-sub">
       Final-year Cybersecurity student in Warsaw. I spent time at Khan Bank<br>
       automating things that shouldn't have been manual — now I build<br>
       serverless security pipelines, IaC-provisioned cloud stacks,<br>
       and threat detection systems — four running live in production.
     </p>
+    <div class="hero-tagline">
+      <span class="hero-tagline-main">SECURE BY DESIGN</span>
+      <span class="hero-tagline-sub">// Python &amp; Cloud Security Engineer</span>
+    </div>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
       <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -825,6 +846,7 @@
       <div>&nbsp;&nbsp;<span class="t-key">"siem"</span>: <span class="t-str">"ELK + Snort + Splunk"</span>,</div>
       <div>&nbsp;&nbsp;<span class="t-key">"code"</span>: <span class="t-str">"Python · Bash · SQL"</span></div>
       <div>},</div>
+      <div><span class="t-key">"certifications"</span>: [<span class="t-str">"ISC2 CC"</span>], <span class="t-comment">// exam passed</span></div>
       <div><span class="t-key">"available"</span>: <span class="t-val">true</span> <span class="t-comment">// open to work</span></div>
       <div><span class="t-blink"></span></div>
     </div>
@@ -927,6 +949,10 @@
         <div class="info-item">
           <span class="info-name">B.S. Engineering — Computer Science (Cybersecurity)<br><em>University of Economics and Human Sciences (Vizja), Warsaw</em></span>
           <span class="info-date">2026</span>
+        </div>
+        <div class="info-item">
+          <span class="info-name">ISC2 CC — Certified in Cybersecurity<br><em>International Information System Security Certification Consortium</em></span>
+          <span class="info-date" style="color: var(--amber);">Exam Passed · Cert Pending</span>
         </div>
         <div class="info-item">
           <span class="info-name">Cisco NetAcad — Networking Basics</span>
