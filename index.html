@@ -167,6 +167,26 @@
       font-family: var(--mono); font-size: 0.75rem; color: var(--accent);
       letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;
     }
+    .hero-cert {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.8rem;
+    }
+    .hero-cert-shield {
+      font-size: 2rem; color: #0077b6;
+      filter: drop-shadow(0 0 8px rgba(0, 119, 182, 0.5));
+    }
+    .hero-cert-text {
+      font-family: var(--sans); font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 800; letter-spacing: -0.5px; line-height: 1.1;
+      color: #0096c7;
+      text-shadow: 0 0 18px rgba(0, 150, 199, 0.35);
+    }
+    .hero-cert-text span {
+      display: block; font-family: var(--mono);
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 2px; color: #48cae4; text-shadow: none;
+      margin-top: 0.15rem;
+    }
     .hero h1 {
       font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 800;
       line-height: 1.05; letter-spacing: -2px; color: var(--text); margin-bottom: 1.5rem;
@@ -805,7 +825,13 @@
   <div class="hero-left">
     <span class="stat-num">SECURE BY DESIGN</span>
     <div class="hero-label">// Python & Cloud Security Engineer</div>
-    <div class="hero-label"> 🛡️ ISC2 - CC - Exam passed - Cert Pending</div>
+    <div class="hero-cert">
+      <i class="fas fa-shield-alt hero-cert-shield"></i>
+      <div class="hero-cert-text">
+        ISC2 CC
+        <span>CERTIFIED IN CYBERSECURITY</span>
+      </div>
+    </div>
     <p class="hero-sub">
       Final-year Cybersecurity student in Warsaw. I spent time at Khan Bank<br>
       automating things that shouldn't have been manual — now I build<br>
@@ -846,7 +872,7 @@
       <div>&nbsp;&nbsp;<span class="t-key">"siem"</span>: <span class="t-str">"ELK + Snort + Splunk"</span>,</div>
       <div>&nbsp;&nbsp;<span class="t-key">"code"</span>: <span class="t-str">"Python · Bash · SQL"</span></div>
       <div>},</div>
-      <div><span class="t-key">"certifications"</span>: [<span class="t-str">"ISC2 CC"</span>], <span class="t-comment">// exam passed</span></div>
+      <div><span class="t-key">"certifications"</span>: [<span class="t-str">"ISC2 CC"</span>], <span class="t-comment">// certified</span></div>
       <div><span class="t-key">"available"</span>: <span class="t-val">true</span> <span class="t-comment">// open to work</span></div>
       <div><span class="t-blink"></span></div>
     </div>
@@ -952,7 +978,7 @@
         </div>
         <div class="info-item">
           <span class="info-name">ISC2 CC — Certified in Cybersecurity<br><em>International Information System Security Certification Consortium</em></span>
-          <span class="info-date" style="color: var(--amber);">Exam Passed · Cert Pending</span>
+          <span class="info-date" style="color: var(--accent2);">Certified</span>
         </div>
         <div class="info-item">
           <span class="info-name">Cisco NetAcad — Networking Basics</span>
