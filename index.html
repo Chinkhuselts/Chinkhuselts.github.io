@@ -15,11 +15,32 @@
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Chinkhusel Tsolmonbaatar — Python & Cloud Security Engineer" />
-  <meta name="twitter:description" content="Python & Cloud Security engineer specializing in AWS/Oracle/GCP cloud security, serverless threat detection, SIEM pipelines, and ucture automation. Based in Warsaw, Poland." />
+  <meta name="twitter:description" content="Python & Cloud Security engineer specializing in AWS/Oracle/GCP cloud security, serverless threat detection, SIEM pipelines, and infrastructure automation. Based in Warsaw, Poland." />
   <meta name="twitter:image" content="https://chinkhuselts.github.io/og-preview.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Mermaid.js for Diagrams -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ 
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: {
+        background: '#111d35',
+        primaryColor: '#0d1526',
+        primaryTextColor: '#e8f4f8',
+        primaryBorderColor: '#00d4ff',
+        lineColor: '#00ff88',
+        secondaryColor: '#1a2d52',
+        tertiaryColor: '#111d35',
+        fontFamily: "'IBM Plex Mono', monospace"
+      }
+    });
+    window.mermaid = mermaid;
+  </script>
+
   <style>
     :root {
       --bg: #080c14;
@@ -32,7 +53,7 @@
       --amber: #fbbf24;
       --amber-dim: rgba(251,191,36,0.28);
       --text: #e8f4f8;
-      --muted: #7090aa;
+      --muted: #9baac8; 
       --dim: #2a4060;
       --mono: 'IBM Plex Mono', monospace;
       --sans: 'Syne', sans-serif;
@@ -79,13 +100,17 @@
     .nav-links { display: flex; gap: 2.5rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 1px; color: var(--muted); align-items: center; }
     .nav-links a { transition: color 0.2s; }
     .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); outline: none; }
+    
     .nav-badge {
       font-family: var(--mono); font-size: 0.7rem;
       padding: 0.3rem 0.8rem;
       border: 1px solid var(--accent2); color: var(--accent2);
       border-radius: 2px; letter-spacing: 1px;
+      display: inline-flex; align-items: center;
+      transition: all 0.2s; cursor: pointer;
     }
-    .nav-badge::before { content: '● '; font-size: 0.6rem; animation: blink 1.4s step-end infinite; }
+    .nav-badge:hover { background: rgba(0,255,136,0.08); }
+    .nav-badge::before { content: '● '; font-size: 0.6rem; animation: blink 1.4s step-end infinite; margin-right: 0.4rem; }
 
     .nav-cv {
       font-family: var(--mono); font-size: 0.7rem;
@@ -152,9 +177,9 @@
     .drawer-status {
       font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
       color: var(--accent2); padding: 0.4rem 0.75rem;
-      display: flex; align-items: center; gap: 0.4rem;
+      display: flex; align-items: center; gap: 0.4rem; text-decoration: none;
     }
-    .drawer-status::before { content: '●'; font-size: 0.5rem; }
+    .drawer-status::before { content: '●'; font-size: 0.5rem; animation: blink 1.4s step-end infinite;}
 
     /* HERO */
     .hero {
@@ -292,6 +317,13 @@
       color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
     }
 
+    /* Skills Restructured */
+    .skill-group-title {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--text);
+      letter-spacing: 2px; text-transform: uppercase; margin: 1.5rem 0 0.75rem;
+      display: block; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;
+    }
+    .skill-group-title:first-child { margin-top: 0; }
     .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .skill-row {
       background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
@@ -407,45 +439,6 @@
       background: conic-gradient(from 0deg, transparent 0%, rgba(0,255,136,0.3) 20%, transparent 40%);
     }
 
-    /* ======= IN-PROGRESS BUBBLE ======= */
-    .bubble.in-progress {
-      border-color: var(--amber-dim);
-      background: radial-gradient(circle at 35% 35%, rgba(251,191,36,0.09), rgba(13,21,38,0.92) 70%);
-    }
-    .bubble.in-progress:hover {
-      border-color: var(--amber);
-      box-shadow: 0 0 36px rgba(251,191,36,0.22), 0 0 70px rgba(251,191,36,0.07), inset 0 0 28px rgba(251,191,36,0.06);
-      background: radial-gradient(circle at 35% 35%, rgba(251,191,36,0.18), rgba(13,21,38,0.92) 70%);
-    }
-    .bubble.in-progress.active {
-      border-color: var(--amber);
-      box-shadow: 0 0 44px rgba(251,191,36,0.3), 0 0 85px rgba(251,191,36,0.1), inset 0 0 30px rgba(251,191,36,0.08);
-      transform: scale(1.08);
-      background: radial-gradient(circle at 35% 35%, rgba(251,191,36,0.2), rgba(13,21,38,0.92) 70%);
-    }
-    .bubble.in-progress::before {
-      background: conic-gradient(from 0deg, transparent 0%, rgba(251,191,36,0.35) 20%, transparent 40%);
-    }
-    .bubble.in-progress:hover::before, .bubble.in-progress.active::before { opacity: 1; }
-    .bubble.in-progress .bubble-icon { color: var(--amber); }
-    .bubble.in-progress .bubble-tag { color: rgba(251,191,36,0.62); }
-    .bubble.in-progress .bubble-techs span {
-      background: rgba(180, 130, 18, 0.82);
-      color: var(--bg);
-    }
-
-    @keyframes pulse-ring {
-      0%   { box-shadow: 0 0 0 0   rgba(251,191,36,0.38); }
-      70%  { box-shadow: 0 0 0 12px rgba(251,191,36,0); }
-      100% { box-shadow: 0 0 0 0   rgba(251,191,36,0); }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .bubble.in-progress:not(:hover):not(.active) {
-        animation: floatA 5s ease-in-out infinite, pulse-ring 2.6s ease-out infinite;
-      }
-    }
-
-    /* WIP crown */
     .featured-crown {
       position: absolute; top: -10px; left: 50%;
       transform: translateX(-50%);
@@ -454,20 +447,7 @@
       padding: 0.15rem 0.5rem; border-radius: 2px;
       letter-spacing: 1px; white-space: nowrap;
     }
-    .featured-crown.wip {
-      background: linear-gradient(90deg, #b45309, #d97706, #fbbf24);
-      letter-spacing: 0.7px;
-      display: flex; align-items: center; gap: 0.35rem;
-    }
-    .featured-crown.wip::before {
-      content: '';
-      width: 4px; height: 4px; border-radius: 50%;
-      background: rgba(255,255,255,0.85);
-      flex-shrink: 0;
-      animation: blink 1.2s step-end infinite;
-    }
 
-    /* Panel status chip */
     .panel-status-chip {
       display: inline-flex; align-items: center; gap: 0.35rem;
       font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
@@ -486,15 +466,12 @@
       background: rgba(0,255,136,0.07); border: 1px solid rgba(0,255,136,0.25); color: var(--accent2);
     }
     .panel-status-chip.live::before { content: '●'; font-size: 0.55rem; }
-
     .panel-status-chip.thesis {
       background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.25); color: var(--accent);
     }
     .panel-status-chip.thesis::before { content: '◈'; font-size: 0.55rem; }
 
-    .bubble-icon {
-      font-size: 1.6rem; color: var(--accent); line-height: 1;
-    }
+    .bubble-icon { font-size: 1.6rem; color: var(--accent); line-height: 1; }
     .bubble.featured .bubble-icon { color: var(--accent2); }
 
     .bubble-label {
@@ -531,7 +508,7 @@
     }
     .project-panel.visible {
       opacity: 1; transform: translateY(0);
-      pointer-events: all; max-height: 2000px; margin-bottom: 2rem;
+      pointer-events: all; max-height: 2500px; margin-bottom: 2rem;
     }
 
     .panel-header {
@@ -558,12 +535,14 @@
 
     .panel-body { padding: 2rem; }
 
+    /* Mermaid Styling */
     .panel-diagram {
       background: var(--surface2); border: 1px solid var(--border);
       border-radius: 6px; padding: 1.25rem 1.5rem;
-      font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
-      line-height: 2.1; margin-bottom: 1.5rem; overflow-x: auto;
+      margin-bottom: 1.5rem; display: flex; justify-content: center;
+      overflow-x: auto;
     }
+    .panel-diagram svg { max-width: 100%; height: auto; }
 
     .panel-desc {
       font-family: var(--mono); font-size: 0.88rem; color: var(--muted);
@@ -613,13 +592,6 @@
     .panel-link.secondary { color: var(--muted); border-color: var(--border); }
     .panel-link.secondary:hover { color: var(--accent2); border-color: var(--accent2); background: rgba(0,255,136,0.06); }
 
-    /* WIP panel impact variant */
-    .panel-impact.wip {
-      background: rgba(251,191,36,0.05);
-      border-left: 2px solid var(--amber);
-    }
-    .panel-impact.wip .impact-label { color: var(--amber); }
-
     /* CONTACT */
     .contact-section { border-top: 1px solid var(--border); background: var(--surface); }
     .contact-inner {
@@ -644,13 +616,6 @@
       font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
     }
     footer a { color: var(--accent); }
-
-    /* Color helpers */
-    .d-accent { color: var(--accent); }
-    .d-green  { color: var(--accent2); }
-    .d-orange { color: var(--warn); }
-    .d-amber  { color: var(--amber); }
-    .d-dim    { color: var(--dim); }
 
     /* THREAT MAP */
     .threatmap-section {
@@ -716,8 +681,9 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
-      .hero-terminal { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+      .hero-terminal { display: block; margin-top: 1rem; font-size: 0.75rem; overflow-x: auto; }
+      
       .about-grid { grid-template-columns: 1fr; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .stat-item:nth-child(2) { border-right: none; }
@@ -748,22 +714,6 @@
       .bubble-icon { font-size: 1.2rem; flex-shrink: 0; }
       .bubble-label { font-size: 0.78rem; }
       .bubble-tag { font-size: 0.65rem; }
-    }
-
-    .hero-tagline {
-      display: flex; flex-direction: column; gap: 0.2rem;
-      padding: 0.9rem 1.1rem;
-      border-left: 2px solid var(--accent);
-      margin-bottom: 2rem;
-      background: rgba(0, 212, 255, 0.04);
-      border-radius: 0 4px 4px 0;
-    }
-    .hero-tagline-main {
-      font-family: var(--mono); font-size: 0.85rem; font-weight: 600;
-      color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
-    }
-    .hero-tagline-sub {
-      font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 1.5px;
     }
 
     @keyframes fadeUp {
@@ -803,14 +753,14 @@
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileDrawer">
       <i class="fas fa-bars"></i>
     </button>
-    <div class="nav-badge">open to work</div>
+    <a href="#contact" class="nav-badge">open to work</a>
   </div>
 </nav>
 
 <!-- MOBILE OVERLAY + DRAWER -->
 <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
 <div class="mobile-drawer" id="mobileDrawer" role="navigation" aria-label="Mobile navigation">
-  <span class="drawer-status">open to work</span>
+  <a href="#contact" class="drawer-status">open to work</a>
   <div class="drawer-divider"></div>
   <a href="#about"><i class="fas fa-user"></i> about</a>
   <a href="#projects"><i class="fas fa-shield-alt"></i> projects</a>
@@ -941,7 +891,7 @@
         <div class="profile-avatar" aria-label="Initials: CT">CT</div>
         <div class="profile-name">
           <span class="profile-full-name">Chinkhusel Tsolmonbaatar</span>
-          <span class="profile-role">Python & Cloud Security · Cloud Security</span>
+          <span class="profile-role">Cloud Security Engineer</span>
         </div>
       </div>
 
@@ -984,21 +934,28 @@
     </div>
 
     <div>
-      <div class="skills-grid">
+      <span class="skill-group-title">Cloud & Infrastructure</span>
+      <div class="skills-grid" style="margin-bottom: 1.5rem;">
         <div class="skill-row"><i class="fab fa-aws skill-icon"></i> AWS Lambda · S3 · SNS</div>
         <div class="skill-row"><i class="fas fa-code-branch skill-icon"></i> Terraform / IaC</div>
-        <div class="skill-row"><i class="fas fa-chart-bar skill-icon"></i> ELK Stack</div>
-        <div class="skill-row"><i class="fas fa-network-wired skill-icon"></i> Snort IDS</div>
-        <div class="skill-row"><i class="fab fa-python skill-icon"></i> Python (advanced)</div>
-        <div class="skill-row"><i class="fas fa-terminal skill-icon"></i> Bash · Linux</div>
-        <div class="skill-row"><i class="fas fa-bug skill-icon"></i> Malware Analysis</div>
-        <div class="skill-row"><i class="fas fa-shield-virus skill-icon"></i> Threat Detection</div>
         <div class="skill-row"><i class="fab fa-docker skill-icon"></i> Docker</div>
         <div class="skill-row"><i class="fas fa-database skill-icon"></i> DynamoDB</div>
+      </div>
+
+      <span class="skill-group-title">Detection & SIEM</span>
+      <div class="skills-grid" style="margin-bottom: 1.5rem;">
+        <div class="skill-row"><i class="fas fa-chart-bar skill-icon"></i> ELK Stack</div>
+        <div class="skill-row"><i class="fas fa-chart-line skill-icon"></i> Splunk SIEM</div>
+        <div class="skill-row"><i class="fas fa-shield-virus skill-icon"></i> Snort IDS</div>
+        <div class="skill-row"><i class="fas fa-bug skill-icon"></i> Malware Analysis</div>
+      </div>
+
+      <span class="skill-group-title">Languages & AppSec</span>
+      <div class="skills-grid">
+        <div class="skill-row"><i class="fab fa-python skill-icon"></i> Python (Advanced)</div>
+        <div class="skill-row"><i class="fas fa-terminal skill-icon"></i> Bash · Linux</div>
         <div class="skill-row"><i class="fas fa-key skill-icon"></i> JWT · RBAC · IAM</div>
         <div class="skill-row"><i class="fab fa-node-js skill-icon"></i> Node.js · PostgreSQL</div>
-        <div class="skill-row"><i class="fas fa-chart-line skill-icon"></i> Splunk SIEM</div>
-        <div class="skill-row"><i class="fas fa-sitemap skill-icon"></i> TCP/IP · Cloud Networking</div>
       </div>
     </div>
   </div>
@@ -1015,7 +972,6 @@
     <!-- BUBBLES -->
     <div class="bubble-arena" id="bubbleArena">
 
-      <!-- ===== THESIS BUBBLE ===== -->
       <div class="bubble featured" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance — Diploma Thesis — click to expand">
         <div class="featured-crown">THESIS</div>
         <div class="bubble-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></div>
@@ -1106,7 +1062,7 @@
       <div class="section-label">// 03 &nbsp; contact</div>
       <h2>Let's build<br><em>secure systems.</em></h2>
       <p>
-        Open to Cloud Security and Python & Cloud Security roles —<br>
+        Open to Cloud Security and Python Engineer roles —<br>
         full-time, contract, or collaborative open-source.<br><br>
         Based in Warsaw, Poland. If you're building something<br>
         that needs both infrastructure depth and a<br>
@@ -1183,7 +1139,7 @@
     if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) closeDrawer();
   });
 
-  /* PROJECT DATA */
+  /* PROJECT DATA (Upgraded to Mermaid.js Diagrams) */
   const projects = {
 
     "thesis": {
@@ -1191,24 +1147,26 @@
       type: "Diploma Thesis · Autonomous Cloud Governance · Vizja University, Warsaw · Sep 2026",
       status: "thesis",
       statusLabel: "Diploma Thesis — Vizja University, Sep 2026",
-      diagram: `<span class="d-dim">User / Attacker</span> ──▶ <span class="d-orange">OCI Object Storage</span> (uploads file or modifies bucket)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ emits OCI Event
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-accent">OCI Functions</span> · Event Router
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┌──────────────────────────────────┘
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ bucket_visibility&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ object_upload
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">CIS Compliance Engine</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-orange">AI Malware Engine</span>
-&nbsp;&nbsp;&nbsp;&nbsp;Reverts bucket → Private&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHA-256 Hash ──▶ <span class="d-accent">VirusTotal API</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keyword Search ──▶ <span class="d-accent">NVD CVE API</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ enriched context
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-amber">Groq / Llama 3.1</span> ──▶ JSON Risk + Confidence
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ execute action
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="d-green">ALLOW</span> · <span class="d-amber">QUARANTINE</span> (.locked) · <span class="d-orange">DELETE</span>
-&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
-&nbsp;&nbsp;&nbsp;&nbsp;└──────────────── <span class="d-dim">Grafana Dashboard</span> (telemetry stream) ───────────────┘`,
-      desc: "Modern cloud environments generate thousands of alerts daily, creating severe alert fatigue for SOC analysts. My diploma thesis builds a zero-trust, event-driven serverless engine on OCI that uses a Dual-Engine Architecture to respond in milliseconds — no human in the middle. One engine deterministically enforces CIS Benchmarks on bucket visibility; the other intercepts uploaded files, enriches them via VirusTotal and the US Government NVD, then hands everything to Llama 3.1 to mathematically score risk and decide the outcome. The fail-safe logic alone — downgrading DELETE to QUARANTINE when AI confidence is low — took more engineering than the rest of the system combined.",
+      diagram: `<div class="mermaid">
+graph TD
+    User[User/Attacker] -->|uploads file / modifies bucket| OCI[OCI Object Storage]
+    OCI -.->|emits OCI Event| Router[OCI Functions Event Router]
+    Router -->|bucket_visibility| CIS[CIS Compliance Engine]
+    Router -->|object_upload| Malware[AI Malware Engine]
+    
+    CIS -->|Reverts to Private| Grafana[(Grafana Telemetry)]
+    
+    Malware -->|SHA-256| VT[VirusTotal API]
+    Malware -->|Keyword Search| NVD[NVD CVE API]
+    
+    VT & NVD -->|Enriched Context| LLM{Groq / Llama 3.1}
+    LLM -->|JSON Risk + Confidence| Action{Decision Engine}
+    
+    Action -->|ALLOW| Grafana
+    Action -->|QUARANTINE| Grafana
+    Action -->|DELETE| Grafana
+      </div>`,
+      desc: "Modern cloud environments generate thousands of alerts daily, creating severe alert fatigue for SOC analysts. My diploma thesis builds a zero-trust, event-driven serverless engine on OCI that uses a Dual-Engine Architecture to respond in milliseconds — <strong>no human in the middle</strong>. One engine deterministically enforces CIS Benchmarks on bucket visibility; the other intercepts uploaded files, enriches them via VirusTotal and the US Government NVD, then hands everything to Llama 3.1 to mathematically score risk and decide the outcome. The fail-safe logic alone — downgrading DELETE to QUARANTINE when AI confidence is low — took more engineering than the rest of the system combined.",
       tech: ["Python 3.9+", "OCI Functions", "OCI Object Storage", "OCI Events Service", "OCI IAM (Dynamic Groups)", "Groq API", "Llama 3.1", "VirusTotal API", "NVD CVE API", "Grafana", "OCI Logging Analytics", "hashlib (SHA-256)", "urllib.parse"],
       impact: "A fully autonomous remediation pipeline deployed on OCI — detects public bucket exposure and instantly reverts it (CIS Benchmark), while simultaneously intercepting uploaded files, enriching via threat intel APIs, and using Llama 3.1 to score risk and trigger ALLOW / QUARANTINE / DELETE in milliseconds with zero human intervention.",
       bullets: [
@@ -1230,23 +1188,25 @@
       type: "Auth · Backend · DevOps · IaC",
       status: "live",
       statusLabel: "Live — iam-ch.duckdns.org",
-      diagram: `<span class="d-accent">POST /register</span> → bcrypt hash → <span class="d-green">PostgreSQL 15</span>
-<span class="d-accent">POST /login</span>    → verify     → <span class="d-green">JWT issued (SHA-256)</span>
-                                              │
-           <span class="d-orange">RBAC middleware</span> → user / admin <span class="d-accent">protected routes</span>
-                                              │
-           <span class="d-dim">GitHub Actions</span> → Docker Hub → <span class="d-green">AWS EC2</span> ← <span class="d-orange">Terraform IaC</span>
-                                              │
-                     <span class="d-accent">Caddy</span> (TLS · Let's Encrypt) → <span class="d-green">HTTPS public</span>`,
+      diagram: `<div class="mermaid">
+graph LR
+    Client -->|HTTPS| Caddy[Caddy Proxy]
+    Caddy --> API[FastAPI]
+    API -->|Register| Hash[bcrypt] --> DB[(PostgreSQL)]
+    API -->|Login| Auth[JWT Auth SHA-256]
+    API -->|Protected routes| RBAC{RBAC Middleware}
+    GH[GitHub Actions] -.->|Deploy| EC2[AWS EC2]
+    TF[Terraform] -.->|Provision| EC2
+      </div>`,
       desc: "I wanted to build something I could actually be proud of pointing at — not a tutorial clone, but a real API with real security considerations. So I built a production IAM service with FastAPI and PostgreSQL, added JWT auth, bcrypt hashing, and RBAC, containerized it, hid the backend behind Caddy, and provisioned the entire AWS environment with Terraform. The interesting part was hitting real Python & Cloud Security walls: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and a 200MB+ Git history from accidentally committing Terraform provider binaries — each one a good lesson.",
       tech: ["FastAPI", "Python 3.10", "PostgreSQL 15", "Docker", "Docker Compose", "Terraform", "Caddy", "Let's Encrypt", "GitHub Actions", "AWS EC2", "JWT", "bcrypt", "RBAC", "Pydantic"],
-      impact: "Live on AWS EC2 at iam-ch.duckdns.org — full AWS environment (compute, networking, security groups, SSH keys) defined declaratively in Terraform and reproducible in under 60 seconds. Zero manual deployment steps.",
+      impact: "Live on AWS EC2 at iam-ch.duckdns.org — full AWS environment (compute, networking, security groups, SSH keys) defined declaratively in Terraform and <strong>reproducible in under 60 seconds</strong>. Zero manual deployment steps.",
       bullets: [
         "Stateless FastAPI service: <code>bcrypt</code> password hashing at registration, cryptographically signed JWTs (SHA-256) issued at login for scalable session management",
         "RBAC authorization using FastAPI <code>Depends</code> injection — cleanly separates <code>user</code> and <code>admin</code> endpoint access with least-privilege enforcement",
         "Caddy reverse proxy handles automated Let's Encrypt TLS provisioning — all traffic encrypted, FastAPI backend shielded from public internet on port 80/443",
         "Entire AWS stack (EC2, Security Groups, SSH keys) declared in <code>main.tf</code> — environment can be destroyed and perfectly recreated in under 60 seconds",
-        "GitHub Actions CI/CD: builds a flattened, optimized production  and publishes to Docker Hub on every push to <code>main</code>",
+        "GitHub Actions CI/CD: builds a flattened, optimized production image and publishes to Docker Hub on every push to <code>main</code>",
         "Overcame real Python & Cloud Security hurdles: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and 200MB+ Git history bloat from Terraform provider binaries"
       ],
       links: [
@@ -1259,17 +1219,18 @@
       type: "Visualization · WebGL · DevOps · Docker",
       status: "live",
       statusLabel: "Live — security-map.duckdns.org",
-      diagram: `<span class="d-accent">git push → main</span> → <span class="d-dim">GitHub Actions CI/CD</span> → <span class="d-green">GitHub Container Registry</span>
-                                                                 │
-                                       <span class="d-orange">Oracle Cloud VM</span> (Hardware Firewall · WAF/DDoS)
-                                                                 │
-                     <span class="d-accent">Caddy</span> (TLS · Let's Encrypt) → <span class="d-accent">Node.js</span> App (port 3000)
-                                                                 │
-            <span class="d-accent">CSV Upload</span> → PapaParse → ip-api batch → <span class="d-green">Three.js WebGL Globe</span>
-                                                 <span class="d-dim">GeoJSON borders · animated attack arcs</span>`,
+      diagram: `<div class="mermaid">
+graph TD
+    Git[git push main] --> CI[GitHub Actions] --> CR[GitHub Container Registry]
+    CR --> VM[Oracle Cloud VM + WAF]
+    VM --> Proxy[Caddy TLS] --> Node[Node.js App :3000]
+    CSV[CSV Log Upload] --> Parser[PapaParse] --> Geo[ip-api batch geocode]
+    Geo --> WebGL[Three.js WebGL Globe]
+    Node --> WebGL
+      </div>`,
       desc: "I wanted to answer a simple question: what does a real attack log actually look like? Not a screenshot — something you can watch move. The result is a live 3D globe that ingests raw firewall CSVs, geocodes every source IP, and animates the traffic as Bezier arcs across country borders. The DevOps side turned out to be just as interesting — the whole deploy is hands-off from a git push.",
       tech: ["Three.js", "WebGL", "Node.js", "Express", "Docker", "GitHub Actions", "Oracle Cloud", "Caddy", "Let's Encrypt", "PapaParse", "GeoJSON", "WAF/DDoS"],
-      impact: "Live at security-map.duckdns.org — every push to main automatically builds, containerizes, and deploys to a secured Oracle Cloud VM with zero manual server interaction. Turns raw IP logs into a live 3D visual briefing.",
+      impact: "Live at security-map.duckdns.org — every push to main automatically builds, containerizes, and deploys to a secured Oracle Cloud VM with <strong>zero manual server interaction</strong>. Turns raw IP logs into a live 3D visual briefing.",
       bullets: [
         "Full CI/CD pipeline: GitHub Actions builds a Docker image on every <code>main</code> push, publishes to GitHub Container Registry, and deploys to Oracle Cloud VM via SSH deploy key",
         "Hardened Oracle Cloud perimeter: hardware firewall (ports 80/443/22 only), WAF/DDoS protection layer — all traffic routed through Caddy reverse proxy with automated Let's Encrypt TLS",
@@ -1286,16 +1247,16 @@
     "gcp-serverless": {
       title: "GCP Serverless API Hub",
       type: "GCP · FastAPI · Terraform · BigQuery · CI/CD",
-      diagram: `<span class="d-dim">Client Browser</span> → <span class="d-accent">GCP API Gateway</span> (europe-west1 · OpenAPI spec)
-                                                  │  IAM Service Account (PoLP)
-                                                  ▼
-                             <span class="d-orange">Cloud Run</span> (europe-central2 · FastAPI · Docker)
-                                                  │
-                             <span class="d-green">BigQuery</span> (EU multi-region · api_analytics dataset)
-                             <span class="d-dim">Terraform IaC · GitHub Actions CI/CD</span>`,
+      diagram: `<div class="mermaid">
+graph LR
+    Client[Client Browser] -->|OpenAPI Spec| GW[GCP API Gateway]
+    GW -->|IAM PoLP Service Account| CR[Cloud Run FastAPI]
+    CR -->|api_analytics dataset| BQ[(BigQuery)]
+    TF[Terraform / GH Actions] -.->|Provisions| GW & CR & BQ
+      </div>`,
       desc: "I was curious how far I could push GCP's free tier while keeping everything genuinely production-shaped. The answer: pretty far. A private Cloud Run service that only speaks through an API Gateway, telemetry landing in BigQuery, IAM wired with Principle of Least Privilege throughout, and a dark-mode analytics dashboard that actually pulls live data. Everything provisioned by Terraform — two European regions, zero console clicks.",
       tech: ["GCP", "Cloud Run", "FastAPI", "Python 3", "Docker", "GCP API Gateway", "BigQuery", "Terraform", "GitHub Actions", "IAM", "OpenAPI", "HTML/CSS/JS"],
-      impact: "Live API serving telemetry across europe-west1 and europe-central2 — private Cloud Run backend protected by IAM PoLP; only /analytics and /ingest endpoints exposed publicly via OpenAPI gateway spec.",
+      impact: "Live API serving telemetry across europe-west1 and europe-central2 — private Cloud Run backend <strong>protected by strict IAM PoLP</strong>; only /analytics and /ingest endpoints exposed publicly via OpenAPI gateway spec.",
       bullets: [
         "<strong style='color:var(--text)'>GCP API Gateway</strong> (europe-west1) acts as the secure front door — routes requests per OpenAPI spec, blocks all unauthorized public traffic",
         "<strong style='color:var(--text)'>Cloud Run</strong> (europe-central2) hosts a containerized FastAPI backend that scales dynamically from zero; private service, not invocable without <code>roles/run.invoker</code>",
@@ -1312,13 +1273,16 @@
     "cloud-auditor": {
       title: "Cloud Security Auditor",
       type: "AWS · Serverless · IaC",
-      diagram: `<span class="d-accent">S3 Upload</span> → S3 Notification → <span class="d-accent">Lambda</span>
-                                       │
-            [public_access: true?] ──→ <span class="d-green">SNS Alert</span>
-                                          <span class="d-dim">Terraform deployed</span>`,
+      diagram: `<div class="mermaid">
+graph LR
+    User[S3 Upload] -->|S3 Event Notification| L[AWS Lambda]
+    L -->|Parse Config| Cond{public_access: true?}
+    Cond -- Yes --> SNS[SNS Email Alert]
+    TF[Terraform] -.->|Provisions Infrastructure| User & L & SNS
+      </div>`,
       desc: "The idea came from a real frustration — infrastructure config files sit in S3 buckets and nobody checks them until something leaks. This scanner watches for uploads, parses the config on arrival, and fires an SNS alert before anyone has time to forget about it. The whole AWS stack (S3, Lambda, SNS, IAM) is Terraform-provisioned so there's nothing to misconfigure in the console.",
       tech: ["Terraform", "AWS Lambda", "Python", "SNS", "S3", "IAM"],
-      impact: "Eliminates manual security reviews — detects misconfigurations on upload and fires an SNS alert in under 2 seconds.",
+      impact: "Eliminates manual security reviews — detects misconfigurations on upload and <strong>fires an automated SNS alert in under 2 seconds</strong>.",
       bullets: [
         "Triggers on S3 object upload, parses config for risk flags like <code>public_access: true</code>",
         "Full stack (S3, Lambda, SNS, IAM) provisioned via Terraform — zero manual console steps",
@@ -1332,12 +1296,16 @@
     "log-forensics": {
       title: "Serverless Log Forensics",
       type: "AWS · Detection · IaC",
-      diagram: `<span class="d-accent">Web Logs</span> → S3 Upload → <span class="d-accent">Lambda</span> → <span class="d-orange">Regex Engine</span>
-                                              │
-                                         <span class="d-green">DynamoDB</span> IOC store`,
+      diagram: `<div class="mermaid">
+graph LR
+    Logs[Apache/Nginx Logs] --> S3[S3 Bucket]
+    S3 -->|Trigger| L[AWS Lambda]
+    L --> Regex[Python Regex Engine]
+    Regex -->|Matches SQLi/XSS| DB[(DynamoDB IOC Store)]
+      </div>`,
       desc: "Apache and Nginx logs are full of attack attempts that never get looked at. I built a Lambda pipeline to change that — drop the logs in S3, a custom Python regex engine walks every line for SQLi and XSS patterns, and anything suspicious lands in DynamoDB tagged with the attack type, source IP, and payload. 18 attacks caught in the first proof-of-concept run.",
       tech: ["AWS Lambda", "DynamoDB", "S3", "Terraform", "Python"],
-      impact: "18 attacks detected in proof-of-concept run — stored structurally in DynamoDB for forensic replay and threat intelligence.",
+      impact: "<strong>18 attacks caught</strong> in the initial proof-of-concept run — stored structurally in DynamoDB for forensic replay and threat intelligence tracking.",
       bullets: [
         "Custom Python regex engine covering SQLi, XSS, and injection patterns line-by-line",
         "DynamoDB stores IOCs with attack type, source IP, and payload — queryable for analysis",
@@ -1351,13 +1319,17 @@
     "elk-siem": {
       title: "ELK + Snort SIEM",
       type: "Blue Team · SIEM · Docker",
-      diagram: `<span class="d-orange">Snort IDS</span> → Logstash → <span class="d-accent">Elasticsearch</span>
-                                             │
-                                     <span class="d-green">Kibana Dashboard</span>
-                                     <span class="d-dim">Dockerized · alert_fast.txt</span>`,
+      diagram: `<div class="mermaid">
+graph LR
+    Net[Network Traffic] --> IDS[Snort IDS]
+    IDS -->|alert_fast.txt| LS[Logstash]
+    LS --> ES[(Elasticsearch)]
+    ES --> K[Kibana Dashboard]
+    Docker -.->|Containerized| IDS & LS & ES & K
+      </div>`,
       desc: "I wanted to understand what a SOC analyst actually stares at all day. Setting up the full Snort → Logstash → Elasticsearch → Kibana pipeline from scratch taught me more about alert triage than any course. The whole thing runs in Docker so it's easy to spin up, generate some traffic, and watch what hits.",
       tech: ["Elasticsearch", "Logstash", "Kibana", "Snort", "Docker"],
-      impact: "A working IDS-to-dashboard pipeline — simulates the monitoring stack used in real security operations, containerized for portability.",
+      impact: "A working IDS-to-dashboard pipeline — simulates the monitoring stack used in real security operations, <strong>fully containerized for portability and testing</strong>.",
       bullets: [
         "Snort captures network alerts; Logstash parses <code>alert_fast.txt</code> and forwards to Elasticsearch",
         "Kibana dashboards display live Snort alert data and traffic patterns",
@@ -1371,13 +1343,17 @@
     "wannacry": {
       title: "WannaCry Sandbox Analysis",
       type: "Malware · Forensics",
-      diagram: `<span class="d-orange">WannaCry.exe</span> → <span class="d-accent">CAPEv2</span> (Ubuntu 22.04)
-                                   │
-               Windows 10 VM (NAT) → <span class="d-green">behavioral report</span>
-                                        <span class="d-dim">IOCs · registry · file drops</span>`,
+      diagram: `<div class="mermaid">
+graph TD
+    Malware[WannaCry.exe] --> CAPE[CAPEv2 on Ubuntu 22.04]
+    CAPE -->|Deploys to| VM[Windows 10 VM NAT Isolated]
+    VM -->|Executes & Monitors| CAPE
+    CAPE --> Report[Behavioral Report]
+    Report -.-> IOCs[IOCs, Registry Keys, File Drops]
+      </div>`,
       desc: "I set up a CAPEv2 sandbox on Ubuntu with a NAT-isolated Windows 10 guest just to watch WannaCry run. Watching it encrypt files in real time, fork processes, and phone home is a different kind of learning than reading about it. The resulting IOC report — registry changes, dropped files, behavioral signatures — ended up being genuinely useful reference material.",
       tech: ["CAPEv2", "Ubuntu 22.04", "VirtualBox", "Malware Analysis"],
-      impact: "Full execution observed and documented — IOC report generated with registry changes, dropped files, and behavioral signatures.",
+      impact: "Full execution observed and documented — <strong>comprehensive IOC report generated</strong> with registry changes, dropped files, and behavioral signatures.",
       bullets: [
         "CAPEv2 hosted on Ubuntu 22.04; Windows 10 VM connected via NAT with CAPE agent",
         "Observed live encryption behavior, process tree, and file drop activity",
@@ -1393,18 +1369,19 @@
       type: "Next.js · WebGL · Docker · CI/CD",
       status: "live",
       statusLabel: "Live — threatmatrix.duckdns.org",
-      diagram: `<span class="d-dim">git push → main</span> → <span class="d-accent">GitHub Actions</span> → Docker Hub Image
-                                                           │
-                                           <span class="d-orange">Oracle Cloud VM</span>
-                                                           │
-                          <span class="d-accent">Caddy</span> (Auto-HTTPS) → <span class="d-green">Next.js</span> (port 3000)
-                                                           │
-                         <span class="d-dim">Watchtower</span> polls (60s) → zero-downtime rolling update
-                                                           │
-                         <span class="d-accent">Node.js API</span> (port 5000) → <span class="d-green">Globe.gl WebGL</span>`,
+      diagram: `<div class="mermaid">
+graph TD
+    Push[git push] --> GH[GitHub Actions] --> Hub[Docker Hub]
+    Hub -.->|polls 60s| WT[Watchtower]
+    WT -->|Rolling Update| VM[Oracle Cloud VM]
+    Proxy[Caddy Auto-HTTPS] --> Next[Next.js :3000]
+    Proxy --> API[Node.js API :5000]
+    API --> UI[Globe.gl WebGL]
+    Next --> UI
+      </div>`,
       desc: "A real-time 3D WebGL dashboard that tracks and displays global cyber-attack vectors as they happen. Globe.gl handles hardware-accelerated globe rendering on the frontend while a custom Phantom Beam Interpolation algorithm automatically generates 'Orbital Strike' and 'Scattershot' visual clusters whenever origin or target coordinates are masked. The devops side is hands-off by design — GitHub Actions builds and pushes on every commit, and Watchtower on the Oracle Cloud server polls the registry every 60 seconds to perform zero-downtime rolling updates.",
       tech: ["Next.js 14", "React", "Globe.gl", "WebGL", "TailwindCSS", "Node.js", "Express", "Docker", "Docker Compose", "GitHub Actions", "Watchtower", "Caddy", "Oracle Cloud"],
-      impact: "Live at threatmatrix.duckdns.org — every push to main reaches production in under 60 seconds via Watchtower rolling update; Caddy auto-provisions Let's Encrypt TLS with zero manual cert management.",
+      impact: "Live at threatmatrix.duckdns.org — every push to main reaches production in under 60 seconds via Watchtower rolling update; <strong>Caddy auto-provisions Let's Encrypt TLS with zero manual cert management.</strong>",
       bullets: [
         "Custom Phantom Beam Interpolation: trigonometric algorithm auto-generates 'Orbital Strike' and 'Scattershot' visual clusters when source/target IPs are masked or span multiple coordinates",
         "Watchtower polls Docker Hub every 60 seconds, detects new image signatures, gracefully replaces running containers, and auto-prunes dangling old images",
@@ -1462,7 +1439,7 @@
   /* BUBBLE INTERACTION */
   let activeKey = null;
 
-  function openPanel(key, bubbleEl) {
+  async function openPanel(key, bubbleEl) {
     if (activeKey === key) { closePanel(); return; }
     document.querySelectorAll(".bubble").forEach(b => {
       b.classList.remove("active");
@@ -1471,10 +1448,28 @@
     bubbleEl.classList.add("active");
     bubbleEl.setAttribute("aria-pressed", "true");
     activeKey = key;
+    
+    // Inject HTML string with the Mermaid syntax
     renderPanel(key);
+    
+    // Tell Mermaid to render the newly injected graph
+    try {
+      await window.mermaid.run({
+        querySelector: '.mermaid',
+        suppressErrors: true
+      });
+    } catch (e) {
+      console.warn("Mermaid rendering skipped or failed:", e);
+    }
+    
     const panel = document.getElementById("projectPanel");
     panel.classList.add("visible");
-    setTimeout(() => { panel.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 50);
+    
+    // Scroll handling
+    setTimeout(() => { 
+      const panelOffset = panel.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: panelOffset, behavior: "smooth" }); 
+    }, 150);
   }
 
   function closePanel() {
