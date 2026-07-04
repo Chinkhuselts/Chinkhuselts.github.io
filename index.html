@@ -470,6 +470,10 @@
       background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.25); color: var(--accent);
     }
     .panel-status-chip.thesis::before { content: '◈'; font-size: 0.55rem; }
+    .panel-status-chip.archived {
+      background: rgba(155,170,200,0.08); border: 1px solid rgba(155,170,200,0.25); color: var(--muted);
+    }
+    .panel-status-chip.archived::before { content: '○'; font-size: 0.55rem; }
 
     .bubble-icon { font-size: 1.6rem; color: var(--accent); line-height: 1; }
     .bubble.featured .bubble-icon { color: var(--accent2); }
@@ -617,68 +621,6 @@
     }
     footer a { color: var(--accent); }
 
-    /* THREAT MAP */
-    .threatmap-section {
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      background: var(--surface); position: relative; overflow: hidden;
-    }
-    .threatmap-section::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 100%, rgba(0,255,136,0.05) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .threatmap-inner { max-width: 1200px; margin: auto; padding: 3rem 2rem 0; }
-    .threatmap-header {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
-    }
-    .threatmap-title-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.3rem; }
-    .threatmap-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text); }
-    .threatmap-live-dot {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--accent2);
-      background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.25);
-      padding: 0.2rem 0.55rem; border-radius: 2px;
-    }
-    .threatmap-live-dot::before { content: '●'; font-size: 0.5rem; }
-    @media (prefers-reduced-motion: no-preference) {
-      .threatmap-live-dot::before { animation: blink 1.4s step-end infinite; }
-    }
-    .threatmap-sub { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); letter-spacing: 0.3px; }
-    .threatmap-link {
-      font-family: var(--mono); font-size: 0.75rem; color: var(--accent2);
-      border: 1px solid rgba(0,255,136,0.25); padding: 0.45rem 1rem;
-      border-radius: 3px; display: inline-flex; align-items: center; gap: 0.45rem;
-      transition: all 0.2s; white-space: nowrap;
-    }
-    .threatmap-link:hover { background: rgba(0,255,136,0.08); border-color: var(--accent2); }
-    .threatmap-frame-wrap {
-      position: relative; width: 100%; height: 560px;
-      border-radius: 10px 10px 0 0; overflow: hidden;
-      border: 1px solid var(--border); background: var(--bg);
-    }
-    .tm-poster {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 1.25rem; cursor: pointer; background: var(--bg); z-index: 2; transition: opacity 0.3s;
-    }
-    .tm-poster-icon {
-      width: 80px; height: 80px; border: 1.5px solid rgba(0,255,136,0.3);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; color: var(--accent2); transition: all 0.25s;
-    }
-    .tm-poster:hover .tm-poster-icon { border-color: var(--accent2); box-shadow: 0 0 30px rgba(0,255,136,0.2); }
-    .tm-poster-label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; }
-    .tm-poster-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); }
-    .tm-poster.hidden { opacity: 0; pointer-events: none; }
-    .threatmap-frame-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
-    .tm-corner-label {
-      position: absolute; bottom: 0.75rem; right: 0.75rem;
-      font-family: var(--mono); font-size: 0.6rem; color: var(--muted);
-      letter-spacing: 1px; pointer-events: none; z-index: 2;
-    }
-
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
@@ -694,13 +636,10 @@
       .panel-cols { grid-template-columns: 1fr; }
       .bubble { width: 130px; height: 130px; }
       .bubble.featured { width: 148px; height: 148px; }
-      .threatmap-frame-wrap { height: 380px; }
-      .threatmap-header { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 600px) {
       .stats-inner { grid-template-columns: 1fr 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
-      .threatmap-frame-wrap { height: 300px; }
       .bubble-arena { flex-direction: column; align-items: stretch; gap: 0.5rem; }
       .bubble {
         width: 100% !important; height: auto !important;
@@ -786,7 +725,7 @@
       Final-year Cybersecurity student in Warsaw. I spent time at Khan Bank<br>
       automating things that shouldn't have been manual — now I build<br>
       serverless security pipelines, IaC-provisioned cloud stacks,<br>
-      and threat detection systems — four running live in production.
+      and threat detection systems — shipped across three cloud platforms.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
@@ -841,42 +780,8 @@
       <span class="stat-desc">Cloud Platforms — AWS · GCP · Oracle</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">4</span>
-      <span class="stat-desc">Live Production Systems</span>
-    </div>
-  </div>
-</div>
-
-<!-- LIVE THREAT MAP -->
-<div class="threatmap-section">
-  <div class="threatmap-inner">
-    <div class="threatmap-header">
-      <div class="threatmap-header-left">
-        <div class="section-label">// 00 &nbsp; live system</div>
-        <div class="threatmap-title-row">
-          <span class="threatmap-title">3D Global Cyber Threat Map</span>
-          <span class="threatmap-live-dot">live</span>
-        </div>
-        <div class="threatmap-sub">Real-time network anomaly visualization — deployed on Oracle Cloud · Caddy TLS · Docker CI/CD</div>
-      </div>
-      <a class="threatmap-link" href="https://security-map.duckdns.org/" target="_blank">
-        <i class="fas fa-external-link-alt"></i> Open Full Screen
-      </a>
-    </div>
-
-    <div class="threatmap-frame-wrap">
-      <div class="tm-poster" id="tmPoster" role="button" tabindex="0" aria-label="Load live 3D threat map">
-        <div class="tm-poster-icon"><i class="fas fa-globe"></i></div>
-        <div class="tm-poster-label">Click to load live threat map</div>
-        <div class="tm-poster-sub">security-map.duckdns.org — loads external content</div>
-      </div>
-      <span class="tm-corner-label">security-map.duckdns.org</span>
-    </div>
-
-    <div style="padding: 1rem 0 2rem; display: flex; gap: 1rem;">
-      <a class="threatmap-link" href="https://github.com/Chinkhuselts/cyber-threat-map" target="_blank">
-        <i class="fab fa-github"></i> View Repository
-      </a>
+      <span class="stat-num">9</span>
+      <span class="stat-desc">Repos on GitHub</span>
     </div>
   </div>
 </div>
@@ -1096,21 +1001,6 @@
 </footer>
 
 <script defer>
-  /* LAZY THREAT MAP */
-  function loadThreatMap() {
-    const poster = document.getElementById('tmPoster');
-    const wrap   = poster.parentElement;
-    poster.classList.add('hidden');
-    const iframe = document.createElement('iframe');
-    iframe.src   = 'https://security-map.duckdns.org/';
-    iframe.title = '3D Global Cyber Threat Map — live';
-    iframe.allow = 'accelerometer; autoplay';
-    wrap.appendChild(iframe);
-  }
-  const poster = document.getElementById('tmPoster');
-  poster.addEventListener('click', loadThreatMap);
-  poster.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadThreatMap(); } });
-
   /* MOBILE NAV */
   const hamburger     = document.getElementById('hamburger');
   const mobileDrawer  = document.getElementById('mobileDrawer');
@@ -1217,8 +1107,8 @@ graph LR
     "threat-map": {
       title: "3D Global Threat Map",
       type: "Visualization · WebGL · DevOps · Docker",
-      status: "live",
-      statusLabel: "Live — security-map.duckdns.org",
+      status: "archived",
+      statusLabel: "Repo only — Oracle Cloud instance retired",
       diagram: `<div class="mermaid">
 graph TD
     Git[git push main] --> CI[GitHub Actions] --> CR[GitHub Container Registry]
@@ -1228,9 +1118,9 @@ graph TD
     Geo --> WebGL[Three.js WebGL Globe]
     Node --> WebGL
       </div>`,
-      desc: "I wanted to answer a simple question: what does a real attack log actually look like? Not a screenshot — something you can watch move. The result is a live 3D globe that ingests raw firewall CSVs, geocodes every source IP, and animates the traffic as Bezier arcs across country borders. The DevOps side turned out to be just as interesting — the whole deploy is hands-off from a git push.",
+      desc: "I wanted to answer a simple question: what does a real attack log actually look like? Not a screenshot — something you can watch move. The result is a live 3D globe that ingests raw firewall CSVs, geocodes every source IP, and animates the traffic as Bezier arcs across country borders. The DevOps side turned out to be just as interesting — the whole deploy is hands-off from a git push. The Oracle Cloud VM it ran on has since been retired, but the full pipeline and source are in the repo below.",
       tech: ["Three.js", "WebGL", "Node.js", "Express", "Docker", "GitHub Actions", "Oracle Cloud", "Caddy", "Let's Encrypt", "PapaParse", "GeoJSON", "WAF/DDoS"],
-      impact: "Live at security-map.duckdns.org — every push to main automatically builds, containerizes, and deploys to a secured Oracle Cloud VM with <strong>zero manual server interaction</strong>. Turns raw IP logs into a live 3D visual briefing.",
+      impact: "Formerly live on an Oracle Cloud VM with every push to main automatically building, containerizing, and deploying — <strong>zero manual server interaction</strong>. Turned raw IP logs into a live 3D visual briefing. Source and full CI/CD pipeline available in the repo.",
       bullets: [
         "Full CI/CD pipeline: GitHub Actions builds a Docker image on every <code>main</code> push, publishes to GitHub Container Registry, and deploys to Oracle Cloud VM via SSH deploy key",
         "Hardened Oracle Cloud perimeter: hardware firewall (ports 80/443/22 only), WAF/DDoS protection layer — all traffic routed through Caddy reverse proxy with automated Let's Encrypt TLS",
@@ -1239,8 +1129,7 @@ graph TD
         "Built-in Demo Mode for instant visualization testing; supports custom CSV uploads of real firewall logs, honeypot traffic, or DDoS captures"
       ],
       links: [
-        { icon: "fas fa-external-link-alt", label: "Live Demo →", href: "https://security-map.duckdns.org/" },
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/cyber-threat-map", secondary: true }
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/cyber-threat-map" }
       ]
     },
 
@@ -1367,8 +1256,8 @@ graph TD
     "threat-matrix": {
       title: "Threat Matrix",
       type: "Next.js · WebGL · Docker · CI/CD",
-      status: "live",
-      statusLabel: "Live — threatmatrix.duckdns.org",
+      status: "archived",
+      statusLabel: "Repo only — Oracle Cloud instance retired",
       diagram: `<div class="mermaid">
 graph TD
     Push[git push] --> GH[GitHub Actions] --> Hub[Docker Hub]
@@ -1379,9 +1268,9 @@ graph TD
     API --> UI[Globe.gl WebGL]
     Next --> UI
       </div>`,
-      desc: "A real-time 3D WebGL dashboard that tracks and displays global cyber-attack vectors as they happen. Globe.gl handles hardware-accelerated globe rendering on the frontend while a custom Phantom Beam Interpolation algorithm automatically generates 'Orbital Strike' and 'Scattershot' visual clusters whenever origin or target coordinates are masked. The devops side is hands-off by design — GitHub Actions builds and pushes on every commit, and Watchtower on the Oracle Cloud server polls the registry every 60 seconds to perform zero-downtime rolling updates.",
+      desc: "A real-time 3D WebGL dashboard that tracks and displays global cyber-attack vectors as they happen. Globe.gl handles hardware-accelerated globe rendering on the frontend while a custom Phantom Beam Interpolation algorithm automatically generates 'Orbital Strike' and 'Scattershot' visual clusters whenever origin or target coordinates are masked. The devops side was hands-off by design — GitHub Actions built and pushed on every commit, and Watchtower on the Oracle Cloud server polled the registry every 60 seconds to perform zero-downtime rolling updates. The Oracle Cloud VM has since been retired, but the code and full CI/CD setup are in the repo.",
       tech: ["Next.js 14", "React", "Globe.gl", "WebGL", "TailwindCSS", "Node.js", "Express", "Docker", "Docker Compose", "GitHub Actions", "Watchtower", "Caddy", "Oracle Cloud"],
-      impact: "Live at threatmatrix.duckdns.org — every push to main reaches production in under 60 seconds via Watchtower rolling update; <strong>Caddy auto-provisions Let's Encrypt TLS with zero manual cert management.</strong>",
+      impact: "Formerly live on an Oracle Cloud VM — every push to main reached production in under 60 seconds via Watchtower rolling update, with <strong>Caddy auto-provisioning Let's Encrypt TLS and zero manual cert management.</strong> Full source and infra config available in the repo.",
       bullets: [
         "Custom Phantom Beam Interpolation: trigonometric algorithm auto-generates 'Orbital Strike' and 'Scattershot' visual clusters when source/target IPs are masked or span multiple coordinates",
         "Watchtower polls Docker Hub every 60 seconds, detects new image signatures, gracefully replaces running containers, and auto-prunes dangling old images",
@@ -1389,8 +1278,7 @@ graph TD
         "Modular UI: toggleable vector-type legends, live monitoring sidebar, and adjustable attack-arc playback speed"
       ],
       links: [
-        { icon: "fas fa-external-link-alt", label: "Live Demo →", href: "https://threatmatrix.duckdns.org" },
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/threatmap-saas", secondary: true }
+        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/threatmap-saas" }
       ]
     }
   };
