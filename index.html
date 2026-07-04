@@ -1535,8 +1535,7 @@ graph TD
     bubbleEl.classList.add("active");
     bubbleEl.setAttribute("aria-pressed", "true");
     activeKey = key;
-    
-    // Inject HTML string with the Mermaid syntax
+
     renderPanel(key);
 
     // Load Mermaid on first use, then render the newly injected graph
