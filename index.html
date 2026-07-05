@@ -1111,6 +1111,12 @@
         </div>
       </div>
 
+      <div class="bubble" data-project="wannacry" tabindex="0" role="button" aria-pressed="false" aria-label="WannaCry Sandbox project — click to expand">
+        <div class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></div>
+        <div class="bubble-label">WannaCry Sandbox</div>
+        <div class="bubble-tag">Malware · Analysis</div>
+      </div>
+
       <div class="bubble" data-project="gcp-serverless" tabindex="0" role="button" aria-pressed="false" aria-label="GCP Serverless API Hub project — click to expand">
         <div class="bubble-icon"><i class="fab fa-google" aria-hidden="true"></i></div>
         <div class="bubble-label">GCP Serverless API Hub</div>
@@ -1133,12 +1139,6 @@
         <div class="bubble-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
         <div class="bubble-label">ELK + Snort SIEM</div>
         <div class="bubble-tag">Blue Team · SIEM</div>
-      </div>
-
-      <div class="bubble" data-project="wannacry" tabindex="0" role="button" aria-pressed="false" aria-label="WannaCry Sandbox project — click to expand">
-        <div class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></div>
-        <div class="bubble-label">WannaCry Sandbox</div>
-        <div class="bubble-tag">Malware · Analysis</div>
       </div>
 
     </div>
@@ -1535,7 +1535,8 @@ graph TD
     bubbleEl.classList.add("active");
     bubbleEl.setAttribute("aria-pressed", "true");
     activeKey = key;
-
+    
+    // Inject HTML string with the Mermaid syntax
     renderPanel(key);
 
     // Load Mermaid on first use, then render the newly injected graph
