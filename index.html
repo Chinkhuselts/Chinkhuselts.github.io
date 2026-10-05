@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chinkhusel Tsolmonbaatar — Secure Infrastructure Automation & DevSecOps</title>
-  <meta name="description" content="Cybersecurity-focused infrastructure automation candidate specializing in Linux, Ansible, Terraform, CI/CD, Python/Bash, cloud security, and secure systems. Based in Warsaw, Poland." />
+  <meta name="description" content="Cybersecurity graduate (B.S. Computer Science, 2026) specializing in Linux, Ansible, Terraform, CI/CD, Python/Bash, cloud security, and secure systems. Based in Warsaw, Poland." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://chinkhuselts.github.io/" />
   <meta property="og:title" content="Chinkhusel Tsolmonbaatar — Secure Infrastructure Automation & DevSecOps" />
-  <meta property="og:description" content="Cybersecurity-focused infrastructure automation candidate specializing in Linux, Ansible, Terraform, CI/CD, Python/Bash, cloud security, and secure systems. Based in Warsaw, Poland." />
+  <meta property="og:description" content="Cybersecurity graduate (B.S. Computer Science, 2026) specializing in Linux, Ansible, Terraform, CI/CD, Python/Bash, cloud security, and secure systems. Based in Warsaw, Poland." />
   <meta property="og:image" content="https://chinkhuselts.github.io/og-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Chinkhusel Tsolmonbaatar — Secure Infrastructure Automation & DevSecOps" />
-  <meta name="twitter:description" content="Cybersecurity-focused infrastructure automation candidate specializing in Linux, Ansible, Terraform, CI/CD, Python/Bash, cloud security, and secure systems. Based in Warsaw, Poland." />
+  <meta name="twitter:description" content="Cybersecurity graduate (B.S. Computer Science, 2026) specializing in Linux, Ansible, Terraform, CI/CD, Python/Bash, cloud security, and secure systems. Based in Warsaw, Poland." />
   <meta name="twitter:image" content="https://chinkhuselts.github.io/og-preview.png" />
   <link rel="canonical" href="https://chinkhuselts.github.io/" />
   <meta name="theme-color" content="#080c14" />
@@ -71,7 +71,7 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 
     body {
       background: var(--bg);
@@ -181,11 +181,11 @@
       display: flex;
       flex-direction: column;
       gap: 0.2rem;
-      transform: translateX(110%);
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(110%); visibility: hidden;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s;
       backdrop-filter: blur(20px);
     }
-    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer.open { transform: translateX(0); visibility: visible; }
     .mobile-drawer a {
       font-family: var(--mono); font-size: 0.8rem;
       color: var(--muted); padding: 0.65rem 0.75rem;
@@ -238,12 +238,6 @@
       letter-spacing: 2px; color: #48cae4; text-shadow: none;
       margin-top: 0.15rem;
     }
-    .hero h1 {
-      font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 800;
-      line-height: 1.05; letter-spacing: -2px; color: var(--text); margin-bottom: 1.5rem;
-    }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-
     .hero-name {
       font-size: clamp(2.2rem, 4vw, 3.1rem); font-weight: 800;
       line-height: 1.05; letter-spacing: -1.5px; color: var(--text);
@@ -624,7 +618,7 @@
 
     .bubble-hint {
       text-align: center; font-family: var(--mono);
-      font-size: 0.72rem; color: var(--dim); margin-bottom: 2.5rem; letter-spacing: 1px;
+      font-size: 0.72rem; color: var(--muted); margin-bottom: 2.5rem; letter-spacing: 1px;
     }
 
     /* PROJECT PANEL */
@@ -638,7 +632,7 @@
     }
     .project-panel.visible {
       opacity: 1; transform: translateY(0);
-      pointer-events: all; max-height: 2500px; margin-bottom: 2rem;
+      pointer-events: all; max-height: none; margin-bottom: 2rem;
     }
 
     .panel-header {
@@ -785,6 +779,11 @@
       .bubble-tag { font-size: 0.65rem; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .nav-badge::before, .drawer-status::before, .panel-status-chip.wip::before { animation: none; }
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -856,7 +855,7 @@
       </div>
     </a>
     <p class="hero-sub">
-      Final-year Computer Science (Cybersecurity) student in Warsaw.<br>
+      Computer Science (Cybersecurity) graduate in Warsaw.<br>
       I build secure, repeatable infrastructure workflows with Linux, Python/Bash,<br>
       Terraform, Ansible, Docker, and CI/CD — focused on automation,<br>
       reliable configuration, networking, and cloud security.
@@ -881,6 +880,7 @@
       <div><span class="t-key">"role"</span>: <span class="t-str">"Secure Infrastructure Automation & DevSecOps"</span>,</div>
       <div><span class="t-key">"location"</span>: <span class="t-str">"Warsaw, Poland"</span>,</div>
       <div><span class="t-key">"experience"</span>: <span class="t-str">"Khan Bank — Security Engineer Intern"</span>,</div>
+      <div><span class="t-key">"education"</span>: <span class="t-str">"B.S. CS (Cybersecurity) — graduated Sep 2026"</span>,</div>
       <div><span class="t-key">"focus"</span>: [</div>
       <div>&nbsp;&nbsp;<span class="t-str">"Infrastructure Automation"</span>,</div>
       <div>&nbsp;&nbsp;<span class="t-str">"DevSecOps"</span>,</div>
@@ -935,10 +935,10 @@
       </div>
 
       <p>
-        I'm a <strong>final-year Computer Science (Cybersecurity) student</strong> at Vizja University in Warsaw, graduating 2026. Before that I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar — automating Nessus vulnerability-reporting workflows, maintaining Linux servers, and building Bash tooling for monitoring and log rotation.
+        I'm a <strong>Computer Science (Cybersecurity) graduate</strong> of Vizja University in Warsaw &mdash; <strong>graduated 29 September 2026</strong>. Before that I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar — automating Nessus vulnerability-reporting workflows, maintaining Linux servers, and building Bash tooling for monitoring and log rotation.
       </p>
       <p>
-        My thesis explores <strong>Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong>. Alongside it, I build infrastructure and security projects across AWS, GCP, and Oracle Cloud, using Terraform and CI/CD to make environments reproducible.
+        My diploma thesis, completed for my degree, explores <strong>Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong>. Alongside it, I build infrastructure and security projects across AWS, GCP, and Oracle Cloud, using Terraform and CI/CD to make environments reproducible.
       </p>
       <p>
         I'm <strong>open to work</strong> — especially with Infrastructure Automation, DevOps, Cloud Operations, DevSecOps, and Cloud Security teams that value secure, repeatable systems.
@@ -959,7 +959,7 @@
         <h3>Education &amp; Credentials</h3>
         <div class="info-item">
           <span class="info-name">B.S. Engineering — Computer Science (Cybersecurity)<br><em>University of Economics and Human Sciences (Vizja), Warsaw</em></span>
-          <span class="info-date">2026</span>
+          <span class="info-date active">Graduated 29 Sep 2026</span>
         </div>
         <div class="info-item">
           <span class="info-name"><a href="https://www.credly.com/badges/0f46b690-d7b2-44dd-9ee6-06407bb52806/public_url" target="_blank" rel="noopener noreferrer" style="border-bottom: 1px dotted var(--accent2);">ISC2 CC — Certified in Cybersecurity</a><br><em>International Information System Security Certification Consortium</em></span>
@@ -1199,7 +1199,7 @@
   <p>© 2026 Chinkhusel Tsolmonbaatar &nbsp;·&nbsp; <a href="mailto:husele1000@gmail.com">husele1000@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer">github.com/Chinkhuselts</a></p>
 </footer>
 
-<script defer>
+<script>
   /* MOBILE NAV */
   const hamburger     = document.getElementById('hamburger');
   const mobileDrawer  = document.getElementById('mobileDrawer');
@@ -1364,7 +1364,7 @@ graph LR
       diagram: `<div class="mermaid">
 graph LR
     User[S3 Upload] -->|S3 Event Notification| L[AWS Lambda]
-    L -->|Parse Config| Cond{public_access: true?}
+    L -->|Parse Config| Cond{"public_access: true?"}
     Cond -- Yes --> SNS[SNS Email Alert]
     TF[Terraform] -.->|Provisions Infrastructure| User & L & SNS
       </div>`,
@@ -1548,6 +1548,7 @@ graph TD
       });
     } catch (e) {
       console.warn("Mermaid rendering skipped or failed:", e);
+      document.querySelectorAll(".panel-diagram").forEach(el => el.remove());
     }
     
     const panel = document.getElementById("projectPanel");
