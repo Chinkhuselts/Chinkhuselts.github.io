@@ -3,50 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chinkhusel Tsolmonbaatar — Security Engineering · DFIR, Detection &amp; Cloud Automation</title>
-  <meta name="description" content="Cybersecurity graduate (B.S. Computer Science, 2026) focused on DFIR, malware analysis, detection engineering, and security automation — with hands-on Python, Linux, cloud incident response, and Terraform. Based in Warsaw, Poland." />
+  <meta name="theme-color" content="#080c14" />
+  <meta name="description" content="Chinkhusel Tsolmonbaatar — cybersecurity graduate focused on DFIR, malware analysis, detection engineering, and cloud security automation. Based in Warsaw, Poland." />
+  <link rel="canonical" href="https://chinkhuselts.github.io/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://chinkhuselts.github.io/" />
-  <meta property="og:title" content="Chinkhusel Tsolmonbaatar — Security Engineering · DFIR, Detection &amp; Cloud Automation" />
-  <meta property="og:description" content="Cybersecurity graduate (B.S. Computer Science, 2026) focused on DFIR, malware analysis, detection engineering, and security automation — with hands-on Python, Linux, cloud incident response, and Terraform. Based in Warsaw, Poland." />
+  <meta property="og:title" content="Chinkhusel Tsolmonbaatar — Security Engineering" />
+  <meta property="og:description" content="DFIR, malware analysis, detection engineering, and cloud security automation." />
   <meta property="og:image" content="https://chinkhuselts.github.io/og-preview.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chinkhusel Tsolmonbaatar — Security Engineering · DFIR, Detection &amp; Cloud Automation" />
-  <meta name="twitter:description" content="Cybersecurity graduate (B.S. Computer Science, 2026) focused on DFIR, malware analysis, detection engineering, and security automation — with hands-on Python, Linux, cloud incident response, and Terraform. Based in Warsaw, Poland." />
+  <meta name="twitter:title" content="Chinkhusel Tsolmonbaatar — Security Engineering" />
+  <meta name="twitter:description" content="DFIR, malware analysis, detection engineering, and cloud security automation." />
   <meta name="twitter:image" content="https://chinkhuselts.github.io/og-preview.png" />
-  <link rel="canonical" href="https://chinkhuselts.github.io/" />
-  <meta name="theme-color" content="#080c14" />
+  <title>Chinkhusel Tsolmonbaatar — Security Engineering · DFIR, Detection &amp; Cloud Automation</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080c14'/%3E%3Cpath d='M7 10l6 6-6 6' stroke='%2300d4ff' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='16' y1='22' x2='25' y2='22' stroke='%2300ff88' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- Mermaid.js for Diagrams — lazy-loaded on first project click, not on page load -->
+  <!-- Mermaid is loaded on demand when a project is opened. -->
   <script>
     window.loadMermaid = function () {
       if (!window._mermaidReady) {
-        window._mermaidReady = import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs').then(m => {
-          const mermaid = m.default;
-          mermaid.initialize({
-            startOnLoad: false,
-            theme: 'base',
-            themeVariables: {
-              background: '#111d35',
-              primaryColor: '#0d1526',
-              primaryTextColor: '#e8f4f8',
-              primaryBorderColor: '#00d4ff',
-              lineColor: '#00ff88',
-              secondaryColor: '#1a2d52',
-              tertiaryColor: '#111d35',
-              fontFamily: "'IBM Plex Mono', monospace"
-            }
+        window._mermaidReady = import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs')
+          .then(function (module) {
+            const mermaid = module.default;
+            mermaid.initialize({
+              startOnLoad: false,
+              securityLevel: 'strict',
+              theme: 'base',
+              flowchart: { htmlLabels: false, curve: 'linear' },
+              themeVariables: {
+                background: '#111d35',
+                primaryColor: '#0d1526',
+                primaryTextColor: '#e8f4f8',
+                primaryBorderColor: '#00d4ff',
+                lineColor: '#00ff88',
+                secondaryColor: '#1a2d52',
+                tertiaryColor: '#111d35',
+                fontFamily: "'IBM Plex Mono', monospace"
+              }
+            });
+            window.mermaid = mermaid;
+            return mermaid;
           });
-          window.mermaid = mermaid;
-          return mermaid;
-        });
       }
       return window._mermaidReady;
     };
@@ -62,1529 +63,871 @@
       --accent2: #00ff88;
       --warn: #ff6b35;
       --amber: #fbbf24;
-      --amber-dim: rgba(251,191,36,0.28);
       --text: #e8f4f8;
-      --muted: #9baac8; 
+      --muted: #aab8d2;
       --dim: #2a4060;
       --mono: 'IBM Plex Mono', monospace;
       --sans: 'Syne', sans-serif;
+      --content: 1200px;
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0, 212, 255, 0.012) 2px, rgba(0, 212, 255, 0.012) 4px
-      );
-      pointer-events: none;
-      z-index: 1000;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,212,255,.012) 2px, rgba(0,212,255,.012) 4px); }
     a { color: inherit; text-decoration: none; }
-
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    .skip-link {
-      position: absolute; top: -100px; left: 1rem; z-index: 2000;
-      background: var(--accent); color: var(--bg); font-family: var(--mono);
-      font-size: 0.8rem; font-weight: 600; padding: 0.6rem 1.1rem;
-      border-radius: 3px; transition: top 0.2s;
-    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    [hidden] { display: none !important; }
+    .skip-link { position: absolute; top: -100px; left: 1rem; z-index: 2000; padding: .65rem 1rem; background: var(--accent); color: var(--bg); font: 600 .8rem var(--mono); border-radius: 3px; }
     .skip-link:focus { top: 1rem; }
+    .container { width: min(100% - 3rem, var(--content)); margin-inline: auto; }
 
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 500;
-      border-bottom: 1px solid var(--border);
-      background: rgba(8, 12, 20, 0.92);
-      backdrop-filter: blur(16px);
-    }
-    .nav-inner {
-      max-width: 1200px; margin: auto; padding: 0 2rem;
-      height: 60px; display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); letter-spacing: 2px; }
+    /* Navigation */
+    .site-nav { position: sticky; top: 0; z-index: 500; border-bottom: 1px solid var(--border); background: rgba(8,12,20,.94); backdrop-filter: blur(16px); }
+    .nav-inner { width: min(100% - 3rem, var(--content)); height: 62px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { color: var(--accent); font: .85rem var(--mono); letter-spacing: 2px; white-space: nowrap; }
     .nav-logo span { color: var(--muted); }
-    .nav-links { display: flex; gap: 2.5rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 1px; color: var(--muted); align-items: center; }
-    .nav-links a { transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
-    .nav-links a:focus-visible { outline-offset: 4px; }
-    
-    .nav-badge {
-      font-family: var(--mono); font-size: 0.7rem;
-      padding: 0.3rem 0.8rem;
-      border: 1px solid var(--accent2); color: var(--accent2);
-      border-radius: 2px; letter-spacing: 1px;
-      display: inline-flex; align-items: center;
-      transition: all 0.2s; cursor: pointer;
-    }
-    .nav-badge:hover { background: rgba(0,255,136,0.08); }
-    .nav-badge::before { content: '● '; font-size: 0.6rem; animation: blink 1.4s step-end infinite; margin-right: 0.4rem; }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); color: var(--muted); font: .75rem var(--mono); letter-spacing: 1px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cv, .nav-badge { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid var(--accent); border-radius: 3px; padding: .3rem .65rem; color: var(--accent); white-space: nowrap; }
+    .nav-badge { color: var(--accent2); border-color: var(--accent2); }
+    .nav-badge::before { content: '●'; font-size: .55rem; animation: blink 1.4s step-end infinite; }
+    .hamburger { display: none; width: 38px; height: 38px; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--border); border-radius: 3px; cursor: pointer; }
+    .mobile-overlay { position: fixed; inset: 62px 0 0; z-index: 497; background: rgba(0,0,0,.62); }
+    .mobile-drawer { position: fixed; top: 62px; right: 0; z-index: 498; width: min(290px, 86vw); padding: .8rem; display: flex; flex-direction: column; gap: .2rem; background: rgba(8,12,20,.99); border: 1px solid var(--border); border-top: 0; border-radius: 0 0 0 8px; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+    .mobile-drawer a { display: flex; align-items: center; gap: .7rem; padding: .7rem .75rem; color: var(--muted); font: .8rem var(--mono); border-radius: 3px; }
+    .mobile-drawer a:hover { color: var(--accent); background: rgba(0,212,255,.07); }
+    .drawer-divider { height: 1px; margin: .25rem 0; background: var(--border); }
+    .drawer-status { color: var(--accent2) !important; }
 
-    .nav-cv {
-      font-family: var(--mono); font-size: 0.7rem;
-      padding: 0.3rem 0.8rem;
-      border: 1px solid var(--accent); color: var(--accent);
-      border-radius: 2px; letter-spacing: 1px;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      transition: all 0.2s;
-    }
-    .nav-cv:hover { background: rgba(0,212,255,0.08); }
-
-    /* HAMBURGER */
-    .hamburger {
-      display: none;
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: 36px; height: 36px;
-      border-radius: 3px;
-      cursor: pointer;
-      align-items: center; justify-content: center;
-      transition: all 0.2s;
-      font-size: 1.1rem;
-    }
-    .hamburger:hover, .hamburger:focus-visible {
-      border-color: var(--accent); color: var(--accent); outline: none;
-    }
-
-    .mobile-overlay {
-      position: fixed; inset: 0; z-index: 497;
-      background: rgba(0, 0, 0, 0.55);
-      display: none;
-    }
-    .mobile-overlay.open { display: block; }
-
-    .mobile-drawer {
-      position: fixed;
-      top: 60px; right: 0;
-      width: 220px;
-      background: rgba(8, 12, 20, 0.98);
-      border: 1px solid var(--border);
-      border-top: none;
-      border-radius: 0 0 0 8px;
-      padding: 0.75rem;
-      z-index: 498;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      transform: translateX(110%); visibility: hidden;
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s;
-      backdrop-filter: blur(20px);
-    }
-    .mobile-drawer.open { transform: translateX(0); visibility: visible; }
-    .mobile-drawer a {
-      font-family: var(--mono); font-size: 0.8rem;
-      color: var(--muted); padding: 0.65rem 0.75rem;
-      border-radius: 3px; letter-spacing: 1px;
-      transition: all 0.2s; display: flex; align-items: center; gap: 0.6rem;
-    }
-    .mobile-drawer a:hover, .mobile-drawer a:focus-visible {
-      color: var(--accent); background: rgba(0, 212, 255, 0.07); outline: none;
-    }
-    .drawer-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
-    .drawer-status {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
-      color: var(--accent2); padding: 0.4rem 0.75rem;
-      display: flex; align-items: center; gap: 0.4rem; text-decoration: none;
-    }
-    .drawer-status::before { content: '●'; font-size: 0.5rem; animation: blink 1.4s step-end infinite;}
-
-    /* HERO */
-    .hero {
-      max-width: 1200px; margin: auto;
-      padding: 7rem 2rem 6rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-label {
-      font-family: var(--mono); font-size: 0.75rem; color: var(--accent);
-      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;
-    }
-    .hero-cert {
-      display: inline-flex; align-items: center; gap: 0.75rem;
-      margin-bottom: 1.8rem; transition: transform 0.2s, filter 0.2s;
-    }
-    .hero-cert:hover, .hero-cert:focus-visible {
-      transform: translateY(-2px);
-      filter: brightness(1.15);
-    }
-    .hero-cert-shield {
-      font-size: 2rem; color: #0077b6;
-      filter: drop-shadow(0 0 8px rgba(0, 119, 182, 0.5));
-    }
-    .hero-cert-text {
-      font-family: var(--sans); font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-      font-weight: 800; letter-spacing: -0.5px; line-height: 1.1;
-      color: #0096c7;
-      text-shadow: 0 0 18px rgba(0, 150, 199, 0.35);
-    }
-    .hero-cert-text span {
-      display: block; font-family: var(--mono);
-      font-size: 0.7rem; font-weight: 400;
-      letter-spacing: 2px; color: #48cae4; text-shadow: none;
-      margin-top: 0.15rem;
-    }
-    .hero-name {
-      font-size: clamp(2.2rem, 4vw, 3.1rem); font-weight: 800;
-      line-height: 1.05; letter-spacing: -1.5px; color: var(--text);
-      margin-bottom: 0.6rem;
-    }
-    .hero-tagline {
-      font-family: var(--mono); font-size: 0.85rem; color: var(--accent2);
-      letter-spacing: 1px; margin-bottom: 1.75rem;
-    }
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding-block: clamp(4rem, 8vw, 7rem); border-bottom: 1px solid var(--border); }
+    .hero-label, .section-label { margin-bottom: .6rem; color: var(--accent); font: .72rem var(--mono); letter-spacing: 2.5px; text-transform: uppercase; }
+    .hero-name { margin: 0 0 .8rem; font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.06; letter-spacing: -1.7px; overflow-wrap: anywhere; }
+    .hero-tagline { margin: 0 0 1.6rem; color: var(--accent2); font: .85rem var(--mono); }
     .hero-tagline::before { content: '$ '; color: var(--dim); }
-    .hero-sub {
-      color: var(--muted); margin-bottom: 2.5rem; line-height: 1.9;
-      font-family: var(--mono); font-size: 0.88rem;
-    }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .btn {
-      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 1px;
-      padding: 0.75rem 1.5rem; border-radius: 3px; cursor: pointer;
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn-primary { background: var(--accent); color: var(--bg); font-weight: 600; border: none; }
-    .btn-primary:hover { background: #00b8d9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,0.3); }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .hero-sub { max-width: 66ch; color: var(--muted); font: .87rem/1.95 var(--mono); margin: 0 0 2rem; }
+    .hero-cert { display: inline-flex; align-items: center; gap: .8rem; margin: 0 0 1.5rem; }
+    .hero-cert-shield { color: #48cae4; font-size: 1.8rem; }
+    .hero-cert-text { color: #48cae4; font-size: 1.3rem; font-weight: 800; line-height: 1.2; }
+    .hero-cert-text span { display: block; margin-top: .2rem; font: .64rem var(--mono); letter-spacing: 1.5px; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: .7rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .72rem 1.1rem; border: 1px solid var(--border); border-radius: 3px; font: .77rem var(--mono); letter-spacing: .4px; transition: transform .2s, background .2s, border-color .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { border-color: var(--accent); color: var(--bg); background: var(--accent); font-weight: 600; }
+    .btn-primary:hover { background: #00b8d9; }
+    .btn-outline { color: var(--text); background: transparent; }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-cv { background: transparent; border: 1px solid var(--accent2); color: var(--accent2); }
-    .btn-cv:hover { background: rgba(0,255,136,0.08); transform: translateY(-2px); }
-
-    /* Terminal */
-    .hero-terminal { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-family: var(--mono); }
-    .terminal-bar {
-      background: var(--surface2); padding: 0.7rem 1rem;
-      display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--border);
-    }
+    .btn-cv { border-color: var(--accent2); color: var(--accent2); }
+    .btn-cv:hover { background: rgba(0,255,136,.07); }
+    .hero-terminal { min-width: 0; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.16); }
+    .terminal-bar { display: flex; align-items: center; gap: .5rem; padding: .7rem 1rem; background: var(--surface2); border-bottom: 1px solid var(--border); }
     .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .terminal-dot:nth-child(1) { background: #ff5f57; }
-    .terminal-dot:nth-child(2) { background: #febc2e; }
-    .terminal-dot:nth-child(3) { background: #28c840; }
-    .terminal-title { font-size: 0.72rem; color: var(--muted); margin-left: 0.5rem; }
-    .terminal-body { padding: 1.5rem; font-size: 0.82rem; line-height: 2; }
-    .t-key { color: var(--accent); }
-    .t-val { color: var(--accent2); }
-    .t-str { color: #c3e88d; }
-    .t-comment { color: var(--muted); }
-    .t-blink {
-      display: inline-block; width: 8px; height: 15px;
-      background: var(--accent); vertical-align: middle;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .t-blink { animation: blink 1s step-end infinite; }
-    }
+    .terminal-dot:nth-child(1) { background: #ff5f57; } .terminal-dot:nth-child(2) { background: #febc2e; } .terminal-dot:nth-child(3) { background: #28c840; }
+    .terminal-title { margin-left: .35rem; color: var(--muted); font: .7rem var(--mono); }
+    .terminal-body { padding: 1.2rem; overflow-x: auto; color: var(--muted); font: clamp(.67rem, .9vw, .78rem)/2 var(--mono); white-space: nowrap; }
+    .t-key { color: var(--accent); } .t-val { color: var(--accent2); } .t-str { color: #c3e88d; } .t-comment { color: var(--muted); }
+    .t-blink { display: inline-block; width: 8px; height: 14px; vertical-align: middle; background: var(--accent); animation: blink 1s step-end infinite; }
+
+    /* Stats */
+    .stats-bar { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat-item { padding: 1.7rem 1.2rem; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: 0; }
+    .stat-num { display: block; margin-bottom: .45rem; color: var(--accent); font-size: clamp(1.4rem, 2.8vw, 2rem); line-height: 1.15; font-weight: 800; overflow-wrap: anywhere; }
+    .stat-desc { color: var(--muted); font: .65rem/1.6 var(--mono); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* Generic sections and profile */
+    .section { padding-block: clamp(3.5rem, 7vw, 5.5rem); }
+    .section-title { margin: 0 0 2.4rem; font-size: clamp(1.8rem, 3.8vw, 2.3rem); line-height: 1.15; letter-spacing: -1px; }
+    .about-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+    .about-profile { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.6rem; }
+    .profile-avatar { position: relative; display: grid; place-items: center; flex: 0 0 56px; width: 56px; height: 56px; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface2); color: var(--accent); font: 600 1rem var(--mono); letter-spacing: 1px; }
+    .profile-avatar::after { content: ''; position: absolute; inset: -5px; border: 1px solid rgba(0,212,255,.18); border-radius: inherit; }
+    .profile-full-name { display: block; font-size: .92rem; font-weight: 700; }
+    .profile-role { display: block; color: var(--accent); font: .64rem var(--mono); letter-spacing: 1.5px; text-transform: uppercase; }
+    .about-text p { color: var(--muted); font: .82rem/1.95 var(--mono); margin: 0 0 1.1rem; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+    .info-strip { margin-top: 1.3rem; padding: 1.2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; }
+    .info-strip.orange { border-left: 3px solid var(--warn); } .info-strip.green { border-left: 3px solid var(--accent2); }
+    .info-strip h3, .skill-group-title { display: block; margin: 0 0 .8rem; padding-bottom: .45rem; border-bottom: 1px solid var(--border); color: var(--text); font: .68rem var(--mono); letter-spacing: 1.7px; text-transform: uppercase; }
+    .info-strip.orange h3 { color: var(--warn); } .info-strip.green h3 { color: var(--accent2); }
+    .info-item { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--dim); font: .75rem/1.7 var(--mono); }
+    .info-item:last-of-type { border-bottom: 0; }
+    .info-name { color: var(--text); }
+    .info-name em { color: var(--muted); font-style: normal; font-size: .72rem; }
+    .info-date { color: var(--muted); font-size: .68rem; white-space: nowrap; }
+    .info-date.active { color: var(--accent2); }
+    .info-sub { padding: .6rem 0 .2rem; color: var(--muted); font: .73rem/1.8 var(--mono); }
+    .skill-group-title { margin-top: 1.6rem; }
+    .skill-group-title:first-child { margin-top: 0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .65rem; margin-bottom: 1.35rem; }
+    .skill-row { display: flex; align-items: center; gap: .65rem; min-width: 0; padding: .72rem .8rem; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--muted); font: .72rem/1.5 var(--mono); transition: border-color .2s, color .2s; }
+    .skill-row:hover { color: var(--text); border-color: var(--accent); }
+    .skill-icon { flex: 0 0 18px; width: 18px; color: var(--accent); text-align: center; }
+
+    /* Learning card */
+    .platform-card { position: relative; overflow: hidden; padding: clamp(1.2rem, 3.5vw, 2rem); background: var(--surface); border: 1px solid var(--border); border-radius: 9px; }
+    .platform-card::before { content: ''; position: absolute; top: -130px; right: -100px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(0,255,136,.06), transparent 70%); pointer-events: none; }
+    .platform-header { position: relative; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .platform-icon { display: grid; place-items: center; width: 50px; height: 50px; flex: 0 0 50px; border: 1px solid rgba(0,255,136,.25); border-radius: 9px; background: rgba(0,255,136,.08); color: var(--accent2); font-size: 1.3rem; }
+    .platform-heading { flex: 1; min-width: 170px; }
+    .platform-name { margin-bottom: .15rem; font-size: 1.25rem; font-weight: 800; }
+    .platform-link { color: var(--accent); font: .75rem var(--mono); }
+    .platform-rank { padding: .4rem .7rem; border: 1px solid rgba(0,255,136,.25); border-radius: 3px; color: var(--accent2); background: rgba(0,255,136,.07); font: .67rem var(--mono); letter-spacing: 1px; }
+    .platform-stats { position: relative; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid var(--border); border-radius: 5px; background: var(--border); }
+    .platform-stat { padding: 1rem; text-align: center; background: var(--surface2); }
+    .platform-stat-num { display: block; margin-bottom: .25rem; color: var(--accent2); font-size: 1.35rem; font-weight: 800; }
+    .platform-stat-desc { color: var(--muted); font: .62rem var(--mono); letter-spacing: .7px; text-transform: uppercase; }
+    .platform-cols { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .platform-subhead { display: block; margin-bottom: .7rem; padding-bottom: .4rem; border-bottom: 1px solid var(--border); font: .67rem var(--mono); letter-spacing: 1.5px; text-transform: uppercase; }
+    .platform-list { margin: 0; padding: 0; list-style: none; }
+    .platform-list li { position: relative; padding: .35rem 0 .35rem 1.25rem; color: var(--muted); font: .78rem var(--mono); }
+    .platform-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent2); }
+    .platform-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .platform-tags span { padding: .3rem .5rem; border: 1px solid rgba(0,212,255,.2); border-radius: 3px; color: var(--accent); background: rgba(0,212,255,.06); font: .66rem var(--mono); }
+    .platform-cta { position: relative; display: flex; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
+    .platform-cta a { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem .85rem; border: 1px solid rgba(0,255,136,.25); border-radius: 3px; color: var(--accent2); font: .76rem var(--mono); }
+
+    /* Projects */
+    .projects-section { position: relative; padding-block: clamp(3.5rem, 7vw, 5rem); border-top: 1px solid var(--border); overflow: hidden; }
+    .projects-section::before { content: ''; position: absolute; top: 40%; left: 50%; width: 700px; height: 700px; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(0,212,255,.035), transparent 70%); pointer-events: none; }
+    .projects-section-inner { position: relative; width: min(100% - 3rem, var(--content)); margin-inline: auto; }
+    .bubble-hint { margin: -.9rem 0 1.8rem; text-align: center; color: var(--muted); font: .7rem var(--mono); letter-spacing: .4px; }
+    .bubble-arena { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.4rem; padding: 1rem 0 2rem; }
+    .bubble { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .45rem; width: 154px; min-height: 154px; padding: 1rem; border: 1px solid rgba(0,212,255,.3); border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(0,212,255,.1), rgba(13,21,38,.95) 72%); cursor: pointer; text-align: center; user-select: none; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .bubble:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 0 28px rgba(0,212,255,.15); }
+    .bubble[aria-pressed="true"] { transform: scale(1.04); border-color: var(--accent); box-shadow: 0 0 32px rgba(0,212,255,.2); }
+    .bubble.featured { width: 174px; min-height: 174px; border-color: rgba(0,255,136,.35); background: radial-gradient(circle at 35% 35%, rgba(0,255,136,.08), rgba(13,21,38,.95) 72%); }
+    .bubble.featured:hover, .bubble.featured[aria-pressed="true"] { border-color: var(--accent2); box-shadow: 0 0 32px rgba(0,255,136,.17); }
+    .featured-crown { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); padding: .12rem .45rem; border-radius: 2px; background: var(--accent2); color: var(--bg); font: 600 .53rem var(--mono); letter-spacing: .7px; white-space: nowrap; }
+    .bubble-icon { color: var(--accent); font-size: 1.45rem; line-height: 1; }
+    .bubble.featured .bubble-icon { color: var(--accent2); }
+    .bubble-label { font: 500 .67rem/1.4 var(--mono); }
+    .bubble-tag { color: var(--muted); font: .57rem/1.4 var(--mono); }
+    .bubble-techs { display: flex; flex-wrap: wrap; justify-content: center; gap: .2rem; }
+    .bubble-techs span { padding: .08rem .25rem; border-radius: 2px; color: var(--bg); background: rgba(0,255,136,.7); font: .48rem var(--mono); }
+    .project-panel { max-width: 960px; margin: 0 auto 2rem; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); opacity: 0; transform: translateY(12px); transition: opacity .25s ease, transform .25s ease; }
+    .project-panel.visible { opacity: 1; transform: translateY(0); }
+    .panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.2rem clamp(1rem, 3vw, 1.7rem); border-bottom: 1px solid var(--border); background: var(--surface2); }
+    .panel-title { margin-bottom: .25rem; font-size: clamp(1.05rem, 2.8vw, 1.35rem); font-weight: 800; line-height: 1.35; }
+    .panel-type { color: var(--muted); font: .65rem/1.7 var(--mono); letter-spacing: 1px; text-transform: uppercase; }
+    .panel-status-chip { display: inline-flex; margin-top: .45rem; padding: .17rem .5rem; border: 1px solid rgba(0,212,255,.25); border-radius: 2px; color: var(--accent); font: .61rem var(--mono); }
+    .panel-status-chip.live { color: var(--accent2); border-color: rgba(0,255,136,.3); }
+    .panel-status-chip.archived { color: var(--muted); border-color: rgba(155,170,200,.25); }
+    .panel-status-chip.thesis { color: var(--accent); border-color: rgba(0,212,255,.28); }
+    .panel-close { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; background: transparent; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; }
+    .panel-close:hover { color: var(--accent); border-color: var(--accent); }
+    .panel-body { padding: clamp(1rem, 3vw, 1.7rem); }
+    .panel-diagram { min-height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; padding: 1rem; overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; background: var(--surface2); }
+    .panel-diagram svg { display: block; max-width: 100%; height: auto; }
+    .diagram-fallback { margin: 0; max-width: 100%; overflow-x: auto; color: var(--muted); white-space: pre-wrap; font: .7rem/1.6 var(--mono); }
+    .panel-desc { margin: 0 0 1.2rem; color: var(--muted); font: .81rem/1.9 var(--mono); }
+    .tech-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.4rem; }
+    .tech-pill { padding: .2rem .45rem; border: 1px solid rgba(0,212,255,.2); border-radius: 2px; color: var(--accent); background: rgba(0,212,255,.055); font: .64rem var(--mono); }
+    .panel-cols { display: grid; grid-template-columns: .95fr 1.05fr; gap: 1.2rem; margin-bottom: 1.3rem; }
+    .panel-impact { padding: 1rem; border-left: 2px solid var(--accent2); border-radius: 0 4px 4px 0; background: rgba(0,255,136,.045); }
+    .impact-label { margin-bottom: .45rem; color: var(--accent2); font: .65rem var(--mono); letter-spacing: 1.5px; text-transform: uppercase; }
+    .impact-text { color: var(--muted); font: .75rem/1.8 var(--mono); }
+    .panel-bullets { margin: 0; padding: 0; list-style: none; }
+    .panel-bullets li { position: relative; padding: .25rem 0 .45rem 1.2rem; color: var(--muted); font: .75rem/1.75 var(--mono); }
+    .panel-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+    .panel-links { display: flex; flex-wrap: wrap; gap: .65rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
+    .panel-link { display: inline-flex; align-items: center; gap: .45rem; padding: .55rem .8rem; border: 1px solid rgba(0,212,255,.25); border-radius: 3px; color: var(--accent); font: .72rem var(--mono); }
+    .panel-link:hover { border-color: var(--accent); background: rgba(0,212,255,.06); }
+    .panel-link.secondary { color: var(--muted); border-color: var(--border); }
+
+    /* Contact/footer */
+    .contact-section { border-top: 1px solid var(--border); background: var(--surface); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding-block: clamp(3.5rem, 7vw, 5rem); }
+    .contact-left h2 { margin: .2rem 0 1rem; font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.15; }
+    .contact-left h2 em { color: var(--accent); font-style: normal; }
+    .contact-left p { color: var(--muted); font: .82rem/1.9 var(--mono); }
+    .contact-right { display: flex; flex-direction: column; gap: .75rem; }
+    .contact-item { display: flex; align-items: center; gap: .9rem; min-width: 0; padding: 1rem 1.1rem; border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--muted); font: .78rem var(--mono); overflow-wrap: anywhere; transition: border-color .2s, color .2s; }
+    .contact-item:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-item i { flex: 0 0 20px; color: var(--accent); text-align: center; }
+    footer { padding: 1.5rem; border-top: 1px solid var(--border); color: var(--muted); text-align: center; font: .7rem/1.8 var(--mono); }
+    footer a { color: var(--accent); }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* STATS */
-    .stats-bar { border-bottom: 1px solid var(--border); background: var(--surface); }
-    .stats-inner {
-      max-width: 1200px; margin: auto; padding: 0 2rem;
-      display: grid; grid-template-columns: repeat(4, 1fr);
-    }
-    .stat-item {
-      padding: 2rem 1.5rem; border-right: 1px solid var(--border);
-      transition: background 0.25s; cursor: default;
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-item:hover { background: rgba(0,212,255,0.04); }
-    .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--accent); letter-spacing: -1px; display: block; line-height: 1; margin-bottom: 0.4rem; }
-    .stat-desc { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
-
-    /* SECTION */
-    .section { max-width: 1200px; margin: auto; padding: 5rem 2rem; }
-    .section-label { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 3rem; }
-
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .about-text p { color: var(--muted); font-size: 0.93rem; margin-bottom: 1.2rem; font-family: var(--mono); line-height: 1.9; }
-    .about-text p strong { color: var(--text); font-weight: 600; }
-
-    .about-profile {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 1.75rem;
-    }
-    .profile-avatar {
-      width: 56px; height: 56px; border-radius: 50%;
-      border: 1.5px solid var(--accent);
-      background: var(--surface2);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 1rem; font-weight: 600;
-      color: var(--accent); letter-spacing: 2px;
-      flex-shrink: 0;
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.14);
-      position: relative;
-    }
-    .profile-avatar::after {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 212, 255, 0.18);
-    }
-    .profile-name { display: flex; flex-direction: column; gap: 0.25rem; }
-    .profile-full-name {
-      font-size: 0.92rem; font-weight: 700; color: var(--text);
-      font-family: var(--sans);
-    }
-    .profile-role {
-      font-family: var(--mono); font-size: 0.68rem;
-      color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
-    }
-
-    /* Skills Restructured */
-    .skill-group-title {
-      font-family: var(--mono); font-size: 0.72rem; color: var(--text);
-      letter-spacing: 2px; text-transform: uppercase; margin: 1.5rem 0 0.75rem;
-      display: block; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;
-    }
-    .skill-group-title:first-child { margin-top: 0; }
-    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-    .skill-row {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
-      padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem;
-      font-family: var(--mono); font-size: 0.8rem; color: var(--muted); transition: all 0.2s;
-    }
-    .skill-row:hover { border-color: var(--accent); color: var(--text); }
-    .skill-icon { color: var(--accent); font-size: 1rem; width: 18px; }
-
-    .info-strip {
-      margin-top: 1.5rem; padding: 1.5rem;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
-    }
-    .info-strip.orange { border-left: 3px solid var(--warn); }
-    .info-strip.green { border-left: 3px solid var(--accent2); }
-    .info-strip h3 { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
-    .info-strip.orange h3 { color: var(--warn); }
-    .info-strip.green h3 { color: var(--accent2); }
-    .info-item {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding: 0.5rem 0; border-bottom: 1px solid var(--dim);
-      font-family: var(--mono); font-size: 0.82rem; gap: 1rem;
-    }
-    .info-item:last-child { border-bottom: none; }
-    .info-item .info-name { color: var(--text); }
-    .info-item .info-name em { color: var(--muted); font-style: normal; font-size: 0.78rem; }
-    .info-item .info-date { color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
-    .info-item .info-date.active { color: var(--accent2); }
-    .info-sub {
-      padding: 0.4rem 0 0.8rem; font-family: var(--mono); font-size: 0.78rem;
-      color: var(--muted); line-height: 1.8; border-bottom: 1px solid var(--dim);
-    }
-
-    /* CERTIFICATIONS & LEARNING PLATFORMS */
-    .platform-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 2rem; position: relative; overflow: hidden;
-    }
-    .platform-card::before {
-      content: '';
-      position: absolute; top: -40%; right: -10%;
-      width: 320px; height: 320px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .platform-header {
-      display: flex; align-items: center; gap: 1.25rem;
-      flex-wrap: wrap; margin-bottom: 1.75rem; position: relative;
-    }
-    .platform-icon {
-      width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0;
-      background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.25);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; color: var(--accent2);
-    }
-    .platform-heading { flex: 1; min-width: 180px; }
-    .platform-name {
-      font-family: var(--sans); font-size: 1.3rem; font-weight: 800;
-      letter-spacing: -0.5px; color: var(--text); margin-bottom: 0.25rem;
-    }
-    .platform-link {
-      font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
-      display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s;
-    }
-    .platform-link:hover { gap: 0.65rem; }
-    .platform-rank {
-      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--accent2);
-      background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.25);
-      padding: 0.4rem 0.9rem; border-radius: 3px; white-space: nowrap;
-    }
-
-    .platform-stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-      background: var(--border); border: 1px solid var(--border);
-      border-radius: 6px; overflow: hidden; margin-bottom: 1.75rem;
-    }
-    .platform-stat {
-      background: var(--surface2); padding: 1.1rem 1rem; text-align: center;
-    }
-    .platform-stat-num {
-      display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent2);
-      letter-spacing: -0.5px; margin-bottom: 0.3rem;
-    }
-    .platform-stat-desc {
-      font-family: var(--mono); font-size: 0.66rem; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 1px;
-    }
-
-    .platform-cols {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; position: relative;
-    }
-    .platform-subhead {
-      font-family: var(--mono); font-size: 0.7rem; color: var(--text);
-      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.9rem;
-      display: block; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;
-    }
-    .platform-list { list-style: none; }
-    .platform-list li {
-      font-family: var(--mono); font-size: 0.85rem; color: var(--muted);
-      padding: 0.4rem 0; padding-left: 1.4rem; position: relative;
-    }
-    .platform-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent2); }
-    .platform-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .platform-tags span {
-      font-family: var(--mono); font-size: 0.72rem; padding: 0.35rem 0.7rem;
-      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
-      color: var(--accent); border-radius: 3px;
-    }
-
-    .platform-cta {
-      margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
-      display: flex; justify-content: flex-end; position: relative;
-    }
-    .platform-cta a {
-      font-family: var(--mono); font-size: 0.8rem; color: var(--accent2);
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 1.25rem; border: 1px solid rgba(0,255,136,0.25);
-      border-radius: 4px; transition: all 0.2s;
-    }
-    .platform-cta a:hover { background: rgba(0,255,136,0.08); border-color: var(--accent2); gap: 0.8rem; }
-
-    /* PROJECTS BUBBLE SECTION */
-    .projects-section {
-      border-top: 1px solid var(--border);
-      padding: 5rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .projects-section-inner { max-width: 1200px; margin: auto; }
-
-    .projects-section::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .bubble-arena {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem 0 3rem;
-      position: relative;
-    }
-
-    .bubble {
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(0,212,255,0.25);
-      background: radial-gradient(circle at 35% 35%, rgba(0,212,255,0.12), rgba(13,21,38,0.9) 70%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.6rem; cursor: pointer;
-      position: relative;
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
-      text-align: center; padding: 1rem; user-select: none;
-    }
-
-    .bubble:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-
-    .bubble::before {
-      content: '';
-      position: absolute; inset: -1px; border-radius: 50%;
-      background: conic-gradient(from 0deg, transparent 0%, rgba(0,212,255,0.3) 20%, transparent 40%);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .bubble::before { animation: spin 4s linear infinite; }
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .bubble:hover {
-      transform: translateY(-8px) scale(1.06);
-      border-color: var(--accent);
-      box-shadow: 0 0 30px rgba(0,212,255,0.2), 0 0 60px rgba(0,212,255,0.08), inset 0 0 30px rgba(0,212,255,0.05);
-    }
-    .bubble:hover::before { opacity: 1; }
-
-    .bubble.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 40px rgba(0,212,255,0.35), 0 0 80px rgba(0,212,255,0.12), inset 0 0 30px rgba(0,212,255,0.08);
-      transform: scale(1.08);
-      background: radial-gradient(circle at 35% 35%, rgba(0,212,255,0.2), rgba(13,21,38,0.9) 70%);
-    }
-    .bubble.active::before { opacity: 1; }
-
-    .bubble.featured {
-      width: 180px; height: 180px;
-      border-color: rgba(0,255,136,0.3);
-      background: radial-gradient(circle at 35% 35%, rgba(0,255,136,0.1), rgba(13,21,38,0.9) 70%);
-    }
-    .bubble.featured:hover, .bubble.featured.active {
-      border-color: var(--accent2);
-      box-shadow: 0 0 40px rgba(0,255,136,0.25), 0 0 80px rgba(0,255,136,0.08), inset 0 0 30px rgba(0,255,136,0.06);
-    }
-    .bubble.featured::before {
-      background: conic-gradient(from 0deg, transparent 0%, rgba(0,255,136,0.3) 20%, transparent 40%);
-    }
-
-    .featured-crown {
-      position: absolute; top: -10px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent2); color: var(--bg);
-      font-family: var(--mono); font-size: 0.55rem; font-weight: 600;
-      padding: 0.15rem 0.5rem; border-radius: 2px;
-      letter-spacing: 1px; white-space: nowrap;
-    }
-
-    .panel-status-chip {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 0.18rem 0.6rem; border-radius: 2px;
-      margin-top: 0.4rem;
-    }
-    .panel-status-chip.wip {
-      background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.28); color: var(--amber);
-    }
-    .panel-status-chip.wip::before {
-      content: '◉';
-      font-size: 0.55rem;
-      animation: blink 1.2s step-end infinite;
-    }
-    .panel-status-chip.live {
-      background: rgba(0,255,136,0.07); border: 1px solid rgba(0,255,136,0.25); color: var(--accent2);
-    }
-    .panel-status-chip.live::before { content: '●'; font-size: 0.55rem; }
-    .panel-status-chip.thesis {
-      background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.25); color: var(--accent);
-    }
-    .panel-status-chip.thesis::before { content: '◈'; font-size: 0.55rem; }
-    .panel-status-chip.archived {
-      background: rgba(155,170,200,0.08); border: 1px solid rgba(155,170,200,0.25); color: var(--muted);
-    }
-    .panel-status-chip.archived::before { content: '○'; font-size: 0.55rem; }
-
-    .bubble-icon { font-size: 1.6rem; color: var(--accent); line-height: 1; }
-    .bubble.featured .bubble-icon { color: var(--accent2); }
-
-    .bubble-label {
-      font-family: var(--mono); font-size: 0.68rem;
-      color: var(--text); letter-spacing: 0.5px; line-height: 1.4; font-weight: 500;
-    }
-    .bubble-tag {
-      font-family: var(--mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.5px;
-    }
-    .bubble.featured .bubble-tag { color: rgba(0,255,136,0.6); }
-
-    .bubble-techs {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem; padding: 0 0.3rem;
-    }
-    .bubble-techs span {
-      font-family: var(--mono); font-size: 0.52rem; color: var(--bg);
-      background: rgba(0,255,136,0.7); border-radius: 2px;
-      padding: 0.08rem 0.3rem; letter-spacing: 0.3px; white-space: nowrap;
-    }
-
-    .bubble-hint {
-      text-align: center; font-family: var(--mono);
-      font-size: 0.72rem; color: var(--muted); margin-bottom: 2.5rem; letter-spacing: 1px;
-    }
-
-    /* PROJECT PANEL */
-    .project-panel {
-      max-width: 900px; margin: 0 auto;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden;
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-      pointer-events: none; max-height: 0;
-    }
-    .project-panel.visible {
-      opacity: 1; transform: translateY(0);
-      pointer-events: all; max-height: none; margin-bottom: 2rem;
-    }
-
-    .panel-header {
-      background: var(--surface2); border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
-    }
-    .panel-header-left { flex: 1; }
-    .panel-title {
-      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
-      color: var(--text); margin-bottom: 0.2rem;
-    }
-    .panel-type {
-      font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
-      letter-spacing: 2px; text-transform: uppercase;
-    }
-    .panel-close {
-      background: none; border: 1px solid var(--border);
-      color: var(--muted); width: 32px; height: 32px;
-      border-radius: 4px; cursor: pointer; font-size: 1rem;
-      display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;
-    }
-    .panel-close:hover, .panel-close:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
-
-    .panel-body { padding: 2rem; }
-
-    /* Mermaid Styling */
-    .panel-diagram {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 6px; padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem; display: flex; justify-content: center;
-      overflow-x: auto;
-    }
-    .panel-diagram svg { max-width: 100%; height: auto; }
-
-    .panel-desc {
-      font-family: var(--mono); font-size: 0.88rem; color: var(--muted);
-      line-height: 1.9; margin-bottom: 1.5rem;
-    }
-
-    .panel-cols {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;
-    }
-
-    .panel-impact {
-      background: rgba(0,255,136,0.06); border-left: 2px solid var(--accent2);
-      padding: 1rem 1.25rem; border-radius: 0 6px 6px 0;
-    }
-    .impact-label {
-      font-family: var(--mono); font-size: 0.68rem; color: var(--accent2);
-      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem;
-    }
-    .impact-text { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
-
-    .panel-bullets { list-style: none; }
-    .panel-bullets li {
-      font-family: var(--mono); font-size: 0.82rem; color: var(--muted);
-      padding: 0.35rem 0; padding-left: 1.4rem; position: relative; line-height: 1.7;
-    }
-    .panel-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
-    .panel-bullets li code { color: var(--warn); font-size: 0.78rem; }
-
-    .tech-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-    .tech-pill {
-      font-family: var(--mono); font-size: 0.7rem; padding: 0.2rem 0.6rem;
-      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
-      color: var(--accent); border-radius: 2px;
-    }
-
-    .panel-links {
-      display: flex; gap: 1rem;
-      padding-top: 1.25rem; border-top: 1px solid var(--border);
-    }
-    .panel-link {
-      font-family: var(--mono); font-size: 0.8rem;
-      color: var(--accent); display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 1.25rem; border: 1px solid rgba(0,212,255,0.25);
-      border-radius: 4px; transition: all 0.2s;
-    }
-    .panel-link:hover { background: rgba(0,212,255,0.08); border-color: var(--accent); gap: 0.8rem; }
-    .panel-link.secondary { color: var(--muted); border-color: var(--border); }
-    .panel-link.secondary:hover { color: var(--accent2); border-color: var(--accent2); background: rgba(0,255,136,0.06); }
-
-    /* CONTACT */
-    .contact-section { border-top: 1px solid var(--border); background: var(--surface); }
-    .contact-inner {
-      max-width: 1200px; margin: auto; padding: 5rem 2rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-    }
-    .contact-left h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 1rem; }
-    .contact-left h2 em { font-style: normal; color: var(--accent); }
-    .contact-left p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.9; }
-    .contact-right { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-item {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1.25rem 1.5rem; background: var(--bg);
-      border: 1px solid var(--border); border-radius: 6px;
-      font-family: var(--mono); font-size: 0.85rem; transition: all 0.2s;
-    }
-    .contact-item:hover { border-color: var(--accent); color: var(--accent); }
-    .contact-item i { color: var(--accent); font-size: 1.1rem; width: 20px; }
-
-    footer {
-      border-top: 1px solid var(--border); padding: 2rem; text-align: center;
-      font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
-    }
-    footer a { color: var(--accent); }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
-      .hero-terminal { display: block; margin-top: 1rem; font-size: 0.75rem; overflow-x: auto; }
-      
+    @media (max-width: 950px) {
+      .nav-links, .site-nav > .nav-badge { display: none; }
+      .hamburger { display: inline-flex; }
+      .hero { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-terminal { max-width: 760px; width: 100%; }
       .about-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
       .contact-inner { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .nav-badge { display: none; }
-      .hamburger { display: flex; }
-      .panel-cols { grid-template-columns: 1fr; }
-      .platform-cols { grid-template-columns: 1fr; gap: 1.5rem; }
-      .bubble { width: 130px; height: 130px; }
-      .bubble.featured { width: 148px; height: 148px; }
     }
-    @media (max-width: 600px) {
-      .platform-card { padding: 1.5rem; }
-      .platform-stats { grid-template-columns: 1fr; }
-      .platform-rank { order: -1; }
-      .stats-inner { grid-template-columns: 1fr 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .bubble-arena { flex-direction: column; align-items: stretch; gap: 0.5rem; }
-      .bubble {
-        width: 100% !important; height: auto !important;
-        border-radius: 6px; flex-direction: row; justify-content: flex-start;
-        padding: 0.85rem 1.25rem; gap: 1rem; text-align: left;
-      }
-      .bubble::before { display: none; }
-      .bubble.featured { border-radius: 6px; }
-      .featured-crown { top: 50%; left: auto; right: 0.75rem; transform: translateY(-50%); }
+    @media (max-width: 700px) {
+      .container, .nav-inner, .projects-section-inner { width: min(100% - 2rem, var(--content)); }
+      .stats-inner { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .stat-item { padding: 1.2rem .8rem; border-bottom: 1px solid var(--border); }
+      .stat-item:nth-child(2) { border-right: 0; }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: 0; }
+      .platform-cols, .panel-cols { grid-template-columns: 1fr; }
+      .bubble-arena { display: grid; grid-template-columns: 1fr; gap: .55rem; }
+      .bubble, .bubble.featured { width: 100%; min-height: 0; border-radius: 6px; flex-direction: row; justify-content: flex-start; text-align: left; padding: .85rem 1rem; gap: .8rem; }
+      .bubble-icon { flex: 0 0 24px; text-align: center; }
+      .bubble-label { flex: 1; font-size: .76rem; }
+      .bubble-tag { max-width: 35%; text-align: right; }
       .bubble-techs { display: none; }
-      .bubble-icon { font-size: 1.2rem; flex-shrink: 0; }
-      .bubble-label { font-size: 0.78rem; }
-      .bubble-tag { font-size: 0.65rem; }
+      .featured-crown { top: 50%; left: auto; right: .6rem; transform: translateY(-50%); }
+      .bubble.featured .bubble-tag { padding-right: 3rem; }
     }
-
+    @media (max-width: 430px) {
+      .hero-cta .btn { flex: 1 1 100%; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .platform-stats { grid-template-columns: 1fr; }
+      .info-item { align-items: flex-start; flex-direction: column; gap: .15rem; }
+      .info-date { white-space: normal; }
+      .bubble-tag { display: none; }
+      .bubble.featured .bubble-tag { padding-right: 0; }
+      .contact-item { font-size: .7rem; }
+    }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .nav-badge::before, .drawer-status::before, .panel-status-chip.wip::before { animation: none; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .hero      { animation: fadeUp 0.6s ease both; }
-      .stats-bar { animation: fadeUp 0.6s ease 0.1s both; }
-      .section   { animation: fadeUp 0.6s ease 0.2s both; }
-    }
-
-    @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-    @keyframes floatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .bubble:not(:hover):not(.active):not(.in-progress):nth-child(odd)  { animation: floatA 5s ease-in-out infinite; }
-      .bubble:not(:hover):not(.active):not(.in-progress):nth-child(even) { animation: floatB 6s ease-in-out infinite; }
-      .bubble:not(:hover):not(.active):not(.in-progress):nth-child(3n)   { animation: floatC 7s ease-in-out infinite; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to content</a>
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <div class="nav-logo"><span>//</span> chinkhuselts</div>
-    <div class="nav-links">
-      <a href="#about">about</a>
-      <a href="#learning">learning</a>
-      <a href="#projects">projects</a>
-      <a href="#contact">contact</a>
-      <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer">github</a>
-      <a href="khusele-resume.pdf" download class="nav-cv"><i class="fas fa-file-alt"></i> resume</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileDrawer">
-      <i class="fas fa-bars"></i>
-    </button>
-    <a href="#contact" class="nav-badge">open to work</a>
-  </div>
-</nav>
-
-<!-- MOBILE OVERLAY + DRAWER -->
-<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
-<div class="mobile-drawer" id="mobileDrawer" role="navigation" aria-label="Mobile navigation">
-  <a href="#contact" class="drawer-status">open to work</a>
-  <div class="drawer-divider"></div>
-  <a href="#about"><i class="fas fa-user"></i> about</a>
-  <a href="#learning"><i class="fas fa-user-secret"></i> learning</a>
-  <a href="#projects"><i class="fas fa-shield-alt"></i> projects</a>
-  <a href="#contact"><i class="fas fa-envelope"></i> contact</a>
-  <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> github</a>
-  <div class="drawer-divider"></div>
-  <a href="khusele-resume.pdf" download><i class="fas fa-file-download"></i> download resume</a>
-</div>
-
-<!-- HERO -->
-<section class="hero" id="main-content">
-  <div class="hero-left">
-    <div class="hero-label">// Security Engineering · DFIR, Detection &amp; Cloud Automation</div>
-    <h1 class="hero-name">Chinkhusel Tsolmonbaatar</h1>
-    <p class="hero-tagline">secure_by_design --verify</p>
-    <a class="hero-cert" href="https://www.credly.com/badges/0f46b690-d7b2-44dd-9ee6-06407bb52806/public_url" target="_blank" rel="noopener noreferrer" aria-label="View ISC2 CC — Certified in Cybersecurity badge on Credly">
-      <i class="fas fa-shield-alt hero-cert-shield"></i>
-      <div class="hero-cert-text">
-        ISC2 CC
-        <span>CERTIFIED IN CYBERSECURITY</span>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#top" aria-label="Chinkhusel Tsolmonbaatar — home"><span>//</span> chinkhuselts</a>
+      <div class="nav-links">
+        <a href="#about">about</a>
+        <a href="#learning">learning</a>
+        <a href="#projects">projects</a>
+        <a href="#contact">contact</a>
+        <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer">github</a>
+        <a href="khusele-resume.pdf" download class="nav-cv"><i class="fas fa-file-alt" aria-hidden="true"></i> resume</a>
       </div>
-    </a>
-    <p class="hero-sub">
-      Computer Science (Cybersecurity) graduate in Warsaw.<br>
-      I triage malware, investigate logs, and build detection pipelines<br>
-      with Python, Linux, ELK/Snort, and CAPEv2 — then automate<br>
-      the response in the cloud with Terraform, Docker, and CI/CD.
-    </p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt"></i> View Projects</a>
-      <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      <a href="khusele-resume.pdf" download class="btn btn-cv"><i class="fas fa-file-download"></i> Resume</a>
+      <a href="#contact" class="nav-badge">open to work</a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileDrawer">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
     </div>
-  </div>
+  </nav>
 
-  <div class="hero-terminal">
-    <div class="terminal-bar">
-      <div class="terminal-dot"></div>
-      <div class="terminal-dot"></div>
-      <div class="terminal-dot"></div>
-      <span class="terminal-title">sec_profile.json</span>
-    </div>
-    <div class="terminal-body">
-      <div><span class="t-comment">// engineer profile</span></div>
-      <div><span class="t-key">"name"</span>: <span class="t-str">"Chinkhusel Tsolmonbaatar"</span>,</div>
-      <div><span class="t-key">"role"</span>: <span class="t-str">"Security Engineering — DFIR, Detection &amp; Cloud Automation"</span>,</div>
-      <div><span class="t-key">"location"</span>: <span class="t-str">"Warsaw, Poland"</span>,</div>
-      <div><span class="t-key">"experience"</span>: <span class="t-str">"Khan Bank — Security Engineer Intern"</span>,</div>
-      <div><span class="t-key">"education"</span>: <span class="t-str">"B.S. CS (Cybersecurity) — graduated Sep 2026"</span>,</div>
-      <div><span class="t-key">"focus"</span>: [</div>
-      <div>&nbsp;&nbsp;<span class="t-str">"DFIR &amp; Malware Triage"</span>,</div>
-      <div>&nbsp;&nbsp;<span class="t-str">"Detection Engineering"</span>,</div>
-      <div>&nbsp;&nbsp;<span class="t-str">"Security Automation &amp; Cloud IR"</span></div>
-      <div>],</div>
-      <div><span class="t-key">"stack"</span>: {</div>
-      <div>&nbsp;&nbsp;<span class="t-key">"dfir"</span>: <span class="t-str">"CAPEv2 · Log &amp; Artifact Triage"</span>,</div>
-      <div>&nbsp;&nbsp;<span class="t-key">"detection"</span>: <span class="t-str">"ELK · Snort · Python"</span>,</div>
-      <div>&nbsp;&nbsp;<span class="t-key">"automation"</span>: <span class="t-str">"Terraform · Docker · CI/CD"</span></div>
-      <div>},</div>
-      <div><span class="t-key">"certifications"</span>: [<span class="t-str">"ISC2 CC"</span>], <span class="t-comment">// certified</span></div>
-      <div><span class="t-key">"available"</span>: <span class="t-val">true</span> <span class="t-comment">// open to work</span></div>
-      <div><span class="t-blink"></span></div>
-    </div>
-  </div>
-</section>
+  <div class="mobile-overlay" id="mobileOverlay" hidden></div>
+  <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation" hidden>
+    <a class="drawer-status" href="#contact">● open to work</a>
+    <div class="drawer-divider" aria-hidden="true"></div>
+    <a href="#about"><i class="fas fa-user" aria-hidden="true"></i> about</a>
+    <a href="#learning"><i class="fas fa-user-secret" aria-hidden="true"></i> learning</a>
+    <a href="#projects"><i class="fas fa-shield-alt" aria-hidden="true"></i> projects</a>
+    <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> contact</a>
+    <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> github</a>
+    <div class="drawer-divider" aria-hidden="true"></div>
+    <a href="khusele-resume.pdf" download><i class="fas fa-file-download" aria-hidden="true"></i> download resume</a>
+  </nav>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <span class="stat-num">Nessus</span>
-      <span class="stat-desc">CSV reporting automated</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">9</span>
-      <span class="stat-desc">Security Projects Built</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">3</span>
-      <span class="stat-desc">Cloud Platforms — AWS · GCP · Oracle</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">1</span>
-      <span class="stat-desc">Live cloud project</span>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<div id="about" class="section">
-  <div class="section-label">// 01 &nbsp; about</div>
-  <h2 class="section-title">Who I am</h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <div class="about-profile">
-        <div class="profile-avatar" aria-label="Initials: CT">CT</div>
-        <div class="profile-name">
-          <span class="profile-full-name">Chinkhusel Tsolmonbaatar</span>
-          <span class="profile-role">Security Engineering · DFIR &amp; Detection</span>
-        </div>
-      </div>
-
-      <p>
-        I'm a <strong>Computer Science (Cybersecurity) graduate</strong> of Vizja University in Warsaw &mdash; <strong>graduated 29 September 2026</strong>. Before that I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar — automating Nessus vulnerability-reporting workflows, maintaining Linux servers, and building Bash tooling for monitoring and log rotation.
-      </p>
-      <p>
-        My diploma thesis, completed for my degree, explores <strong>Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong>. Alongside it, I build malware-analysis, log-forensics, and detection projects across AWS, GCP, and Oracle Cloud, using Terraform and CI/CD to make lab environments disposable and reproducible.
-      </p>
-      <p>
-        I'm <strong>open to work</strong> — especially with DFIR, Malware Analysis, Detection Engineering, SOC, and Security Automation teams that value rigorous investigation and repeatable tooling.
-      </p>
-
-      <div class="info-strip orange">
-        <h3>Experience</h3>
-        <div class="info-item">
-          <span class="info-name"><strong>Security Engineer Intern</strong> — Khan Bank</span>
-          <span class="info-date">Aug – Nov 2025</span>
-        </div>
-        <div class="info-sub">
-          Automated processing of Nessus vulnerability-scan CSV exports using Python/Pandas and Excel, reducing repetitive manual spreadsheet work and improving reporting consistency. Maintained Linux servers and wrote Bash scripts for monitoring and log rotation. Collaborated with DevOps in an Agile/Jira environment and participated in code reviews.
-        </div>
-      </div>
-
-      <div class="info-strip green">
-        <h3>Education &amp; Credentials</h3>
-        <div class="info-item">
-          <span class="info-name">B.S. Engineering — Computer Science (Cybersecurity)<br><em>University of Economics and Human Sciences (Vizja), Warsaw</em></span>
-          <span class="info-date active">Graduated 29 Sep 2026</span>
-        </div>
-        <div class="info-item">
-          <span class="info-name"><a href="https://www.credly.com/badges/0f46b690-d7b2-44dd-9ee6-06407bb52806/public_url" target="_blank" rel="noopener noreferrer" style="border-bottom: 1px dotted var(--accent2);">ISC2 CC — Certified in Cybersecurity</a><br><em>International Information System Security Certification Consortium</em></span>
-          <span class="info-date" style="color: var(--accent2);">Certified</span>
-        </div>
-        <div class="info-item">
-          <span class="info-name">Cisco NetAcad — Networking Basics</span>
-          <span class="info-date">Completed</span>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <span class="skill-group-title">DFIR, Malware &amp; Detection</span>
-      <div class="skills-grid" style="margin-bottom: 1.5rem;">
-        <div class="skill-row"><i class="fas fa-bug skill-icon"></i> CAPEv2 Malware Sandboxing</div>
-        <div class="skill-row"><i class="fas fa-search skill-icon"></i> Log &amp; Artifact Triage</div>
-        <div class="skill-row"><i class="fas fa-chart-bar skill-icon"></i> ELK · Snort · Grafana</div>
-        <div class="skill-row"><i class="fas fa-fingerprint skill-icon"></i> Threat Intel · YARA · IOCs</div>
-      </div>
-
-      <span class="skill-group-title">Systems, Scripting &amp; Networking</span>
-      <div class="skills-grid" style="margin-bottom: 1.5rem;">
-        <div class="skill-row"><i class="fas fa-terminal skill-icon"></i> Linux Administration</div>
-        <div class="skill-row"><i class="fab fa-python skill-icon"></i> Python / Pandas · Log Parsing</div>
-        <div class="skill-row"><i class="fas fa-code skill-icon"></i> Bash Automation</div>
-        <div class="skill-row"><i class="fas fa-network-wired skill-icon"></i> TCP/IP · DNS · TLS · PCAP</div>
-      </div>
-
-      <span class="skill-group-title">Cloud IR &amp; Infrastructure Automation</span>
-      <div class="skills-grid">
-        <div class="skill-row"><i class="fas fa-code-branch skill-icon"></i> Terraform · Ansible Labs</div>
-        <div class="skill-row"><i class="fab fa-aws skill-icon"></i> AWS · GCP · Oracle Cloud</div>
-        <div class="skill-row"><i class="fab fa-docker skill-icon"></i> Docker</div>
-        <div class="skill-row"><i class="fas fa-gear skill-icon"></i> GitHub Actions / CI/CD</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CERTIFICATIONS & LEARNING PLATFORMS -->
-<div id="learning" class="section">
-  <div class="section-label">// 02 &nbsp; learning</div>
-  <h2 class="section-title">Learning</h2>
-
-  <div class="platform-card">
-    <div class="platform-header">
-      <div class="platform-icon"><i class="fas fa-user-secret" aria-hidden="true"></i></div>
-      <div class="platform-heading">
-        <div class="platform-name">TryHackMe</div>
-        <a class="platform-link" href="https://tryhackme.com/p/Devil.Kenam" target="_blank" rel="noopener noreferrer">
-          tryhackme.com/p/Devil.Kenam <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+  <main id="main-content">
+    <header class="hero container" id="top">
+      <div class="hero-left">
+        <div class="hero-label">// Security Engineering · DFIR, Detection &amp; Cloud Automation</div>
+        <h1 class="hero-name">Chinkhusel Tsolmonbaatar</h1>
+        <p class="hero-tagline">secure_by_design --verify</p>
+        <a class="hero-cert" href="https://www.credly.com/badges/0f46b690-d7b2-44dd-9ee6-06407bb52806/public_url" target="_blank" rel="noopener noreferrer" aria-label="View ISC2 CC Certified in Cybersecurity badge on Credly">
+          <i class="fas fa-shield-alt hero-cert-shield" aria-hidden="true"></i>
+          <span class="hero-cert-text">ISC2 CC<span>CERTIFIED IN CYBERSECURITY</span></span>
         </a>
-      </div>
-      <div class="platform-rank">Top 5% Global</div>
-    </div>
-
-    <div class="platform-stats">
-      <div class="platform-stat">
-        <span class="platform-stat-num">80+</span>
-        <span class="platform-stat-desc">Rooms Completed</span>
-      </div>
-      <div class="platform-stat">
-        <span class="platform-stat-num">Top 5%</span>
-        <span class="platform-stat-desc">Global Ranking</span>
-      </div>
-      <div class="platform-stat">
-        <span class="platform-stat-num">5</span>
-        <span class="platform-stat-desc">Learning Paths</span>
-      </div>
-    </div>
-
-    <div class="platform-cols">
-      <div>
-        <span class="platform-subhead">Learning Paths</span>
-        <ul class="platform-list">
-          <li>SOC Level 1</li>
-          <li>Jr Penetration Tester</li>
-          <li>Pre Security</li>
-          <li>Security Engineer</li>
-          <li>Network Security</li>
-        </ul>
-      </div>
-      <div>
-        <span class="platform-subhead">Skills Practiced</span>
-        <div class="platform-tags">
-          <span>SIEM Investigation</span>
-          <span>Windows Event Logs</span>
-          <span>Network Analysis</span>
-          <span>Active Directory</span>
-          <span>Web Application Security</span>
-          <span>Reverse Engineering</span>
-          <span>Threat Hunting</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="platform-cta">
-      <a href="https://tryhackme.com/p/Devil.Kenam" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-external-link-alt" aria-hidden="true"></i> View TryHackMe Profile →
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECTS BUBBLE SECTION -->
-<div id="projects" class="projects-section">
-  <div class="projects-section-inner">
-    <div class="section-label">// 03 &nbsp; projects</div>
-    <h2 class="section-title">Security Engineering Projects</h2>
-    
-    <p class="bubble-hint">Malware analysis, forensics, detection, and cloud automation — click a project to expand</p>
-
-    <!-- BUBBLES -->
-    <div class="bubble-arena" id="bubbleArena">
-
-      <div class="bubble featured" data-project="thesis" tabindex="0" role="button" aria-pressed="false" aria-label="Autonomous Cloud Governance — Diploma Thesis — click to expand">
-        <div class="featured-crown">THESIS</div>
-        <div class="bubble-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></div>
-        <div class="bubble-label">Autonomous Cloud Governance</div>
-        <div class="bubble-tag">Cloud DFIR · Auto-Triage · OCI</div>
-        <div class="bubble-techs">
-          <span>Groq / Llama 3.1</span><span>VirusTotal</span><span>OCI Functions</span><span>Grafana</span>
+        <p class="hero-sub">
+          Computer Science (Cybersecurity) graduate in Warsaw.<br />
+          I triage malware, investigate logs, and build detection pipelines<br />
+          with Python, Linux, ELK/Snort, and CAPEv2 — then automate<br />
+          response workflows in the cloud with Terraform, Docker, and CI/CD.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary"><i class="fas fa-shield-alt" aria-hidden="true"></i> View Projects</a>
+          <a href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+          <a href="khusele-resume.pdf" download class="btn btn-cv"><i class="fas fa-file-download" aria-hidden="true"></i> Resume</a>
         </div>
       </div>
 
-      <div class="bubble featured" data-project="wannacry" tabindex="0" role="button" aria-pressed="false" aria-label="WannaCry Detonation Lab — malware behavioral triage — click to expand">
-        <div class="featured-crown">MALWARE LAB</div>
-        <div class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></div>
-        <div class="bubble-label">WannaCry Detonation Lab</div>
-        <div class="bubble-tag">CAPEv2 · Behavioral Triage</div>
-        <div class="bubble-techs">
-          <span>CAPEv2</span><span>IOC Extraction</span><span>Windows 10 VM</span>
+      <div class="hero-terminal" aria-label="Security engineering profile summary">
+        <div class="terminal-bar">
+          <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+          <span class="terminal-title">sec_profile.json</span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-comment">// engineer profile</span></div>
+          <div><span class="t-key">"name"</span>: <span class="t-str">"Chinkhusel Tsolmonbaatar"</span>,</div>
+          <div><span class="t-key">"role"</span>: <span class="t-str">"Security Engineering — DFIR, Detection &amp; Cloud Automation"</span>,</div>
+          <div><span class="t-key">"location"</span>: <span class="t-str">"Warsaw, Poland"</span>,</div>
+          <div><span class="t-key">"experience"</span>: <span class="t-str">"Khan Bank — Security Engineer Intern"</span>,</div>
+          <div><span class="t-key">"education"</span>: <span class="t-str">"B.S. Computer Science (Cybersecurity) — 2026"</span>,</div>
+          <div><span class="t-key">"focus"</span>: [</div>
+          <div>&nbsp;&nbsp;<span class="t-str">"DFIR &amp; Malware Triage"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="t-str">"Detection Engineering"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="t-str">"Security Automation &amp; Cloud IR"</span></div>
+          <div>],</div>
+          <div><span class="t-key">"stack"</span>: {</div>
+          <div>&nbsp;&nbsp;<span class="t-key">"dfir"</span>: <span class="t-str">"CAPEv2 · Log &amp; Artifact Triage"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="t-key">"detection"</span>: <span class="t-str">"ELK · Snort · Python"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="t-key">"automation"</span>: <span class="t-str">"Terraform · Docker · CI/CD"</span></div>
+          <div>},</div>
+          <div><span class="t-key">"certifications"</span>: [<span class="t-str">"ISC2 CC"</span>],</div>
+          <div><span class="t-key">"available"</span>: <span class="t-val">true</span> <span class="t-comment">// open to work</span></div>
+          <div><span class="t-blink" aria-hidden="true"></span></div>
         </div>
       </div>
+    </header>
 
-      <div class="bubble" data-project="log-forensics" tabindex="0" role="button" aria-pressed="false" aria-label="Serverless Log Forensics project — click to expand">
-        <div class="bubble-icon"><i class="fas fa-search" aria-hidden="true"></i></div>
-        <div class="bubble-label">Serverless Log Forensics</div>
-        <div class="bubble-tag">AWS · Log Forensics</div>
+    <section class="stats-bar" aria-label="Portfolio highlights">
+      <div class="stats-inner container">
+        <div class="stat-item"><span class="stat-num">Nessus</span><span class="stat-desc">CSV reporting automated</span></div>
+        <div class="stat-item"><span class="stat-num">9</span><span class="stat-desc">Security projects built</span></div>
+        <div class="stat-item"><span class="stat-num">3</span><span class="stat-desc">Cloud platforms — AWS · GCP · Oracle</span></div>
+        <div class="stat-item"><span class="stat-num">ISC2 CC</span><span class="stat-desc">Cybersecurity certification</span></div>
       </div>
+    </section>
 
-      <div class="bubble" data-project="elk-siem" tabindex="0" role="button" aria-pressed="false" aria-label="ELK + Snort SIEM project — click to expand">
-        <div class="bubble-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
-        <div class="bubble-label">ELK + Snort SIEM</div>
-        <div class="bubble-tag">Blue Team · SIEM · Snort</div>
-      </div>
+    <section id="about" class="section container">
+      <div class="section-label">// 01 &nbsp; about</div>
+      <h2 class="section-title">Who I am</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="about-profile">
+            <div class="profile-avatar" aria-label="Initials CT">CT</div>
+            <div><span class="profile-full-name">Chinkhusel Tsolmonbaatar</span><span class="profile-role">Security Engineering · DFIR &amp; Detection</span></div>
+          </div>
+          <p>I'm a <strong>Computer Science (Cybersecurity) graduate</strong> of Vizja University in Warsaw, graduating on <strong>29 September 2026</strong>. Previously, I was a <strong>Security Engineer Intern at Khan Bank</strong> in Ulaanbaatar, where I automated Nessus vulnerability-reporting workflows, maintained Linux servers, and built Bash tooling for monitoring and log rotation.</p>
+          <p>My diploma thesis, <strong>Autonomous Cloud Governance: Leveraging Generative AI for Self-Healing OCI CIS Benchmark Compliance</strong>, explores event-driven cloud triage and remediation. My other projects cover malware analysis, log forensics, detection engineering, and cloud automation across AWS, GCP, and Oracle Cloud.</p>
+          <p>I'm <strong>open to work</strong>, especially with DFIR, Malware Analysis, Detection Engineering, SOC, and Security Automation teams that value rigorous investigation and repeatable tooling.</p>
 
-      <div class="bubble" data-project="cloud-auditor" tabindex="0" role="button" aria-pressed="false" aria-label="Cloud Security Auditor project — click to expand">
-        <div class="bubble-icon"><i class="fab fa-aws" aria-hidden="true"></i></div>
-        <div class="bubble-label">Cloud Security Auditor</div>
-        <div class="bubble-tag">AWS · Serverless</div>
-      </div>
+          <div class="info-strip orange">
+            <h3>Experience</h3>
+            <div class="info-item"><span class="info-name"><strong>Security Engineer Intern</strong> — Khan Bank</span><span class="info-date">Aug – Nov 2025</span></div>
+            <div class="info-sub">Automated processing of Nessus vulnerability-scan CSV exports using Python/Pandas and Excel, improving reporting consistency and reducing repetitive spreadsheet work. Maintained Linux servers and wrote Bash scripts for monitoring and log rotation. Collaborated with DevOps in an Agile/Jira environment and participated in code reviews.</div>
+          </div>
 
-      <div class="bubble" data-project="iam-api-v2" tabindex="0" role="button" aria-pressed="false" aria-label="IAM-API-V2 project — click to expand">
-        <div class="bubble-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
-        <div class="bubble-label">IAM-API-V2</div>
-        <div class="bubble-tag">Auth · DevOps · IaC</div>
-        <div class="bubble-techs">
-          <span>FastAPI</span><span>Terraform</span><span>AWS</span><span>Caddy</span>
+          <div class="info-strip green">
+            <h3>Education &amp; Credentials</h3>
+            <div class="info-item"><span class="info-name">B.S. Computer Science (Cybersecurity)<br /><em>University of Economics and Human Sciences (Vizja), Warsaw</em></span><span class="info-date active">29 Sep 2026</span></div>
+            <div class="info-item"><span class="info-name"><a href="https://www.credly.com/badges/0f46b690-d7b2-44dd-9ee6-06407bb52806/public_url" target="_blank" rel="noopener noreferrer">ISC2 CC — Certified in Cybersecurity</a><br /><em>ISC2</em></span><span class="info-date active">Certified</span></div>
+            <div class="info-item"><span class="info-name">Cisco NetAcad — Networking Basics</span><span class="info-date">Completed</span></div>
+          </div>
+        </div>
+
+        <div>
+          <span class="skill-group-title">DFIR, Malware &amp; Detection</span>
+          <div class="skills-grid">
+            <div class="skill-row"><i class="fas fa-bug skill-icon" aria-hidden="true"></i> CAPEv2 Malware Sandboxing</div>
+            <div class="skill-row"><i class="fas fa-search skill-icon" aria-hidden="true"></i> Log &amp; Artifact Triage</div>
+            <div class="skill-row"><i class="fas fa-chart-bar skill-icon" aria-hidden="true"></i> ELK · Snort · Grafana</div>
+            <div class="skill-row"><i class="fas fa-fingerprint skill-icon" aria-hidden="true"></i> Threat Intel · YARA · IOCs</div>
+          </div>
+          <span class="skill-group-title">Systems, Scripting &amp; Networking</span>
+          <div class="skills-grid">
+            <div class="skill-row"><i class="fas fa-terminal skill-icon" aria-hidden="true"></i> Linux Administration</div>
+            <div class="skill-row"><i class="fab fa-python skill-icon" aria-hidden="true"></i> Python / Pandas · Log Parsing</div>
+            <div class="skill-row"><i class="fas fa-code skill-icon" aria-hidden="true"></i> Bash Automation</div>
+            <div class="skill-row"><i class="fas fa-network-wired skill-icon" aria-hidden="true"></i> TCP/IP · DNS · TLS · PCAP</div>
+          </div>
+          <span class="skill-group-title">Cloud IR &amp; Infrastructure Automation</span>
+          <div class="skills-grid">
+            <div class="skill-row"><i class="fas fa-code-branch skill-icon" aria-hidden="true"></i> Terraform · Ansible Labs</div>
+            <div class="skill-row"><i class="fab fa-aws skill-icon" aria-hidden="true"></i> AWS · GCP · Oracle Cloud</div>
+            <div class="skill-row"><i class="fab fa-docker skill-icon" aria-hidden="true"></i> Docker</div>
+            <div class="skill-row"><i class="fas fa-gear skill-icon" aria-hidden="true"></i> GitHub Actions / CI/CD</div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="bubble" data-project="gcp-serverless" tabindex="0" role="button" aria-pressed="false" aria-label="GCP Serverless API Hub project — click to expand">
-        <div class="bubble-icon"><i class="fab fa-google" aria-hidden="true"></i></div>
-        <div class="bubble-label">GCP Serverless API Hub</div>
-        <div class="bubble-tag">GCP · FastAPI · BigQuery</div>
+    <section id="learning" class="section container">
+      <div class="section-label">// 02 &nbsp; learning</div>
+      <h2 class="section-title">Learning</h2>
+      <article class="platform-card">
+        <div class="platform-header">
+          <div class="platform-icon"><i class="fas fa-user-secret" aria-hidden="true"></i></div>
+          <div class="platform-heading">
+            <div class="platform-name">TryHackMe</div>
+            <a class="platform-link" href="https://tryhackme.com/p/Devil.Kenam" target="_blank" rel="noopener noreferrer">tryhackme.com/p/Devil.Kenam <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+          </div>
+          <div class="platform-rank">Top 5% Global</div>
+        </div>
+        <div class="platform-stats">
+          <div class="platform-stat"><span class="platform-stat-num">80+</span><span class="platform-stat-desc">Rooms completed</span></div>
+          <div class="platform-stat"><span class="platform-stat-num">Top 5%</span><span class="platform-stat-desc">Global ranking</span></div>
+          <div class="platform-stat"><span class="platform-stat-num">5</span><span class="platform-stat-desc">Learning paths</span></div>
+        </div>
+        <div class="platform-cols">
+          <div><span class="platform-subhead">Learning Paths</span><ul class="platform-list"><li>SOC Level 1</li><li>Jr Penetration Tester</li><li>Pre Security</li><li>Security Engineer</li><li>Network Security</li></ul></div>
+          <div><span class="platform-subhead">Skills Practiced</span><div class="platform-tags"><span>SIEM Investigation</span><span>Windows Event Logs</span><span>Network Analysis</span><span>Active Directory</span><span>Web Application Security</span><span>Reverse Engineering</span><span>Threat Hunting</span></div></div>
+        </div>
+        <div class="platform-cta"><a href="https://tryhackme.com/p/Devil.Kenam" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt" aria-hidden="true"></i> View TryHackMe Profile →</a></div>
+      </article>
+    </section>
+
+    <section id="projects" class="projects-section">
+      <div class="projects-section-inner">
+        <div class="section-label">// 03 &nbsp; projects</div>
+        <h2 class="section-title">Security Engineering Projects</h2>
+        <p class="bubble-hint">Malware analysis, forensics, detection, and cloud automation — select a project to expand</p>
+
+        <div class="bubble-arena" id="bubbleArena" aria-label="Select a project">
+          <button class="bubble featured" type="button" data-project="thesis" aria-pressed="false" aria-controls="projectPanel">
+            <span class="featured-crown">THESIS</span><span class="bubble-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></span><span class="bubble-label">Autonomous Cloud Governance</span><span class="bubble-tag">Cloud DFIR · Auto-Triage · OCI</span><span class="bubble-techs"><span>Groq / Llama 3.1</span><span>VirusTotal</span><span>OCI Functions</span></span>
+          </button>
+          <button class="bubble featured" type="button" data-project="wannacry" aria-pressed="false" aria-controls="projectPanel">
+            <span class="featured-crown">MALWARE LAB</span><span class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></span><span class="bubble-label">WannaCry Detonation Lab</span><span class="bubble-tag">CAPEv2 · Behavioral Triage</span><span class="bubble-techs"><span>CAPEv2</span><span>IOC Extraction</span></span>
+          </button>
+          <button class="bubble" type="button" data-project="log-forensics" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-search" aria-hidden="true"></i></span><span class="bubble-label">Serverless Log Forensics</span><span class="bubble-tag">AWS · Log Forensics</span></button>
+          <button class="bubble" type="button" data-project="elk-siem" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></span><span class="bubble-label">ELK + Snort SIEM</span><span class="bubble-tag">Blue Team · SIEM · Snort</span></button>
+          <button class="bubble" type="button" data-project="cloud-auditor" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fab fa-aws" aria-hidden="true"></i></span><span class="bubble-label">Cloud Security Auditor</span><span class="bubble-tag">AWS · Serverless</span></button>
+          <button class="bubble" type="button" data-project="iam-api-v2" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></span><span class="bubble-label">IAM-API-V2</span><span class="bubble-tag">Auth · DevOps · IaC</span><span class="bubble-techs"><span>FastAPI</span><span>Terraform</span><span>AWS</span></span></button>
+          <button class="bubble" type="button" data-project="gcp-serverless" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fab fa-google" aria-hidden="true"></i></span><span class="bubble-label">GCP Serverless API Hub</span><span class="bubble-tag">GCP · FastAPI · BigQuery</span></button>
+          <button class="bubble" type="button" data-project="threat-matrix" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-satellite-dish" aria-hidden="true"></i></span><span class="bubble-label">Threat Matrix</span><span class="bubble-tag">Next.js · WebGL · CI/CD</span></button>
+          <button class="bubble" type="button" data-project="threat-map" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-globe" aria-hidden="true"></i></span><span class="bubble-label">3D Global Threat Map</span><span class="bubble-tag">Visualization · DevOps · Docker</span></button>
+        </div>
+
+        <section class="project-panel" id="projectPanel" role="region" aria-live="polite" aria-label="Project details" hidden>
+          <div class="panel-header">
+            <div><div class="panel-title" id="panelTitle"></div><div class="panel-type" id="panelType"></div><div id="panelStatusChip"></div></div>
+            <button class="panel-close" id="panelClose" type="button" aria-label="Close project details">✕</button>
+          </div>
+          <div class="panel-body" id="panelBody"></div>
+        </section>
       </div>
+    </section>
 
-      <div class="bubble" data-project="threat-matrix" tabindex="0" role="button" aria-pressed="false" aria-label="Threat Matrix project — click to expand">
-        <div class="bubble-icon"><i class="fas fa-satellite-dish" aria-hidden="true"></i></div>
-        <div class="bubble-label">Threat Matrix</div>
-        <div class="bubble-tag">Next.js · WebGL · CI/CD</div>
-        <div class="bubble-techs">
-          <span>Next.js</span><span>Docker</span><span>Watchtower</span>
+    <section id="contact" class="contact-section">
+      <div class="contact-inner container">
+        <div class="contact-left">
+          <div class="section-label">// 04 &nbsp; contact</div>
+          <h2>Let's build<br /><em>secure systems.</em></h2>
+          <p>Open to DFIR, Malware Analysis, Detection Engineering, and Security Automation roles.<br /><br />Based in Warsaw, Poland. If your team needs someone who can triage an incident and then automate the response — let's talk.</p>
+        </div>
+        <div class="contact-right">
+          <a class="contact-item" href="mailto:husele1000@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> husele1000@gmail.com</a>
+          <a class="contact-item" href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> github.com/Chinkhuselts</a>
+          <a class="contact-item" href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> linkedin.com/in/chinkhusel-tsolmonbaatar</a>
+          <a class="contact-item" href="khusele-resume.pdf" download><i class="fas fa-file-alt" aria-hidden="true"></i> Download Resume (PDF)</a>
         </div>
       </div>
+    </section>
+  </main>
 
-      <div class="bubble" data-project="threat-map" tabindex="0" role="button" aria-pressed="false" aria-label="3D Global Threat Map project — click to expand">
-        <div class="bubble-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
-        <div class="bubble-label">3D Global Threat Map</div>
-        <div class="bubble-tag">Viz · DevOps · Docker</div>
-      </div>
+  <footer><p>© 2026 Chinkhusel Tsolmonbaatar · <a href="mailto:husele1000@gmail.com">husele1000@gmail.com</a> · <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer">github.com/Chinkhuselts</a></p></footer>
 
-    </div>
+  <script>
+    'use strict';
 
-    <!-- PROJECT DETAIL PANEL -->
-    <div class="project-panel" id="projectPanel" role="region" aria-live="polite" aria-label="Project details">
-      <div class="panel-header">
-        <div class="panel-header-left">
-          <div class="panel-title" id="panelTitle"></div>
-          <div class="panel-type" id="panelType"></div>
-          <div id="panelStatusChip"></div>
-        </div>
-        <button class="panel-close" id="panelClose" aria-label="Close project details">✕</button>
-      </div>
-      <div class="panel-body" id="panelBody"></div>
-    </div>
+    /* Mobile navigation: state and accessibility attributes stay in sync. */
+    const hamburger = document.getElementById('hamburger');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileOverlay = document.getElementById('mobileOverlay');
 
-  </div>
-</div>
-
-<!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <div class="section-label">// 04 &nbsp; contact</div>
-      <h2>Let's build<br><em>secure systems.</em></h2>
-      <p>
-        Open to DFIR, Malware Analysis, Detection Engineering,<br>
-        and Security Automation roles.<br><br>
-        Based in Warsaw, Poland. If your team needs someone who<br>
-        can triage an incident and then automate the response<br>
-        — let's talk.
-      </p>
-    </div>
-    <div class="contact-right">
-      <a class="contact-item" href="mailto:husele1000@gmail.com">
-        <i class="fas fa-envelope"></i>
-        husele1000@gmail.com
-      </a>
-      <a class="contact-item" href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-github"></i>
-        github.com/Chinkhuselts
-      </a>
-      <a class="contact-item" href="https://www.linkedin.com/in/chinkhusel-tsolmonbaatar-905880271/" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-linkedin"></i>
-        linkedin.com/in/chinkhusel-tsolmonbaatar
-      </a>
-      <a class="contact-item" href="khusele-resume.pdf" download>
-        <i class="fas fa-file-alt"></i>
-        Download Resume (PDF)
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Chinkhusel Tsolmonbaatar &nbsp;·&nbsp; <a href="mailto:husele1000@gmail.com">husele1000@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/Chinkhuselts" target="_blank" rel="noopener noreferrer">github.com/Chinkhuselts</a></p>
-</footer>
-
-<script>
-  /* MOBILE NAV */
-  const hamburger     = document.getElementById('hamburger');
-  const mobileDrawer  = document.getElementById('mobileDrawer');
-  const mobileOverlay = document.getElementById('mobileOverlay');
-
-  function openDrawer() {
-    mobileDrawer.classList.add('open');
-    mobileOverlay.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    hamburger.querySelector('i').className = 'fas fa-times';
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDrawer() {
-    mobileDrawer.classList.remove('open');
-    mobileOverlay.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    hamburger.querySelector('i').className = 'fas fa-bars';
-    document.body.style.overflow = '';
-  }
-  hamburger.addEventListener('click', () => {
-    mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer();
-  });
-  mobileOverlay.addEventListener('click', closeDrawer);
-  mobileDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) closeDrawer();
-  });
-
-  /* PROJECT DATA (Upgraded to Mermaid.js Diagrams) */
-  const projects = {
-
-    "thesis": {
-      title: "Autonomous Cloud Governance — Automated Triage & Remediation Engine",
-      type: "Diploma Thesis · Cloud DFIR & Automated Triage · Vizja University, Warsaw · Sep 2026",
-      status: "thesis",
-      statusLabel: "Diploma Thesis — Vizja University, Sep 2026",
-      diagram: `<div class="mermaid">
-graph TD
-    User[User/Attacker] -->|uploads file / modifies bucket| OCI[OCI Object Storage]
-    OCI -.->|emits OCI Event| Router[OCI Functions Event Router]
-    Router -->|bucket_visibility| CIS[CIS Compliance Engine]
-    Router -->|object_upload| Malware[AI Malware Engine]
-    
-    CIS -->|Reverts to Private| Grafana[(Grafana Telemetry)]
-    
-    Malware -->|SHA-256| VT[VirusTotal API]
-    Malware -->|Keyword Search| NVD[NVD CVE API]
-    
-    VT & NVD -->|Enriched Context| LLM{Groq / Llama 3.1}
-    LLM -->|JSON Risk + Confidence| Action{Decision Engine}
-    
-    Action -->|ALLOW| Grafana
-    Action -->|QUARANTINE| Grafana
-    Action -->|DELETE| Grafana
-      </div>`,
-      desc: "Cloud object stores are a prime malware drop point, and SOC analysts drown in the alerts they generate. My diploma thesis builds an event-driven serverless triage and response engine on OCI. One engine deterministically reverts CIS-violating bucket exposure; the other intercepts every uploaded file, streams it through <strong>in-memory SHA-256 hashing</strong>, enriches the hash and keywords against <strong>VirusTotal and the NVD</strong>, and hands the evidence to Llama 3.1 for a scored verdict — ALLOW, QUARANTINE, or DELETE — with <strong>no human in the middle</strong>. The fail-safe logic that downgrades DELETE to QUARANTINE when model confidence is low took more engineering than the rest of the system combined.",
-      tech: ["Python 3.9+", "OCI Functions", "OCI Object Storage", "OCI Events Service", "OCI IAM (Dynamic Groups)", "Groq API", "Llama 3.1", "VirusTotal API", "NVD CVE API", "Grafana", "OCI Logging Analytics", "hashlib (SHA-256)", "urllib.parse"],
-      impact: "An event-driven cloud triage pipeline on OCI: every uploaded object is hashed in memory, enriched with threat intel, risk-scored, and automatically allowed, quarantined, or deleted in milliseconds — while public-bucket exposure is reverted to private per CIS Benchmark with zero human intervention.",
-      bullets: [
-        "<strong style='color:var(--text)'>In-memory payload hashing:</strong> bypasses OCI's inaccurate multipart eTag metadata by streaming objects through <code>hashlib</code> to compute the true SHA-256 for accurate VirusTotal lookups.",
-        "<strong style='color:var(--text)'>Threat-intel enrichment:</strong> VirusTotal reputation and NVD CVE keyword context are combined and passed to <span style='color:var(--amber)'>Llama 3.1</span> for a structured JSON risk score with a confidence value.",
-        "<strong style='color:var(--text)'>Deterministic anchoring:</strong> the LLM prompt mathematically penalizes executable extensions so attackers can't bypass triage by naming malware <code>docs.exe</code> — removes LLM semantic gullibility.",
-        "<strong style='color:var(--text)'>Automated quarantine:</strong> 3-tier <span style='color:var(--accent2)'>ALLOW</span> / <span style='color:var(--amber)'>QUARANTINE</span> / <span style='color:var(--warn)'>DELETE</span> response — when risk is critical but confidence is low, DELETE is downgraded to a <code>.locked</code> rename, keeping the artifact available for analysis.",
-        "<strong style='color:var(--text)'>Dual-engine design:</strong> the CIS Compliance Engine deterministically reverts unauthorized public bucket exposure, independent of the AI path.",
-        "OCI IAM Dynamic Group policy pins autonomous permissions to the exact function OCID — least privilege, no hardcoded credentials — and both engines stream telemetry to Grafana via OCI Logging Analytics."
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/oci-autonomous-security-agent" },
-        { icon: "fas fa-file-alt", label: "README →", href: "https://github.com/Chinkhuselts/oci-autonomous-security-agent/blob/main/README.md", secondary: true }
-      ]
-    },
-
-    "iam-api-v2": {
-      title: "IAM-API-V2",
-      type: "Auth · Backend · DevOps · IaC",
-      status: "live",
-      statusLabel: "Live — iam-ch.duckdns.org",
-      diagram: `<div class="mermaid">
-graph LR
-    Client -->|HTTPS| Caddy[Caddy Proxy]
-    Caddy --> API[FastAPI]
-    API -->|Register| Hash[bcrypt] --> DB[(PostgreSQL)]
-    API -->|Login| Auth[JWT Auth SHA-256]
-    API -->|Protected routes| RBAC{RBAC Middleware}
-    GH[GitHub Actions] -.->|Deploy| EC2[AWS EC2]
-    TF[Terraform] -.->|Provision| EC2
-      </div>`,
-      desc: "I wanted to build something I could actually be proud of pointing at — not a tutorial clone, but a real API with real security considerations. So I built a production IAM service with FastAPI and PostgreSQL, added JWT auth, bcrypt hashing, and RBAC, containerized it, hid the backend behind Caddy, and provisioned the entire AWS environment with Terraform. The interesting part was hitting real infrastructure walls: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and a 200MB+ Git history from accidentally committing Terraform provider binaries — each one a good lesson.",
-      tech: ["FastAPI", "Python 3.10", "PostgreSQL 15", "Docker", "Docker Compose", "Terraform", "Caddy", "Let's Encrypt", "GitHub Actions", "AWS EC2", "JWT", "bcrypt", "RBAC", "Pydantic"],
-      impact: "Live on AWS EC2 at iam-ch.duckdns.org — full AWS environment (compute, networking, security groups, SSH keys) defined declaratively in Terraform and <strong>reproducible in under 60 seconds</strong>. Zero manual deployment steps.",
-      bullets: [
-        "Stateless FastAPI service: <code>bcrypt</code> password hashing at registration, cryptographically signed JWTs (SHA-256) issued at login for scalable session management",
-        "RBAC authorization using FastAPI <code>Depends</code> injection — cleanly separates <code>user</code> and <code>admin</code> endpoint access with least-privilege enforcement",
-        "Caddy reverse proxy handles automated Let's Encrypt TLS provisioning — all traffic encrypted, FastAPI backend shielded from public internet on port 80/443",
-        "Entire AWS stack (EC2, Security Groups, SSH keys) declared in <code>main.tf</code> — environment can be destroyed and perfectly recreated in under 60 seconds",
-        "GitHub Actions CI/CD: builds a flattened, optimized production image and publishes to Docker Hub on every push to <code>main</code>",
-        "Overcame real infrastructure hurdles: TLS-ALPN-01 challenge failures, AWS Security Group misconfigs, DPI blocking on non-standard ports, and 200MB+ Git history bloat from Terraform provider binaries"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/iam-api-v2" }
-      ]
-    },
-
-    "threat-map": {
-      title: "3D Global Threat Map",
-      type: "Visualization · WebGL · DevOps · Docker",
-      status: "archived",
-      statusLabel: "Repo only — Oracle Cloud instance retired",
-      diagram: `<div class="mermaid">
-graph TD
-    Git[git push main] --> CI[GitHub Actions] --> CR[GitHub Container Registry]
-    CR --> VM[Oracle Cloud VM + WAF]
-    VM --> Proxy[Caddy TLS] --> Node[Node.js App :3000]
-    CSV[CSV Log Upload] --> Parser[PapaParse] --> Geo[ip-api batch geocode]
-    Geo --> WebGL[Three.js WebGL Globe]
-    Node --> WebGL
-      </div>`,
-      desc: "I wanted to answer a simple question: what does a real attack log actually look like? Not a screenshot — something you can watch move. The result is a live 3D globe that ingests raw firewall CSVs, geocodes every source IP, and animates the traffic as Bezier arcs across country borders. The DevOps side turned out to be just as interesting — the whole deploy is hands-off from a git push. The Oracle Cloud VM it ran on has since been retired, but the full pipeline and source are in the repo below.",
-      tech: ["Three.js", "WebGL", "Node.js", "Express", "Docker", "GitHub Actions", "Oracle Cloud", "Caddy", "Let's Encrypt", "PapaParse", "GeoJSON", "WAF/DDoS"],
-      impact: "Formerly live on an Oracle Cloud VM with every push to main automatically building, containerizing, and deploying — <strong>zero manual server interaction</strong>. Turned raw IP logs into a live 3D visual briefing. Source and full CI/CD pipeline available in the repo.",
-      bullets: [
-        "Full CI/CD pipeline: GitHub Actions builds a Docker image on every <code>main</code> push, publishes to GitHub Container Registry, and deploys to Oracle Cloud VM via SSH deploy key",
-        "Hardened Oracle Cloud perimeter: hardware firewall (ports 80/443/22 only), WAF/DDoS protection layer — all traffic routed through Caddy reverse proxy with automated Let's Encrypt TLS",
-        "3D WebGL globe renders GeoJSON country borders on sphere surface; attack arcs animate along Bezier curves with particle travel from source IP to target",
-        "CSV ingestion pipeline: PapaParse parses <code>source_ip</code> fields, geocodes in batches of 100 via ip-api with rate-limit handling, then plots arcs color-coded by threat type (DDoS, SSH Brute Force, Port Scan)",
-        "Built-in Demo Mode for instant visualization testing; supports custom CSV uploads of real firewall logs, honeypot traffic, or DDoS captures"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/cyber-threat-map" }
-      ]
-    },
-
-    "gcp-serverless": {
-      title: "GCP Serverless API Hub",
-      type: "GCP · FastAPI · Terraform · BigQuery · CI/CD",
-      diagram: `<div class="mermaid">
-graph LR
-    Client[Client Browser] -->|OpenAPI Spec| GW[GCP API Gateway]
-    GW -->|IAM PoLP Service Account| CR[Cloud Run FastAPI]
-    CR -->|api_analytics dataset| BQ[(BigQuery)]
-    TF[Terraform / GH Actions] -.->|Provisions| GW & CR & BQ
-      </div>`,
-      desc: "I was curious how far I could push GCP's free tier while keeping everything genuinely production-shaped. The answer: pretty far. A private Cloud Run service that only speaks through an API Gateway, telemetry landing in BigQuery, IAM wired with Principle of Least Privilege throughout, and a dark-mode analytics dashboard that actually pulls live data. Everything provisioned by Terraform — two European regions, zero console clicks.",
-      tech: ["GCP", "Cloud Run", "FastAPI", "Python 3", "Docker", "GCP API Gateway", "BigQuery", "Terraform", "GitHub Actions", "IAM", "OpenAPI", "HTML/CSS/JS"],
-      impact: "Live API serving telemetry across europe-west1 and europe-central2 — private Cloud Run backend <strong>protected by strict IAM PoLP</strong>; only /analytics and /ingest endpoints exposed publicly via OpenAPI gateway spec.",
-      bullets: [
-        "<strong style='color:var(--text)'>GCP API Gateway</strong> (europe-west1) acts as the secure front door — routes requests per OpenAPI spec, blocks all unauthorized public traffic",
-        "<strong style='color:var(--text)'>Cloud Run</strong> (europe-central2) hosts a containerized FastAPI backend that scales dynamically from zero; private service, not invocable without <code>roles/run.invoker</code>",
-        "<strong style='color:var(--text)'>BigQuery</strong> (EU multi-region) stores and queries aggregated API telemetry — LOGIN, PURCHASE, SIGNUP, LOGOUT event counts visualized on the dashboard",
-        "IAM Principle of Least Privilege: dedicated service account grants the API Gateway exactly the permissions needed to invoke Cloud Run — nothing more",
-        "GitHub Actions CI/CD pipeline handles automated deployments; full infrastructure rebuild via <code>terraform init && terraform apply</code>"
-      ],
-      links: [
-        { icon: "fas fa-external-link-alt", label: "Live API →", href: "https://ibm-api-hub-gateway-eu-diddfj8g.ew.gateway.dev/analytics" },
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/gcp-serverless-api-hub", secondary: true }
-      ]
-    },
-
-    "cloud-auditor": {
-      title: "Cloud Security Auditor",
-      type: "AWS · Serverless · IaC",
-      diagram: `<div class="mermaid">
-graph LR
-    User[S3 Upload] -->|S3 Event Notification| L[AWS Lambda]
-    L -->|Parse Config| Cond{"public_access: true?"}
-    Cond -- Yes --> SNS[SNS Email Alert]
-    TF[Terraform] -.->|Provisions Infrastructure| User & L & SNS
-      </div>`,
-      desc: "The idea came from a real frustration — infrastructure config files sit in S3 buckets and nobody checks them until something leaks. This scanner watches for uploads, parses the config on arrival, and fires an SNS alert before anyone has time to forget about it. The whole AWS stack (S3, Lambda, SNS, IAM) is Terraform-provisioned so there's nothing to misconfigure in the console.",
-      tech: ["Terraform", "AWS Lambda", "Python", "SNS", "S3", "IAM"],
-      impact: "Eliminates manual security reviews — detects misconfigurations on upload and <strong>fires an automated SNS alert in under 2 seconds</strong>.",
-      bullets: [
-        "Triggers on S3 object upload, parses config for risk flags like <code>public_access: true</code>",
-        "Full stack (S3, Lambda, SNS, IAM) provisioned via Terraform — zero manual console steps",
-        "End-to-end proven: real SNS email alert captured and documented in the README"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/aws-serverless-security-auditor" }
-      ]
-    },
-
-    "log-forensics": {
-      title: "Serverless Log Forensics",
-      type: "AWS · Log Forensics · Detection · IaC",
-      diagram: `<div class="mermaid">
-graph LR
-    Logs[Apache/Nginx Logs] --> S3[S3 Bucket]
-    S3 -->|Trigger| L[AWS Lambda]
-    L --> Regex[Python Regex Engine]
-    Regex -->|Matches SQLi/XSS| DB[(DynamoDB IOC Store)]
-      </div>`,
-      desc: "Web server logs hold attack attempts that rarely get reviewed. This pipeline automates first-pass triage: Apache/Nginx logs dropped into S3 trigger a Lambda function whose Python regex engine scans every line for SQLi and XSS signatures, and each hit is written to DynamoDB as a structured IOC record — attack type, source IP, and payload — ready for forensic replay. The proof-of-concept run flagged 18 attacks.",
-      tech: ["AWS Lambda", "DynamoDB", "S3", "Terraform", "Python"],
-      impact: "<strong>18 attacks caught</strong> in the initial proof-of-concept run — stored structurally in DynamoDB for forensic replay and threat intelligence tracking.",
-      bullets: [
-        "Custom Python regex engine covering SQLi, XSS, and injection patterns line-by-line",
-        "DynamoDB stores IOCs with attack type, source IP, and payload — queryable for analysis",
-        "Full stack provisioned via Terraform; visualization script renders attack distribution charts"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/serverless-log-forensic" }
-      ]
-    },
-
-    "elk-siem": {
-      title: "ELK + Snort SIEM",
-      type: "Blue Team · SIEM · Docker",
-      diagram: `<div class="mermaid">
-graph LR
-    Net[Network Traffic] --> IDS[Snort IDS]
-    IDS -->|alert_fast.txt| LS[Logstash]
-    LS --> ES[(Elasticsearch)]
-    ES --> K[Kibana Dashboard]
-    Docker -.->|Containerized| IDS & LS & ES & K
-      </div>`,
-      desc: "I wanted to understand what a SOC analyst actually stares at all day. Setting up the full Snort → Logstash → Elasticsearch → Kibana pipeline from scratch taught me more about alert triage than any course. The whole thing runs in Docker so it's easy to spin up, generate some traffic, and watch what hits.",
-      tech: ["Elasticsearch", "Logstash", "Kibana", "Snort", "Docker"],
-      impact: "A working IDS-to-dashboard pipeline — simulates the monitoring stack used in real security operations, <strong>fully containerized for portability and testing</strong>.",
-      bullets: [
-        "Snort captures network alerts; Logstash parses <code>alert_fast.txt</code> and forwards to Elasticsearch",
-        "Kibana dashboards display live Snort alert data and traffic patterns",
-        "Fully containerized with Docker for consistent, reproducible deployment"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/elk-snort-siem-setup" }
-      ]
-    },
-
-    "wannacry": {
-      title: "Malware Detonation & Behavioral Triage Lab (WannaCry)",
-      type: "Malware Analysis · DFIR · CAPEv2 · IOC Extraction",
-      diagram: `<div class="mermaid">
-graph TD
-    Sample[WannaCry sample] --> CAPE[CAPEv2 on Ubuntu 22.04]
-    CAPE -->|Detonates in| VM[Windows 10 VM, NAT-isolated]
-    VM -->|API calls, process tree, file and registry activity| CAPE
-    CAPE --> Report[Behavioral Report]
-    Report --> Triage[Triage: encryption, persistence, network]
-    Triage -.-> IOCs[IOC summary: registry keys, dropped files, signatures]
-      </div>`,
-      desc: "An isolated malware detonation and behavioral-triage lab built on CAPEv2, with an Ubuntu 22.04 host and a NAT-isolated Windows 10 guest. I detonated a WannaCry sample and worked it like a triage case: reconstructed the <strong>process tree</strong>, traced the encryption routine through monitored <strong>crypto API calls</strong>, identified <strong>persistence mechanisms</strong> and dropped artifacts, observed outbound network behavior, and distilled everything into an <strong>actionable IOC set</strong> — registry changes, dropped files, and behavioral signatures a detection team can use.",
-      tech: ["CAPEv2", "Ubuntu 22.04", "Windows 10 (isolated guest)", "VirtualBox", "Malware Analysis", "Behavioral Triage", "IOC Extraction"],
-      impact: "A complete detonation-to-IOC workflow — full execution observed and <strong>a comprehensive IOC report produced</strong> with registry changes, dropped files, and behavioral signatures documented for defensive use.",
-      bullets: [
-        "CAPEv2 hosted on Ubuntu 22.04 with a Windows 10 guest on a NAT-isolated network and the CAPE agent, so detonation stays contained",
-        "Reconstructed the process tree and traced live file-encryption behavior through API-level monitoring, including cryptographic API calls",
-        "Identified persistence mechanisms and file-drop activity from the behavioral report",
-        "Extracted IOCs documented in <code>IOCs/IOC-summary.txt</code> for detection and blocking use"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/CAPEv2-Analysis" }
-      ]
-    },
-
-    "threat-matrix": {
-      title: "Threat Matrix",
-      type: "Next.js · WebGL · Docker · CI/CD",
-      status: "archived",
-      statusLabel: "Repo only — Oracle Cloud instance retired",
-      diagram: `<div class="mermaid">
-graph TD
-    Push[git push] --> GH[GitHub Actions] --> Hub[Docker Hub]
-    Hub -.->|polls 60s| WT[Watchtower]
-    WT -->|Rolling Update| VM[Oracle Cloud VM]
-    Proxy[Caddy Auto-HTTPS] --> Next[Next.js :3000]
-    Proxy --> API[Node.js API :5000]
-    API --> UI[Globe.gl WebGL]
-    Next --> UI
-      </div>`,
-      desc: "A real-time 3D WebGL dashboard that tracks and displays global cyber-attack vectors as they happen. Globe.gl handles hardware-accelerated globe rendering on the frontend while a custom Phantom Beam Interpolation algorithm automatically generates 'Orbital Strike' and 'Scattershot' visual clusters whenever origin or target coordinates are masked. The devops side was hands-off by design — GitHub Actions built and pushed on every commit, and Watchtower on the Oracle Cloud server polled the registry every 60 seconds to perform zero-downtime rolling updates. The Oracle Cloud VM has since been retired, but the code and full CI/CD setup are in the repo.",
-      tech: ["Next.js 14", "React", "Globe.gl", "WebGL", "TailwindCSS", "Node.js", "Express", "Docker", "Docker Compose", "GitHub Actions", "Watchtower", "Caddy", "Oracle Cloud"],
-      impact: "Formerly live on an Oracle Cloud VM — every push to main reached production in under 60 seconds via Watchtower rolling update, with <strong>Caddy auto-provisioning Let's Encrypt TLS and zero manual cert management.</strong> Full source and infra config available in the repo.",
-      bullets: [
-        "Custom Phantom Beam Interpolation: trigonometric algorithm auto-generates 'Orbital Strike' and 'Scattershot' visual clusters when source/target IPs are masked or span multiple coordinates",
-        "Watchtower polls Docker Hub every 60 seconds, detects new image signatures, gracefully replaces running containers, and auto-prunes dangling old images",
-        "Caddy reverse proxy routes <code>/api/*</code> to Node.js (port 5000) and <code>/</code> to Next.js (port 3000) — automated Let's Encrypt TLS, no Certbot or manual renewal",
-        "Modular UI: toggleable vector-type legends, live monitoring sidebar, and adjustable attack-arc playback speed"
-      ],
-      links: [
-        { icon: "fab fa-github", label: "View Repository →", href: "https://github.com/Chinkhuselts/threatmap-saas" }
-      ]
-    }
-  };
-
-  /* RENDER PANEL */
-  function renderPanel(key) {
-    const p = projects[key];
-    if (!p) return;
-
-    document.getElementById("panelTitle").textContent = p.title;
-    document.getElementById("panelType").textContent  = p.type;
-
-    // Status chip
-    const chipEl = document.getElementById("panelStatusChip");
-    if (p.status) {
-      chipEl.innerHTML = `<span class="panel-status-chip ${p.status}">${p.statusLabel || p.status}</span>`;
-    } else {
-      chipEl.innerHTML = '';
+    function setDrawerOpen(open) {
+      mobileDrawer.hidden = !open;
+      mobileOverlay.hidden = !open;
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      hamburger.querySelector('i').className = open ? 'fas fa-times' : 'fas fa-bars';
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        const firstLink = mobileDrawer.querySelector('a');
+        if (firstLink) firstLink.focus();
+      }
     }
 
-    const techPills = p.tech.map(t => `<span class="tech-pill">${t}</span>`).join("");
-    const bullets   = p.bullets.map(b => `<li>${b}</li>`).join("");
-    const links     = p.links.map(l =>
-      `<a class="panel-link ${l.secondary ? 'secondary' : ''}" href="${l.href}" target="_blank" rel="noopener noreferrer">
-        <i class="${l.icon}"></i> ${l.label}
-      </a>`
-    ).join("");
-
-    const impactClass = p.impactVariant ? `panel-impact ${p.impactVariant}` : 'panel-impact';
-
-    document.getElementById("panelBody").innerHTML = `
-      <div class="panel-diagram">${p.diagram}</div>
-      <p class="panel-desc">${p.desc}</p>
-      <div class="tech-row">${techPills}</div>
-      <div class="panel-cols">
-        <div class="${impactClass}">
-          <div class="impact-label">Impact / Goal</div>
-          <div class="impact-text">${p.impact}</div>
-        </div>
-        <ul class="panel-bullets">${bullets}</ul>
-      </div>
-      <div class="panel-links">${links}</div>
-    `;
-  }
-
-  /* BUBBLE INTERACTION */
-  let activeKey = null;
-
-  async function openPanel(key, bubbleEl) {
-    if (activeKey === key) { closePanel(); return; }
-    document.querySelectorAll(".bubble").forEach(b => {
-      b.classList.remove("active");
-      b.setAttribute("aria-pressed", "false");
+    hamburger.addEventListener('click', function () {
+      setDrawerOpen(mobileDrawer.hidden);
     });
-    bubbleEl.classList.add("active");
-    bubbleEl.setAttribute("aria-pressed", "true");
-    activeKey = key;
-    
-    // Inject HTML string with the Mermaid syntax
-    renderPanel(key);
-
-    // Load Mermaid on first use, then render the newly injected graph
-    try {
-      await window.loadMermaid();
-      await window.mermaid.run({
-        querySelector: '.mermaid',
-        suppressErrors: true
+    mobileOverlay.addEventListener('click', function () { setDrawerOpen(false); });
+    mobileDrawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        setDrawerOpen(false);
       });
-    } catch (e) {
-      console.warn("Mermaid rendering skipped or failed:", e);
-      document.querySelectorAll(".panel-diagram").forEach(el => el.remove());
+    });
+
+    /* Project content. Descriptions and bullet lists are rendered as text, not HTML. */
+    const projects = {
+      'thesis': {
+        title: 'Autonomous Cloud Governance — Automated Triage & Remediation Engine',
+        type: 'Diploma Thesis · Cloud DFIR & Automated Triage · Vizja University, Warsaw · Sep 2026',
+        status: 'thesis', statusLabel: 'Diploma Thesis — September 2026',
+        diagram: `flowchart TD
+          User[User or test actor] --> Storage[(OCI Object Storage)]
+          Storage --> Events[OCI Events rule]
+          Events --> Router[OCI Functions event router]
+          Router --> Compliance[Bucket compliance checks]
+          Compliance -->|Attempts to restore private visibility| Storage
+          Router --> Hash[Stream object and calculate SHA-256]
+          Hash --> VT[VirusTotal hash lookup]
+          Hash --> NVD[Conditional NVD filename keyword search]
+          VT --> LLM[Groq API / Llama 3.1]
+          NVD --> LLM
+          LLM --> Policy[Validate response and apply policy]
+          Policy --> Action[Configured allow / rename / delete path]
+          Router -.-> Logs[OCI function logs]
+          Compliance -.-> Logs
+          Policy -.-> Logs
+          Logs -.-> Dashboard[Optional dashboard integration]`,
+        desc: 'An event-driven OCI security prototype with two workflows: deterministic bucket-configuration remediation and LLM-assisted file-risk assessment. The function streams object data to calculate SHA-256, queries VirusTotal for an existing hash report, and performs a conditional, filename-based NVD keyword search. Llama 3.1 receives selected file metadata and available threat-intelligence context to return a structured risk assessment. The model does not receive the file contents, and the current design is not a comprehensive malware scanner.',
+        tech: ['Python 3.9+', 'OCI Functions', 'OCI Object Storage', 'OCI Events', 'OCI IAM', 'Terraform', 'Groq API', 'Llama 3.1', 'VirusTotal API', 'NVD API', 'SHA-256', 'OCI Logging'],
+        impact: 'Demonstrates event-driven cloud triage and response on OCI. The compliance path attempts to restore private bucket visibility; the file path enriches a hash and metadata with external intelligence and produces an LLM-assisted risk recommendation. Production readiness, latency, and detection accuracy require measured end-to-end testing.',
+        bullets: [
+          'Streams object data through Python hashlib to calculate SHA-256 instead of assuming an Object Storage ETag is a file hash.',
+          'Queries VirusTotal by hash and performs a conditional NVD keyword search based on filename information.',
+          'Uses prompt-guided JSON risk and confidence fields; these are model outputs, not independently calibrated probability estimates.',
+          'Separates deterministic bucket-configuration checks from LLM-assisted file-risk assessment.',
+          'The current quarantine path renames objects in the same bucket and does not guarantee isolation or revoke public access.',
+          'The deletion branch needs stronger deterministic validation before autonomous destructive actions are safe. Dashboard integration requires separate configuration.'
+        ],
+        links: [
+          { label: 'View Repository', href: 'https://github.com/Chinkhuselts/oci-autonomous-security-agent', icon: 'fab fa-github' },
+          { label: 'Read README', href: 'https://github.com/Chinkhuselts/oci-autonomous-security-agent/blob/main/README.md', icon: 'fas fa-file-alt', secondary: true }
+        ]
+      },
+      'iam-api-v2': {
+        title: 'IAM-API-V2', type: 'Authentication · Backend · DevOps · Infrastructure as Code', status: 'live', statusLabel: 'Live — iam-ch.duckdns.org',
+        diagram: `flowchart LR
+          Client[Client] -->|HTTPS| Proxy[Caddy reverse proxy]
+          Proxy --> API[FastAPI]
+          API -->|Password hashing| Hash[bcrypt]
+          API --> DB[(PostgreSQL)]
+          API --> JWT[JWT authentication]
+          API --> RBAC[Role-based access control]
+          Actions[GitHub Actions] -.-> Deploy[AWS EC2 deployment]
+          Terraform[Terraform] -.-> Deploy`,
+        desc: 'An API project built with FastAPI and PostgreSQL, with password hashing, JWT authentication, role-based access control, containerization, a Caddy reverse proxy, and Terraform-managed AWS infrastructure. The repository documents practical deployment issues and the fixes made during development.',
+        tech: ['FastAPI', 'Python', 'PostgreSQL', 'Docker', 'Terraform', 'Caddy', 'Let’s Encrypt', 'GitHub Actions', 'AWS EC2', 'JWT', 'bcrypt', 'RBAC'],
+        impact: 'Combines authentication and authorization controls with infrastructure automation and a documented deployment workflow.',
+        bullets: [
+          'Hashes passwords with bcrypt and issues signed JWTs for authenticated requests.',
+          'Separates user and administrator access using role-based authorization dependencies.',
+          'Uses Caddy as a reverse proxy with automated TLS certificate provisioning.',
+          'Defines AWS infrastructure declaratively with Terraform and automates image publishing through GitHub Actions.',
+          'Documents troubleshooting for TLS challenges, security-group rules, network restrictions, and large Git history.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/iam-api-v2', icon: 'fab fa-github' }]
+      },
+      'threat-map': {
+        title: '3D Global Threat Map', type: 'Visualization · WebGL · DevOps · Docker', status: 'archived', statusLabel: 'Archived — cloud instance retired',
+        diagram: `flowchart TD
+          Push[Git push] --> CI[GitHub Actions]
+          CI --> Registry[GitHub Container Registry]
+          Registry --> VM[Oracle Cloud VM]
+          VM --> Proxy[Caddy TLS proxy]
+          Proxy --> App[Node.js app]
+          CSV[Firewall log CSV] --> Parser[CSV parser]
+          Parser --> Geo[IP geolocation]
+          Geo --> Globe[Three.js WebGL globe]
+          App --> Globe`,
+        desc: 'A 3D globe visualization for exploring firewall and network-event data. The application parses uploaded CSV logs, geolocates source IPs, and visualizes traffic as animated arcs. The cloud instance has been retired; source code and deployment configuration remain available in the repository.',
+        tech: ['Three.js', 'WebGL', 'Node.js', 'Express', 'Docker', 'GitHub Actions', 'Oracle Cloud', 'Caddy', 'PapaParse', 'GeoJSON'],
+        impact: 'Turns log-derived network locations into an interactive visual briefing and demonstrates container-based deployment automation. The hosted instance is no longer online.',
+        bullets: [
+          'Builds and publishes Docker images through GitHub Actions.',
+          'Uses a reverse proxy and automated TLS in the previous cloud deployment.',
+          'Parses source IP fields and performs batched geolocation with rate-limit handling.',
+          'Visualizes traffic categories as animated arcs on a WebGL globe.',
+          'Includes a demo mode and CSV upload workflow for test data.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/cyber-threat-map', icon: 'fab fa-github' }]
+      },
+      'gcp-serverless': {
+        title: 'GCP Serverless API Hub', type: 'GCP · FastAPI · Terraform · BigQuery · CI/CD',
+        diagram: `flowchart LR
+          Client[Client] --> Gateway[GCP API Gateway]
+          Gateway -->|IAM-authorized invoke| Run[Cloud Run / FastAPI]
+          Run --> BQ[(BigQuery telemetry)]
+          TF[Terraform and GitHub Actions] -.-> Gateway
+          TF -.-> Run
+          TF -.-> BQ`,
+        desc: 'A serverless API project on Google Cloud using API Gateway, a containerized FastAPI service on Cloud Run, BigQuery for telemetry, and Terraform for infrastructure provisioning. The project explores service-to-service IAM, API exposure, analytics, and automated deployment.',
+        tech: ['GCP', 'Cloud Run', 'FastAPI', 'Python', 'Docker', 'API Gateway', 'BigQuery', 'Terraform', 'GitHub Actions', 'IAM', 'OpenAPI'],
+        impact: 'Demonstrates a gateway-fronted API with telemetry stored for analysis and infrastructure managed as code.',
+        bullets: [
+          'Defines routes using an OpenAPI gateway configuration.',
+          'Uses a dedicated service identity and Cloud Run invocation permissions.',
+          'Stores and queries API-event telemetry in BigQuery.',
+          'Uses Terraform and GitHub Actions to make deployments repeatable.',
+          'Review current service status and deployed endpoints before describing them as continuously available.'
+        ],
+        links: [
+          { label: 'Open API Analytics', href: 'https://ibm-api-hub-gateway-eu-diddfj8g.ew.gateway.dev/analytics', icon: 'fas fa-external-link-alt' },
+          { label: 'View Repository', href: 'https://github.com/Chinkhuselts/gcp-serverless-api-hub', icon: 'fab fa-github', secondary: true }
+        ]
+      },
+      'cloud-auditor': {
+        title: 'Cloud Security Auditor', type: 'AWS · Serverless · Infrastructure as Code',
+        diagram: `flowchart LR
+          Upload[Object uploaded to S3] --> Event[S3 event notification]
+          Event --> Lambda[AWS Lambda]
+          Lambda --> Parse[Parse configuration]
+          Parse --> Check{Risk flag detected?}
+          Check -->|Yes| SNS[SNS notification]
+          TF[Terraform] -.-> Upload
+          TF -.-> Lambda
+          TF -.-> SNS`,
+        desc: 'A serverless proof of concept that responds to S3 object uploads, parses configuration data for a simple public-access risk flag, and sends an SNS notification when a match is found.',
+        tech: ['Terraform', 'AWS Lambda', 'Python', 'SNS', 'S3', 'IAM'],
+        impact: 'Demonstrates event-driven configuration checks and alerting, with the infrastructure defined in Terraform.',
+        bullets: [
+          'Triggers processing from S3 object-upload events.',
+          'Checks configuration content for indicators such as public-access settings.',
+          'Sends an SNS email notification for matching findings.',
+          'Includes a documented test run in the repository.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/aws-serverless-security-auditor', icon: 'fab fa-github' }]
+      },
+      'log-forensics': {
+        title: 'Serverless Log Forensics', type: 'AWS · Log Forensics · Detection · Infrastructure as Code',
+        diagram: `flowchart LR
+          Logs[Apache / Nginx logs] --> S3[S3 bucket]
+          S3 -->|Event trigger| Lambda[AWS Lambda]
+          Lambda --> Regex[Python pattern matching]
+          Regex -->|Potential SQLi / XSS matches| DB[(DynamoDB findings)]`,
+        desc: 'A first-pass log-triage pipeline that processes Apache or Nginx logs uploaded to S3. A Lambda function scans log lines for SQL injection and cross-site scripting patterns and stores matching records in DynamoDB for later review.',
+        tech: ['AWS Lambda', 'DynamoDB', 'S3', 'Terraform', 'Python', 'Regex'],
+        impact: 'The initial proof-of-concept run identified 18 pattern matches. This is a test result for the sample data, not a general detection-accuracy metric.',
+        bullets: [
+          'Scans web-server logs for SQLi, XSS, and related injection patterns.',
+          'Stores matching records with fields such as attack type, source IP, and payload.',
+          'Uses Terraform to define the cloud resources.',
+          'Pattern matches require analyst review; regex-based detection can produce false positives and miss variants.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/serverless-log-forensic', icon: 'fab fa-github' }]
+      },
+      'elk-siem': {
+        title: 'ELK + Snort SIEM', type: 'Blue Team · SIEM · Docker',
+        diagram: `flowchart LR
+          Traffic[Network traffic] --> Snort[Snort IDS]
+          Snort -->|Fast alert log| LS[Logstash]
+          LS --> ES[(Elasticsearch)]
+          ES --> Kibana[Kibana dashboards]
+          Docker[Docker environment] -.-> Snort
+          Docker -.-> LS
+          Docker -.-> ES
+          Docker -.-> Kibana`,
+        desc: 'A containerized IDS-to-dashboard lab connecting Snort alerts to Logstash, Elasticsearch, and Kibana. It provides a repeatable environment for generating test traffic and exploring how alerts move through a monitoring pipeline.',
+        tech: ['Elasticsearch', 'Logstash', 'Kibana', 'Snort', 'Docker'],
+        impact: 'Demonstrates a modular network-alert pipeline and a portable environment for blue-team practice.',
+        bullets: [
+          'Captures Snort alerts and parses the alert log with Logstash.',
+          'Indexes alerts in Elasticsearch for search and analysis.',
+          'Uses Kibana dashboards to inspect alert records and traffic patterns.',
+          'Containerizes the components for consistent lab deployment.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/elk-snort-siem-setup', icon: 'fab fa-github' }]
+      },
+      'wannacry': {
+        title: 'Malware Detonation & Behavioral Triage Lab (WannaCry)', type: 'Malware Analysis · DFIR · CAPEv2 · IOC Extraction', status: 'thesis', statusLabel: 'Malware Analysis Lab',
+        diagram: `flowchart TD
+          Sample[Sample for controlled analysis] --> CAPE[CAPEv2 analysis host]
+          CAPE --> VM[Isolated Windows guest]
+          VM --> Monitor[Monitored process and system behavior]
+          Monitor --> Report[Behavioral report]
+          Report --> Triage[Persistence, file and network triage]
+          Triage --> IOCs[Documented indicators of compromise]`,
+        desc: 'An isolated malware-analysis lab using CAPEv2 with an Ubuntu host and a Windows guest. The workflow focuses on reviewing monitored execution behavior, identifying dropped artifacts and persistence indicators, examining network observations, and documenting findings for defensive analysis.',
+        tech: ['CAPEv2', 'Ubuntu 22.04', 'Windows VM', 'VirtualBox', 'Malware Analysis', 'Behavioral Triage', 'IOC Extraction'],
+        impact: 'Demonstrates a detonation-to-triage workflow and the documentation of behavioral observations for defensive use. Only detonate malware in a properly isolated, disposable lab.',
+        bullets: [
+          'Uses a dedicated analysis host and isolated guest environment.',
+          'Reviews process trees, monitored API activity, file changes, and registry observations.',
+          'Investigates persistence-related behavior and dropped artifacts where present in the report.',
+          'Documents indicators in the repository for defensive analysis.',
+          'Keep samples and the analysis network isolated; do not run malware on a personal or production system.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/CAPEv2-Analysis', icon: 'fab fa-github' }]
+      },
+      'threat-matrix': {
+        title: 'Threat Matrix', type: 'Next.js · WebGL · Docker · CI/CD', status: 'archived', statusLabel: 'Archived — cloud instance retired',
+        diagram: `flowchart TD
+          Push[Git push] --> Actions[GitHub Actions]
+          Actions --> Hub[Container registry]
+          Hub --> Watchtower[Watchtower on VM]
+          Watchtower --> VM[Oracle Cloud VM]
+          Proxy[Caddy reverse proxy] --> Next[Next.js frontend]
+          Proxy --> API[Node.js API]
+          Next --> Globe[WebGL visualization]
+          API --> Globe`,
+        desc: 'A 3D cyber-threat visualization application with a Next.js interface, a Node.js API, container-based deployment, and a CI/CD workflow. The Oracle Cloud VM has been retired; the source code and deployment configuration remain available.',
+        tech: ['Next.js', 'React', 'Globe.gl', 'WebGL', 'Tailwind CSS', 'Node.js', 'Express', 'Docker', 'GitHub Actions', 'Watchtower', 'Caddy', 'Oracle Cloud'],
+        impact: 'Explores a containerized visualization stack and automated image rollout. The hosted instance is no longer online.',
+        bullets: [
+          'Automates container builds and publishing through GitHub Actions.',
+          'Used Watchtower to detect registry updates and refresh containers in the previous deployment.',
+          'Routes frontend and API traffic through a reverse proxy with TLS.',
+          'Includes interactive visualization controls and animated threat arcs.',
+          'Treats generated or masked coordinates as visualization aids, not verified geolocation evidence.'
+        ],
+        links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/threatmap-saas', icon: 'fab fa-github' }]
+      }
+    };
+
+    const projectPanel = document.getElementById('projectPanel');
+    const panelTitle = document.getElementById('panelTitle');
+    const panelType = document.getElementById('panelType');
+    const panelStatusChip = document.getElementById('panelStatusChip');
+    const panelBody = document.getElementById('panelBody');
+    let activeKey = null;
+    let activeBubble = null;
+    let renderGeneration = 0;
+
+    function appendTextElement(parent, tagName, className, text) {
+      const element = document.createElement(tagName);
+      if (className) element.className = className;
+      element.textContent = text;
+      parent.appendChild(element);
+      return element;
     }
-    
-    const panel = document.getElementById("projectPanel");
-    panel.classList.add("visible");
-    
-    // Scroll handling
-    setTimeout(() => { 
-      const panelOffset = panel.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: panelOffset, behavior: "smooth" }); 
-    }, 150);
-  }
 
-  function closePanel() {
-    document.querySelectorAll(".bubble").forEach(b => {
-      b.classList.remove("active");
-      b.setAttribute("aria-pressed", "false");
+    function buildPanel(key, generation) {
+      const project = projects[key];
+      if (!project) return null;
+
+      panelTitle.textContent = project.title;
+      panelType.textContent = project.type;
+      panelStatusChip.replaceChildren();
+      if (project.status) {
+        const chip = document.createElement('span');
+        chip.className = 'panel-status-chip ' + project.status;
+        chip.textContent = project.statusLabel || project.status;
+        panelStatusChip.appendChild(chip);
+      }
+
+      panelBody.replaceChildren();
+      const diagram = document.createElement('div');
+      diagram.className = 'panel-diagram';
+      diagram.setAttribute('role', 'img');
+      diagram.setAttribute('aria-label', 'Architecture diagram for ' + project.title);
+      const loading = document.createElement('p');
+      loading.className = 'diagram-fallback';
+      loading.textContent = 'Loading architecture diagram…';
+      diagram.appendChild(loading);
+      panelBody.appendChild(diagram);
+
+      appendTextElement(panelBody, 'p', 'panel-desc', project.desc);
+      const techRow = document.createElement('div');
+      techRow.className = 'tech-row';
+      project.tech.forEach(function (tech) { appendTextElement(techRow, 'span', 'tech-pill', tech); });
+      panelBody.appendChild(techRow);
+
+      const cols = document.createElement('div');
+      cols.className = 'panel-cols';
+      const impact = document.createElement('div');
+      impact.className = 'panel-impact';
+      appendTextElement(impact, 'div', 'impact-label', 'Impact / Goal');
+      appendTextElement(impact, 'div', 'impact-text', project.impact);
+      cols.appendChild(impact);
+
+      const list = document.createElement('ul');
+      list.className = 'panel-bullets';
+      project.bullets.forEach(function (bullet) { appendTextElement(list, 'li', '', bullet); });
+      cols.appendChild(list);
+      panelBody.appendChild(cols);
+
+      const links = document.createElement('div');
+      links.className = 'panel-links';
+      project.links.forEach(function (link) {
+        const anchor = document.createElement('a');
+        anchor.className = 'panel-link' + (link.secondary ? ' secondary' : '');
+        anchor.href = link.href;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        const icon = document.createElement('i');
+        icon.className = link.icon;
+        icon.setAttribute('aria-hidden', 'true');
+        anchor.appendChild(icon);
+        anchor.appendChild(document.createTextNode(' ' + link.label));
+        links.appendChild(anchor);
+      });
+      panelBody.appendChild(links);
+      return { diagram: diagram, source: project.diagram, generation: generation };
+    }
+
+    async function drawDiagram(diagram, source, key, generation) {
+      try {
+        const mermaid = await window.loadMermaid();
+        if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
+        const result = await mermaid.render('projectDiagram_' + key.replace(/[^a-zA-Z0-9_-]/g, '_') + '_' + generation, source);
+        if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
+        diagram.replaceChildren();
+        diagram.insertAdjacentHTML('afterbegin', result.svg);
+        if (typeof result.bindFunctions === 'function') result.bindFunctions(diagram);
+      } catch (error) {
+        if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
+        diagram.replaceChildren();
+        const fallback = document.createElement('pre');
+        fallback.className = 'diagram-fallback';
+        fallback.textContent = 'Diagram could not be rendered. Workflow definition:\n\n' + source;
+        diagram.appendChild(fallback);
+        console.warn('Mermaid diagram unavailable:', error);
+      }
+    }
+
+    function closePanel(restoreFocus) {
+      renderGeneration += 1;
+      activeKey = null;
+      document.querySelectorAll('.bubble').forEach(function (bubble) { bubble.setAttribute('aria-pressed', 'false'); });
+      projectPanel.classList.remove('visible');
+      projectPanel.hidden = true;
+      projectPanel.setAttribute('aria-hidden', 'true');
+      if (restoreFocus && activeBubble) activeBubble.focus();
+      activeBubble = null;
+    }
+
+    function openPanel(key, bubble) {
+      if (activeKey === key) {
+        closePanel(false);
+        return;
+      }
+      const project = projects[key];
+      if (!project) return;
+
+      renderGeneration += 1;
+      const generation = renderGeneration;
+      activeKey = key;
+      activeBubble = bubble;
+      document.querySelectorAll('.bubble').forEach(function (item) { item.setAttribute('aria-pressed', String(item === bubble)); });
+      projectPanel.hidden = false;
+      projectPanel.setAttribute('aria-hidden', 'false');
+      projectPanel.classList.remove('visible');
+      const renderInfo = buildPanel(key, generation);
+      requestAnimationFrame(function () {
+        if (activeKey === key && generation === renderGeneration) projectPanel.classList.add('visible');
+      });
+      if (renderInfo) drawDiagram(renderInfo.diagram, renderInfo.source, key, generation);
+
+      window.setTimeout(function () {
+        if (activeKey !== key || generation !== renderGeneration) return;
+        const top = projectPanel.getBoundingClientRect().top + window.scrollY - 82;
+        window.scrollTo({ top: top, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }, 100);
+    }
+
+    document.querySelectorAll('.bubble[data-project]').forEach(function (bubble) {
+      bubble.addEventListener('click', function () { openPanel(bubble.dataset.project, bubble); });
     });
-    document.getElementById("projectPanel").classList.remove("visible");
-    activeKey = null;
-  }
+    document.getElementById('panelClose').addEventListener('click', function () { closePanel(true); });
 
-  document.querySelectorAll(".bubble").forEach(bubble => {
-    bubble.addEventListener("click",   () => openPanel(bubble.dataset.project, bubble));
-    bubble.addEventListener("keydown", e  => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPanel(bubble.dataset.project, bubble); }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        if (!mobileDrawer.hidden) {
+          setDrawerOpen(false);
+          hamburger.focus();
+        } else if (activeKey) {
+          closePanel(true);
+        }
+      }
     });
-  });
 
-  document.getElementById("panelClose").addEventListener("click", closePanel);
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && activeKey) closePanel(); });
-</script>
-
+    /* Do not leave a mobile menu open if the viewport is resized to desktop. */
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 950 && !mobileDrawer.hidden) setDrawerOpen(false);
+    });
+  </script>
 </body>
 </html>
