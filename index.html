@@ -33,7 +33,7 @@
               startOnLoad: false,
               securityLevel: 'strict',
               theme: 'base',
-              flowchart: { htmlLabels: false, curve: 'linear' },
+              flowchart: { htmlLabels: false, curve: 'linear', useMaxWidth: true, nodeSpacing: 28, rankSpacing: 34, padding: 8 },
               themeVariables: {
                 background: '#111d35',
                 primaryColor: '#0d1526',
@@ -42,7 +42,8 @@
                 lineColor: '#00ff88',
                 secondaryColor: '#1a2d52',
                 tertiaryColor: '#111d35',
-                fontFamily: "'IBM Plex Mono', monospace"
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: '13px'
               }
             });
             window.mermaid = mermaid;
@@ -223,7 +224,7 @@
     .panel-close:hover { color: var(--accent); border-color: var(--accent); }
     .panel-body { padding: clamp(1rem, 3vw, 1.7rem); }
     .panel-diagram { min-height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; padding: 1rem; overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; background: var(--surface2); }
-    .panel-diagram svg { display: block; max-width: 100%; height: auto; }
+    .panel-diagram svg { display: block; flex: none; max-width: 100%; height: auto; }
     .diagram-fallback { margin: 0; max-width: 100%; overflow-x: auto; color: var(--muted); white-space: pre-wrap; font: .7rem/1.6 var(--mono); }
     .panel-desc { margin: 0 0 1.2rem; color: var(--muted); font: .81rem/1.9 var(--mono); }
     .tech-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.4rem; }
@@ -478,7 +479,7 @@
             <span class="featured-crown">THESIS</span><span class="bubble-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></span><span class="bubble-label">Autonomous Cloud Governance</span><span class="bubble-tag">Cloud DFIR · Auto-Triage · OCI</span><span class="bubble-techs"><span>Groq / Llama 3.1</span><span>VirusTotal</span><span>OCI Functions</span></span>
           </button>
           <button class="bubble featured" type="button" data-project="wannacry" aria-pressed="false" aria-controls="projectPanel">
-            <span class="featured-crown">MALWARE LAB</span><span class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></span><span class="bubble-label">WannaCry Detonation Lab</span><span class="bubble-tag">CAPEv2 · Behavioral Triage</span><span class="bubble-techs"><span>CAPEv2</span><span>IOC Extraction</span></span>
+            <span class="featured-crown">MALWARE LAB</span><span class="bubble-icon"><i class="fas fa-bug" aria-hidden="true"></i></span><span class="bubble-label">WannaCry Dynamic Analysis</span><span class="bubble-tag">CAPEv2 · Behavioral Triage</span><span class="bubble-techs"><span>CAPEv2</span><span>IOC Extraction</span></span>
           </button>
           <button class="bubble" type="button" data-project="log-forensics" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-search" aria-hidden="true"></i></span><span class="bubble-label">Serverless Log Forensics</span><span class="bubble-tag">AWS · Log Forensics</span></button>
           <button class="bubble" type="button" data-project="elk-siem" aria-pressed="false" aria-controls="projectPanel"><span class="bubble-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></span><span class="bubble-label">ELK + Snort SIEM</span><span class="bubble-tag">Blue Team · SIEM · Snort</span></button>
@@ -722,23 +723,24 @@
         links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/elk-snort-siem-setup', icon: 'fab fa-github' }]
       },
       'wannacry': {
-        title: 'Malware Detonation & Behavioral Triage Lab (WannaCry)', type: 'Malware Analysis · DFIR · CAPEv2 · IOC Extraction', status: 'thesis', statusLabel: 'Malware Analysis Lab',
+        title: 'WannaCry Dynamic Analysis & IOC Extraction — CAPEv2', type: 'Malware Analysis · DFIR · CAPEv2 · IOC Extraction', status: 'thesis', statusLabel: 'Malware Analysis Lab',
         diagram: `flowchart TD
-          Sample[Sample for controlled analysis] --> CAPE[CAPEv2 analysis host]
-          CAPE --> VM[Isolated Windows guest]
-          VM --> Monitor[Monitored process and system behavior]
-          Monitor --> Report[Behavioral report]
-          Report --> Triage[Persistence, file and network triage]
-          Triage --> IOCs[Documented indicators of compromise]`,
-        desc: 'An isolated malware-analysis lab using CAPEv2 with an Ubuntu host and a Windows guest. The workflow focuses on reviewing monitored execution behavior, identifying dropped artifacts and persistence indicators, examining network observations, and documenting findings for defensive analysis.',
-        tech: ['CAPEv2', 'Ubuntu 22.04', 'Windows VM', 'VirtualBox', 'Malware Analysis', 'Behavioral Triage', 'IOC Extraction'],
-        impact: 'Demonstrates a detonation-to-triage workflow and the documentation of behavioral observations for defensive use. Only detonate malware in a properly isolated, disposable lab.',
+          Sample[WannaCry sample] --> CAPE[CAPEv2 on Ubuntu host]
+          CAPE --> VM[Isolated Windows guest VM]
+          VM --> Artifacts[Process, file-system<br/>and registry artifacts]
+          Artifacts --> Triage[Behavioral triage and<br/>forensic artifact review]
+          Triage --> IOCs[IOC documentation]`,
+        desc: 'Configured and operated a CAPEv2 malware-analysis lab to investigate ransomware behavior in an isolated Windows virtual machine. Examined sandbox-generated process, file-system, and registry artifacts to support behavioral triage and IOC identification.',
+        tech: ['CAPEv2', 'Ubuntu', 'Windows VM', 'Python', 'Malware Behavioral Analysis', 'DFIR'],
+        impactLabel: 'Analysis Scope',
+        impact: 'Analysis scope and findings are documented in the accompanying case report. Network-level conclusions are included only where supported by collected evidence.',
+        bulletsLabel: 'Key work',
         bullets: [
-          'Uses a dedicated analysis host and isolated guest environment.',
-          'Reviews process trees, monitored API activity, file changes, and registry observations.',
-          'Investigates persistence-related behavior and dropped artifacts where present in the report.',
-          'Documents indicators in the repository for defensive analysis.',
-          'Keep samples and the analysis network isolated; do not run malware on a personal or production system.'
+          'Linux sandbox setup',
+          'Windows guest instrumentation',
+          'Behavioral-log analysis',
+          'Forensic artifact review',
+          'IOC documentation'
         ],
         links: [{ label: 'View Repository', href: 'https://github.com/Chinkhuselts/CAPEv2-Analysis', icon: 'fab fa-github' }]
       },
@@ -819,14 +821,17 @@
       cols.className = 'panel-cols';
       const impact = document.createElement('div');
       impact.className = 'panel-impact';
-      appendTextElement(impact, 'div', 'impact-label', 'Impact / Goal');
+      appendTextElement(impact, 'div', 'impact-label', project.impactLabel || 'Impact / Goal');
       appendTextElement(impact, 'div', 'impact-text', project.impact);
       cols.appendChild(impact);
 
       const list = document.createElement('ul');
       list.className = 'panel-bullets';
       project.bullets.forEach(function (bullet) { appendTextElement(list, 'li', '', bullet); });
-      cols.appendChild(list);
+      const side = document.createElement('div');
+      if (project.bulletsLabel) appendTextElement(side, 'div', 'impact-label', project.bulletsLabel);
+      side.appendChild(list);
+      cols.appendChild(side);
       panelBody.appendChild(cols);
 
       const links = document.createElement('div');
@@ -848,6 +853,19 @@
       return { diagram: diagram, source: project.diagram, generation: generation };
     }
 
+    /* Mermaid sizes SVGs at their natural size, which can be very large. Scale down to fit the panel width and a maximum height (never scale up). */
+    function fitDiagram(diagram) {
+      const svg = diagram.querySelector('svg');
+      const box = svg && svg.viewBox && svg.viewBox.baseVal;
+      if (!box || !box.width || !box.height) return;
+      const availableWidth = Math.max(diagram.clientWidth - 32, 200);
+      const maxHeight = window.innerWidth < 600 ? 340 : 460;
+      const scale = Math.min(1, availableWidth / box.width, maxHeight / box.height);
+      svg.style.maxWidth = 'none';
+      svg.style.width = Math.round(box.width * scale) + 'px';
+      svg.style.height = Math.round(box.height * scale) + 'px';
+    }
+
     async function drawDiagram(diagram, source, key, generation) {
       try {
         const mermaid = await window.loadMermaid();
@@ -857,6 +875,7 @@
         diagram.replaceChildren();
         diagram.insertAdjacentHTML('afterbegin', result.svg);
         if (typeof result.bindFunctions === 'function') result.bindFunctions(diagram);
+        fitDiagram(diagram);
       } catch (error) {
         if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
         diagram.replaceChildren();
@@ -927,6 +946,8 @@
     /* Do not leave a mobile menu open if the viewport is resized to desktop. */
     window.addEventListener('resize', function () {
       if (window.innerWidth > 950 && !mobileDrawer.hidden) setDrawerOpen(false);
+      const openDiagram = projectPanel.hidden ? null : projectPanel.querySelector('.panel-diagram');
+      if (openDiagram) fitDiagram(openDiagram);
     });
   </script>
 </body>
