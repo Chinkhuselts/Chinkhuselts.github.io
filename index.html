@@ -22,38 +22,6 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- Mermaid is loaded on demand when a project is opened. -->
-  <script>
-    window.loadMermaid = function () {
-      if (!window._mermaidReady) {
-        window._mermaidReady = import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs')
-          .then(function (module) {
-            const mermaid = module.default;
-            mermaid.initialize({
-              startOnLoad: false,
-              securityLevel: 'strict',
-              theme: 'base',
-              flowchart: { htmlLabels: false, curve: 'linear', useMaxWidth: true, nodeSpacing: 28, rankSpacing: 34, padding: 8 },
-              themeVariables: {
-                background: '#111d35',
-                primaryColor: '#0d1526',
-                primaryTextColor: '#e8f4f8',
-                primaryBorderColor: '#00d4ff',
-                lineColor: '#00ff88',
-                secondaryColor: '#1a2d52',
-                tertiaryColor: '#111d35',
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '13px'
-              }
-            });
-            window.mermaid = mermaid;
-            return mermaid;
-          });
-      }
-      return window._mermaidReady;
-    };
-  </script>
-
   <style>
     :root {
       --bg: #080c14;
@@ -214,6 +182,9 @@
     .project-panel { max-width: 960px; margin: 0 auto 2rem; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); opacity: 0; transform: translateY(12px); transition: opacity .25s ease, transform .25s ease; }
     .project-panel.visible { opacity: 1; transform: translateY(0); }
     .panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.2rem clamp(1rem, 3vw, 1.7rem); border-bottom: 1px solid var(--border); background: var(--surface2); }
+    .panel-heading { display: flex; align-items: flex-start; gap: .9rem; min-width: 0; }
+    .panel-icon { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border: 1px solid rgba(0,212,255,.25); border-radius: 8px; background: rgba(0,212,255,.06); color: var(--accent); font-size: 1.15rem; }
+    .impact-label i { margin-right: .45rem; }
     .panel-title { margin-bottom: .25rem; font-size: clamp(1.05rem, 2.8vw, 1.35rem); font-weight: 800; line-height: 1.35; }
     .panel-type { color: var(--muted); font: .65rem/1.7 var(--mono); letter-spacing: 1px; text-transform: uppercase; }
     .panel-status-chip { display: inline-flex; margin-top: .45rem; padding: .17rem .5rem; border: 1px solid rgba(0,212,255,.25); border-radius: 2px; color: var(--accent); font: .61rem var(--mono); }
@@ -223,9 +194,6 @@
     .panel-close { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; background: transparent; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); cursor: pointer; }
     .panel-close:hover { color: var(--accent); border-color: var(--accent); }
     .panel-body { padding: clamp(1rem, 3vw, 1.7rem); }
-    .panel-diagram { min-height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; padding: 1rem; overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; background: var(--surface2); }
-    .panel-diagram svg { display: block; flex: none; max-width: 100%; height: auto; }
-    .diagram-fallback { margin: 0; max-width: 100%; overflow-x: auto; color: var(--muted); white-space: pre-wrap; font: .7rem/1.6 var(--mono); }
     .panel-desc { margin: 0 0 1.2rem; color: var(--muted); font: .81rem/1.9 var(--mono); }
     .tech-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.4rem; }
     .tech-pill { padding: .2rem .45rem; border: 1px solid rgba(0,212,255,.2); border-radius: 2px; color: var(--accent); background: rgba(0,212,255,.055); font: .64rem var(--mono); }
@@ -235,7 +203,7 @@
     .impact-text { color: var(--muted); font: .75rem/1.8 var(--mono); }
     .panel-bullets { margin: 0; padding: 0; list-style: none; }
     .panel-bullets li { position: relative; padding: .25rem 0 .45rem 1.2rem; color: var(--muted); font: .75rem/1.75 var(--mono); }
-    .panel-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+    .panel-bullets li::before { content: '\f058'; position: absolute; left: 0; top: .42rem; color: var(--accent); font: 900 .72rem/1.75 'Font Awesome 6 Free'; }
     .panel-links { display: flex; flex-wrap: wrap; gap: .65rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
     .panel-link { display: inline-flex; align-items: center; gap: .45rem; padding: .55rem .8rem; border: 1px solid rgba(0,212,255,.25); border-radius: 3px; color: var(--accent); font: .72rem var(--mono); }
     .panel-link:hover { border-color: var(--accent); background: rgba(0,212,255,.06); }
@@ -492,7 +460,7 @@
 
         <section class="project-panel" id="projectPanel" role="region" aria-live="polite" aria-label="Project details" hidden>
           <div class="panel-header">
-            <div><div class="panel-title" id="panelTitle"></div><div class="panel-type" id="panelType"></div><div id="panelStatusChip"></div></div>
+            <div class="panel-heading"><span class="panel-icon" id="panelIcon" aria-hidden="true"></span><div><div class="panel-title" id="panelTitle"></div><div class="panel-type" id="panelType"></div><div id="panelStatusChip"></div></div></div>
             <button class="panel-close" id="panelClose" type="button" aria-label="Close project details">✕</button>
           </div>
           <div class="panel-body" id="panelBody"></div>
@@ -556,23 +524,6 @@
         title: 'Autonomous Cloud Governance — Automated Triage & Remediation Engine',
         type: 'Diploma Thesis · Cloud DFIR & Automated Triage · Vizja University, Warsaw · Sep 2026',
         status: 'thesis', statusLabel: 'Diploma Thesis — September 2026',
-        diagram: `flowchart TD
-          User[User or test actor] --> Storage[(OCI Object Storage)]
-          Storage --> Events[OCI Events rule]
-          Events --> Router[OCI Functions event router]
-          Router --> Compliance[Bucket compliance checks]
-          Compliance -->|Attempts to restore private visibility| Storage
-          Router --> Hash[Stream object and calculate SHA-256]
-          Hash --> VT[VirusTotal hash lookup]
-          Hash --> NVD[Conditional NVD filename keyword search]
-          VT --> LLM[Groq API / Llama 3.1]
-          NVD --> LLM
-          LLM --> Policy[Validate response and apply policy]
-          Policy --> Action[Configured allow / rename / delete path]
-          Router -.-> Logs[OCI function logs]
-          Compliance -.-> Logs
-          Policy -.-> Logs
-          Logs -.-> Dashboard[Optional dashboard integration]`,
         desc: 'An event-driven OCI security prototype with two workflows: deterministic bucket-configuration remediation and LLM-assisted file-risk assessment. The function streams object data to calculate SHA-256, queries VirusTotal for an existing hash report, and performs a conditional, filename-based NVD keyword search. Llama 3.1 receives selected file metadata and available threat-intelligence context to return a structured risk assessment. The model does not receive the file contents, and the current design is not a comprehensive malware scanner.',
         tech: ['Python 3.9+', 'OCI Functions', 'OCI Object Storage', 'OCI Events', 'OCI IAM', 'Terraform', 'Groq API', 'Llama 3.1', 'VirusTotal API', 'NVD API', 'SHA-256', 'OCI Logging'],
         impact: 'Demonstrates event-driven cloud triage and response on OCI. The compliance path attempts to restore private bucket visibility; the file path enriches a hash and metadata with external intelligence and produces an LLM-assisted risk recommendation. Production readiness, latency, and detection accuracy require measured end-to-end testing.',
@@ -591,15 +542,6 @@
       },
       'iam-api-v2': {
         title: 'IAM-API-V2', type: 'Authentication · Backend · DevOps · Infrastructure as Code', status: 'live', statusLabel: 'Live — iam-ch.duckdns.org',
-        diagram: `flowchart LR
-          Client[Client] -->|HTTPS| Proxy[Caddy reverse proxy]
-          Proxy --> API[FastAPI]
-          API -->|Password hashing| Hash[bcrypt]
-          API --> DB[(PostgreSQL)]
-          API --> JWT[JWT authentication]
-          API --> RBAC[Role-based access control]
-          Actions[GitHub Actions] -.-> Deploy[AWS EC2 deployment]
-          Terraform[Terraform] -.-> Deploy`,
         desc: 'An API project built with FastAPI and PostgreSQL, with password hashing, JWT authentication, role-based access control, containerization, a Caddy reverse proxy, and Terraform-managed AWS infrastructure. The repository documents practical deployment issues and the fixes made during development.',
         tech: ['FastAPI', 'Python', 'PostgreSQL', 'Docker', 'Terraform', 'Caddy', 'Let’s Encrypt', 'GitHub Actions', 'AWS EC2', 'JWT', 'bcrypt', 'RBAC'],
         impact: 'Combines authentication and authorization controls with infrastructure automation and a documented deployment workflow.',
@@ -614,16 +556,6 @@
       },
       'threat-map': {
         title: '3D Global Threat Map', type: 'Visualization · WebGL · DevOps · Docker', status: 'archived', statusLabel: 'Archived — cloud instance retired',
-        diagram: `flowchart TD
-          Push[Git push] --> CI[GitHub Actions]
-          CI --> Registry[GitHub Container Registry]
-          Registry --> VM[Oracle Cloud VM]
-          VM --> Proxy[Caddy TLS proxy]
-          Proxy --> App[Node.js app]
-          CSV[Firewall log CSV] --> Parser[CSV parser]
-          Parser --> Geo[IP geolocation]
-          Geo --> Globe[Three.js WebGL globe]
-          App --> Globe`,
         desc: 'A 3D globe visualization for exploring firewall and network-event data. The application parses uploaded CSV logs, geolocates source IPs, and visualizes traffic as animated arcs. The cloud instance has been retired; source code and deployment configuration remain available in the repository.',
         tech: ['Three.js', 'WebGL', 'Node.js', 'Express', 'Docker', 'GitHub Actions', 'Oracle Cloud', 'Caddy', 'PapaParse', 'GeoJSON'],
         impact: 'Turns log-derived network locations into an interactive visual briefing and demonstrates container-based deployment automation. The hosted instance is no longer online.',
@@ -638,13 +570,6 @@
       },
       'gcp-serverless': {
         title: 'GCP Serverless API Hub', type: 'GCP · FastAPI · Terraform · BigQuery · CI/CD',
-        diagram: `flowchart LR
-          Client[Client] --> Gateway[GCP API Gateway]
-          Gateway -->|IAM-authorized invoke| Run[Cloud Run / FastAPI]
-          Run --> BQ[(BigQuery telemetry)]
-          TF[Terraform and GitHub Actions] -.-> Gateway
-          TF -.-> Run
-          TF -.-> BQ`,
         desc: 'A serverless API project on Google Cloud using API Gateway, a containerized FastAPI service on Cloud Run, BigQuery for telemetry, and Terraform for infrastructure provisioning. The project explores service-to-service IAM, API exposure, analytics, and automated deployment.',
         tech: ['GCP', 'Cloud Run', 'FastAPI', 'Python', 'Docker', 'API Gateway', 'BigQuery', 'Terraform', 'GitHub Actions', 'IAM', 'OpenAPI'],
         impact: 'Demonstrates a gateway-fronted API with telemetry stored for analysis and infrastructure managed as code.',
@@ -662,15 +587,6 @@
       },
       'cloud-auditor': {
         title: 'Cloud Security Auditor', type: 'AWS · Serverless · Infrastructure as Code',
-        diagram: `flowchart LR
-          Upload[Object uploaded to S3] --> Event[S3 event notification]
-          Event --> Lambda[AWS Lambda]
-          Lambda --> Parse[Parse configuration]
-          Parse --> Check{Risk flag detected?}
-          Check -->|Yes| SNS[SNS notification]
-          TF[Terraform] -.-> Upload
-          TF -.-> Lambda
-          TF -.-> SNS`,
         desc: 'A serverless proof of concept that responds to S3 object uploads, parses configuration data for a simple public-access risk flag, and sends an SNS notification when a match is found.',
         tech: ['Terraform', 'AWS Lambda', 'Python', 'SNS', 'S3', 'IAM'],
         impact: 'Demonstrates event-driven configuration checks and alerting, with the infrastructure defined in Terraform.',
@@ -684,11 +600,6 @@
       },
       'log-forensics': {
         title: 'Serverless Log Forensics', type: 'AWS · Log Forensics · Detection · Infrastructure as Code',
-        diagram: `flowchart LR
-          Logs[Apache / Nginx logs] --> S3[S3 bucket]
-          S3 -->|Event trigger| Lambda[AWS Lambda]
-          Lambda --> Regex[Python pattern matching]
-          Regex -->|Potential SQLi / XSS matches| DB[(DynamoDB findings)]`,
         desc: 'A first-pass log-triage pipeline that processes Apache or Nginx logs uploaded to S3. A Lambda function scans log lines for SQL injection and cross-site scripting patterns and stores matching records in DynamoDB for later review.',
         tech: ['AWS Lambda', 'DynamoDB', 'S3', 'Terraform', 'Python', 'Regex'],
         impact: 'The initial proof-of-concept run identified 18 pattern matches. This is a test result for the sample data, not a general detection-accuracy metric.',
@@ -702,15 +613,6 @@
       },
       'elk-siem': {
         title: 'ELK + Snort SIEM', type: 'Blue Team · SIEM · Docker',
-        diagram: `flowchart LR
-          Traffic[Network traffic] --> Snort[Snort IDS]
-          Snort -->|Fast alert log| LS[Logstash]
-          LS --> ES[(Elasticsearch)]
-          ES --> Kibana[Kibana dashboards]
-          Docker[Docker environment] -.-> Snort
-          Docker -.-> LS
-          Docker -.-> ES
-          Docker -.-> Kibana`,
         desc: 'A containerized IDS-to-dashboard lab connecting Snort alerts to Logstash, Elasticsearch, and Kibana. It provides a repeatable environment for generating test traffic and exploring how alerts move through a monitoring pipeline.',
         tech: ['Elasticsearch', 'Logstash', 'Kibana', 'Snort', 'Docker'],
         impact: 'Demonstrates a modular network-alert pipeline and a portable environment for blue-team practice.',
@@ -724,12 +626,6 @@
       },
       'wannacry': {
         title: 'WannaCry Dynamic Analysis & IOC Extraction — CAPEv2', type: 'Malware Analysis · DFIR · CAPEv2 · IOC Extraction', status: 'thesis', statusLabel: 'Malware Analysis Lab',
-        diagram: `flowchart TD
-          Sample[WannaCry sample] --> CAPE[CAPEv2 on Ubuntu host]
-          CAPE --> VM[Isolated Windows guest VM]
-          VM --> Artifacts[Process, file-system<br/>and registry artifacts]
-          Artifacts --> Triage[Behavioral triage and<br/>forensic artifact review]
-          Triage --> IOCs[IOC documentation]`,
         desc: 'Configured and operated a CAPEv2 malware-analysis lab to investigate ransomware behavior in an isolated Windows virtual machine. Examined sandbox-generated process, file-system, and registry artifacts to support behavioral triage and IOC identification.',
         tech: ['CAPEv2', 'Ubuntu', 'Windows VM', 'Python', 'Malware Behavioral Analysis', 'DFIR'],
         impactLabel: 'Analysis Scope',
@@ -746,15 +642,6 @@
       },
       'threat-matrix': {
         title: 'Threat Matrix', type: 'Next.js · WebGL · Docker · CI/CD', status: 'archived', statusLabel: 'Archived — cloud instance retired',
-        diagram: `flowchart TD
-          Push[Git push] --> Actions[GitHub Actions]
-          Actions --> Hub[Container registry]
-          Hub --> Watchtower[Watchtower on VM]
-          Watchtower --> VM[Oracle Cloud VM]
-          Proxy[Caddy reverse proxy] --> Next[Next.js frontend]
-          Proxy --> API[Node.js API]
-          Next --> Globe[WebGL visualization]
-          API --> Globe`,
         desc: 'A 3D cyber-threat visualization application with a Next.js interface, a Node.js API, container-based deployment, and a CI/CD workflow. The Oracle Cloud VM has been retired; the source code and deployment configuration remain available.',
         tech: ['Next.js', 'React', 'Globe.gl', 'WebGL', 'Tailwind CSS', 'Node.js', 'Express', 'Docker', 'GitHub Actions', 'Watchtower', 'Caddy', 'Oracle Cloud'],
         impact: 'Explores a containerized visualization stack and automated image rollout. The hosted instance is no longer online.',
@@ -774,6 +661,7 @@
     const panelType = document.getElementById('panelType');
     const panelStatusChip = document.getElementById('panelStatusChip');
     const panelBody = document.getElementById('panelBody');
+    const panelIcon = document.getElementById('panelIcon');
     let activeKey = null;
     let activeBubble = null;
     let renderGeneration = 0;
@@ -786,10 +674,28 @@
       return element;
     }
 
-    function buildPanel(key, generation) {
+    function appendLabel(parent, iconClass, text) {
+      const label = document.createElement('div');
+      label.className = 'impact-label';
+      const icon = document.createElement('i');
+      icon.className = iconClass;
+      icon.setAttribute('aria-hidden', 'true');
+      label.appendChild(icon);
+      label.appendChild(document.createTextNode(text));
+      parent.appendChild(label);
+    }
+
+    function buildPanel(key) {
       const project = projects[key];
       if (!project) return null;
 
+      panelIcon.replaceChildren();
+      const bubbleIcon = activeBubble && activeBubble.querySelector('.bubble-icon i');
+      if (bubbleIcon) {
+        const headerIcon = document.createElement('i');
+        headerIcon.className = bubbleIcon.className;
+        panelIcon.appendChild(headerIcon);
+      }
       panelTitle.textContent = project.title;
       panelType.textContent = project.type;
       panelStatusChip.replaceChildren();
@@ -801,16 +707,6 @@
       }
 
       panelBody.replaceChildren();
-      const diagram = document.createElement('div');
-      diagram.className = 'panel-diagram';
-      diagram.setAttribute('role', 'img');
-      diagram.setAttribute('aria-label', 'Architecture diagram for ' + project.title);
-      const loading = document.createElement('p');
-      loading.className = 'diagram-fallback';
-      loading.textContent = 'Loading architecture diagram…';
-      diagram.appendChild(loading);
-      panelBody.appendChild(diagram);
-
       appendTextElement(panelBody, 'p', 'panel-desc', project.desc);
       const techRow = document.createElement('div');
       techRow.className = 'tech-row';
@@ -821,7 +717,7 @@
       cols.className = 'panel-cols';
       const impact = document.createElement('div');
       impact.className = 'panel-impact';
-      appendTextElement(impact, 'div', 'impact-label', project.impactLabel || 'Impact / Goal');
+      appendLabel(impact, 'fas fa-bullseye', project.impactLabel || 'Impact / Goal');
       appendTextElement(impact, 'div', 'impact-text', project.impact);
       cols.appendChild(impact);
 
@@ -829,7 +725,7 @@
       list.className = 'panel-bullets';
       project.bullets.forEach(function (bullet) { appendTextElement(list, 'li', '', bullet); });
       const side = document.createElement('div');
-      if (project.bulletsLabel) appendTextElement(side, 'div', 'impact-label', project.bulletsLabel);
+      if (project.bulletsLabel) appendLabel(side, 'fas fa-list-check', project.bulletsLabel);
       side.appendChild(list);
       cols.appendChild(side);
       panelBody.appendChild(cols);
@@ -850,41 +746,7 @@
         links.appendChild(anchor);
       });
       panelBody.appendChild(links);
-      return { diagram: diagram, source: project.diagram, generation: generation };
-    }
-
-    /* Mermaid sizes SVGs at their natural size, which can be very large. Scale down to fit the panel width and a maximum height (never scale up). */
-    function fitDiagram(diagram) {
-      const svg = diagram.querySelector('svg');
-      const box = svg && svg.viewBox && svg.viewBox.baseVal;
-      if (!box || !box.width || !box.height) return;
-      const availableWidth = Math.max(diagram.clientWidth - 32, 200);
-      const maxHeight = window.innerWidth < 600 ? 340 : 460;
-      const scale = Math.min(1, availableWidth / box.width, maxHeight / box.height);
-      svg.style.maxWidth = 'none';
-      svg.style.width = Math.round(box.width * scale) + 'px';
-      svg.style.height = Math.round(box.height * scale) + 'px';
-    }
-
-    async function drawDiagram(diagram, source, key, generation) {
-      try {
-        const mermaid = await window.loadMermaid();
-        if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
-        const result = await mermaid.render('projectDiagram_' + key.replace(/[^a-zA-Z0-9_-]/g, '_') + '_' + generation, source);
-        if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
-        diagram.replaceChildren();
-        diagram.insertAdjacentHTML('afterbegin', result.svg);
-        if (typeof result.bindFunctions === 'function') result.bindFunctions(diagram);
-        fitDiagram(diagram);
-      } catch (error) {
-        if (generation !== renderGeneration || activeKey !== key || !diagram.isConnected) return;
-        diagram.replaceChildren();
-        const fallback = document.createElement('pre');
-        fallback.className = 'diagram-fallback';
-        fallback.textContent = 'Diagram could not be rendered. Workflow definition:\n\n' + source;
-        diagram.appendChild(fallback);
-        console.warn('Mermaid diagram unavailable:', error);
-      }
+      return true;
     }
 
     function closePanel(restoreFocus) {
@@ -914,11 +776,10 @@
       projectPanel.hidden = false;
       projectPanel.setAttribute('aria-hidden', 'false');
       projectPanel.classList.remove('visible');
-      const renderInfo = buildPanel(key, generation);
+      buildPanel(key);
       requestAnimationFrame(function () {
         if (activeKey === key && generation === renderGeneration) projectPanel.classList.add('visible');
       });
-      if (renderInfo) drawDiagram(renderInfo.diagram, renderInfo.source, key, generation);
 
       window.setTimeout(function () {
         if (activeKey !== key || generation !== renderGeneration) return;
@@ -946,8 +807,6 @@
     /* Do not leave a mobile menu open if the viewport is resized to desktop. */
     window.addEventListener('resize', function () {
       if (window.innerWidth > 950 && !mobileDrawer.hidden) setDrawerOpen(false);
-      const openDiagram = projectPanel.hidden ? null : projectPanel.querySelector('.panel-diagram');
-      if (openDiagram) fitDiagram(openDiagram);
     });
   </script>
 </body>
